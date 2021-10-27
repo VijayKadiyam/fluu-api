@@ -20,6 +20,11 @@ class Site extends Model
   {
     return $this->hasMany(ViqChapter::class);
   }
+
+  public function near_misses()
+  {
+    return $this->hasMany(NearMiss::class);
+  }
   
   public function values()
   {
