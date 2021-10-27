@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserProgramsTable extends Migration
+class CreateViqChaptersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateUserProgramsTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_programs', function (Blueprint $table) {
+        Schema::create('viq_chapters', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('site_id');
-            $table->integer('user_id')->nullable();
-            $table->integer('program_id')->nullable();
-            $table->string('enrollment_date')->nullable();
+            $table->integer('serial_no')->nullable();
+            $table->string('chapter_name', 100)->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateUserProgramsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_programs');
+        Schema::dropIfExists('viq_chapters');
     }
 }

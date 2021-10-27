@@ -4,12 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class UserProgramTaskDocument extends Model
+class ViqChapter extends Model
 {
     protected $fillable = [
-        'user_program_task_id',
-        'document_path',
-        'description',
+        'serial_no',
+        'chapter_name'
     ];
 
     public function site() {

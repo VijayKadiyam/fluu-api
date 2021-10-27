@@ -3,13 +3,13 @@
 namespace Tests\Feature;
 
 use App\Site;
-use App\UserProgram;
+use App\ViqChapter;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class UserProgramTest extends TestCase
+class ViqChapterTest extends TestCase
 {
     use DatabaseTransactions;
 
@@ -23,47 +23,46 @@ class UserProgramTest extends TestCase
         $this->user->assignSite($this->site->id);
         $this->headers['siteid'] = $this->site->id;
 
-        factory(UserProgram::class)->create([
+        factory(ViqChapter::class)->create([
             'site_id' =>  $this->site->id
         ]);
 
         $this->payload = [
-            'user_id' => 1,
-            'program_id' =>  1,
-            'enrollment_date' => 'Enrollment Date',
+            'serial_no'  =>  1,
+            'chapter_name'  =>  'Chapter Name',
         ];
     }
 
     /** @test */
     function it_requires_following_details()
     {
-        $this->json('post', '/api/user_programs', [], $this->headers)
+        $this->json('post', '/api/viq_chapters', [], $this->headers)
             ->assertStatus(422)
             ->assertExactJson([
                 "errors"  =>  [
-                    "user_id"        =>  ["The user id field is required."],
+                    "serial_no"        =>  ["The serial no field is required."],
+                    "chapter_name"        =>  ["The chapter name field is required."],
                 ],
                 "message" =>  "The given data was invalid."
             ]);
     }
 
     /** @test */
-    function add_new_UserProgram()
+    function add_new_viq_chapter()
     {
-        $this->json('post', '/api/user_programs', $this->payload, $this->headers)
+        $this->disableEH();
+        $this->json('post', '/api/viq_chapters', $this->payload, $this->headers)
             ->assertStatus(201)
             ->assertJson([
                 'data'   => [
-                    'user_id' => 1,
-                    'program_id' =>  1,
-                    'enrollment_date' => 'Enrollment Date',
+                    'serial_no'  =>  1,
+                    'chapter_name'  =>  'Chapter Name',
                 ]
             ])
             ->assertJsonStructureExact([
                 'data'   => [
-                    'user_id',
-                    'program_id',
-                    'enrollment_date',
+                    'serial_no',
+                    'chapter_name',
                     'site_id',
                     'updated_at',
                     'created_at',
@@ -73,63 +72,58 @@ class UserProgramTest extends TestCase
     }
 
     /** @test */
-    function list_of_user_programs()
+    function list_of_viq_chapters()
     {
         $this->disableEH();
-        $this->json('GET', '/api/user_programs', [], $this->headers)
+        $this->json('GET', '/api/viq_chapters', [], $this->headers)
             ->assertStatus(200)
             ->assertJsonStructure([
                 'data' => [
                     0 =>  [
-                        'user_id',
-                        'program_id',
-                        'enrollment_date',
+                        'serial_no',
+                        'chapter_name'
                     ]
                 ]
             ]);
-        $this->assertCount(1, UserProgram::all());
+        $this->assertCount(1, ViqChapter::all());
     }
 
     /** @test */
-    function show_single_UserProgram()
+    function show_single_viq_chapter()
     {
 
-        $this->json('get', "/api/user_programs/1", [], $this->headers)
+        $this->json('get', "/api/viq_chapters/1", [], $this->headers)
             ->assertStatus(200)
             ->assertJson([
                 'data'  => [
-                    'user_id' => 1,
-                    'program_id' =>  1,
-                    'enrollment_date' => 'Enrollment Date',
+                    'serial_no'  =>  1,
+                    'chapter_name'  =>  'Chapter Name',
                 ]
             ]);
     }
 
     /** @test */
-    function update_single_UserProgram()
+    function update_single_viq_chapter()
     {
         $payload = [
-            'user_id' => 2,
-            'program_id' =>  2,
-            'enrollment_date' => 'Enrollment Date Updated',
+            'serial_no'  =>  2,
+            'chapter_name'  =>  'Chapter Name Updated',
         ];
 
-        $this->json('patch', '/api/user_programs/1', $payload, $this->headers)
+        $this->json('patch', '/api/viq_chapters/1', $payload, $this->headers)
             ->assertStatus(200)
             ->assertJson([
                 'data'    => [
-                    'user_id' => 2,
-                    'program_id' =>  2,
-                    'enrollment_date' => 'Enrollment Date Updated',
+                    'serial_no'  =>  2,
+                    'chapter_name'  =>  'Chapter Name Updated',
                 ]
             ])
             ->assertJsonStructureExact([
                 'data'  => [
                     'id',
                     'site_id',
-                    'user_id',
-                    'program_id',
-                    'enrollment_date',
+                    'serial_no',
+                    'chapter_name',
                     'created_at',
                     'updated_at',
                 ]
@@ -137,12 +131,11 @@ class UserProgramTest extends TestCase
     }
 
     /** @test */
-    function delete_UserProgram()
+    function delete_viq_chapter()
     {
-        $this->disableEH();
-        $this->json('delete', '/api/user_programs/1', [], $this->headers)
+        $this->json('delete', '/api/viq_chapters/1', [], $this->headers)
             ->assertStatus(204);
 
-        $this->assertCount(0, UserProgram::all());
+        $this->assertCount(0, ViqChapter::all());
     }
 }
