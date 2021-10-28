@@ -56,3 +56,4 @@ Route::resource('viq_chapters', 'ViqChaptersController');
 Route::resource('near_misses', 'NearMissesController');
 Route::resource('vessels', 'VesselsController');
 Route::resource('psc_inspections', 'PscInspectionsController');
+Route::resource('sire_inspections', 'SireInspectionsController');

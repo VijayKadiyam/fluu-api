@@ -39,4 +39,12 @@ class Site extends Model
   {
     return $this->hasMany(PscInspection::class);
   }
+  public function sire_inspections()
+  {
+    return $this->hasMany(SireInspection::class);
+  }
+  public function sire_inspection_details()
+  {
+    return $this->hasMany(SireInspectionDetail::class);
+  }
 }

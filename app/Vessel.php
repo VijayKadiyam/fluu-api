@@ -30,4 +30,13 @@ class Vessel extends Model
     {
         return $this->belongsTo(Site::class);
     }
+
+    public function psc_inspections()
+    {
+        return $this->hasMany(PscInspection::class);
+    }
+    public function sire_inspections()
+    {
+        return $this->hasMany(SireInspection::class);
+    }
 }
