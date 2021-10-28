@@ -35,4 +35,8 @@ class Site extends Model
   {
     return $this->hasMany(Vessel::class);
   }
+  public function psc_inspections()
+  {
+    return $this->hasMany(PscInspection::class);
+  }
 }
