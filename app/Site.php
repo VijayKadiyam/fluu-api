@@ -15,7 +15,7 @@ class Site extends Model
     return $this->belongsToMany(User::class)
       ->with('roles', 'sites');
   }
-  
+
   public function viq_chapters()
   {
     return $this->hasMany(ViqChapter::class);
@@ -25,9 +25,14 @@ class Site extends Model
   {
     return $this->hasMany(NearMiss::class);
   }
-  
+
   public function values()
   {
     return $this->hasMany(Value::class);
+  }
+
+  public function vessels()
+  {
+    return $this->hasMany(Vessel::class);
   }
 }

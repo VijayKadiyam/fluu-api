@@ -54,3 +54,4 @@ Route::get('truncate_users', 'CrudeUsersController@truncate');
 
 Route::resource('viq_chapters', 'ViqChaptersController');
 Route::resource('near_misses', 'NearMissesController');
+Route::resource('vessels', 'VesselsController');
