@@ -26,9 +26,23 @@ class Vessel extends Model
         'rating_nationalities',
     ];
 
+    protected $casts = [
+        'officer_nationalities' => 'array',
+        'rating_nationalities' => 'array',
+    ];
+
     public function site()
     {
         return $this->belongsTo(Site::class);
+    }
+
+    public function vessel_type()
+    {
+        return $this->belongsTo(ValueList::class);
+    }
+    public function place_of_built()
+    {
+        return $this->belongsTo(ValueList::class, 'built_place');
     }
 
     public function psc_inspections()

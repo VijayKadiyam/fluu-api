@@ -23,7 +23,7 @@ class Site extends Model
 
   public function near_misses()
   {
-    return $this->hasMany(NearMiss::class);
+    return $this->hasMany(NearMiss::class)->with('location', 'category', 'activity', 'basic_cause');
   }
 
   public function values()
@@ -33,7 +33,7 @@ class Site extends Model
 
   public function vessels()
   {
-    return $this->hasMany(Vessel::class);
+    return $this->hasMany(Vessel::class)->with('vessel_type', 'place_of_built');
   }
   public function psc_inspections()
   {
