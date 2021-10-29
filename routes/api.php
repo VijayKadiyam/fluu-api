@@ -53,7 +53,10 @@ Route::get('truncate_users', 'CrudeUsersController@truncate');
 
 
 Route::resource('viq_chapters', 'ViqChaptersController');
+Route::get('near_misses/masters', 'NearMissesController@masters');
 Route::resource('near_misses', 'NearMissesController');
+
+Route::get('vessels/masters', 'VesselsController@masters');
 Route::resource('vessels', 'VesselsController');
 Route::resource('psc_inspections', 'PscInspectionsController');
 Route::resource('sire_inspections', 'SireInspectionsController');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\NearMiss;
+use App\Value;
 use Illuminate\Http\Request;
 
 class NearMissesController extends Controller
@@ -12,6 +13,43 @@ class NearMissesController extends Controller
         $this->middleware(['auth:api', 'site']);
     }
 
+    public function masters(Request $request)
+    {
+        $locationValue = Value::where('name', '=', 'LOCATION')
+            ->where('site_id', '=', $request->site->id)
+            ->first();
+        $locations = [];
+        if ($locationValue)
+            $locations = $locationValue->active_value_lists;
+
+        $categoryValue = Value::where('name', '=', 'CATEGORY')
+            ->where('site_id', '=', $request->site->id)
+            ->first();
+        $categories = [];
+        if ($categoryValue)
+            $categories = $categoryValue->active_value_lists;
+
+        $activityValue = Value::where('name', '=', 'ACTIVITY')
+            ->where('site_id', '=', $request->site->id)
+            ->first();
+        $activities = [];
+        if ($activityValue)
+            $activities = $activityValue->active_value_lists;
+
+        $basic_causeValue = Value::where('name', '=', 'BASIC CAUSE')
+            ->where('site_id', '=', $request->site->id)
+            ->first();
+        $basic_causes = [];
+        if ($basic_causeValue)
+            $basic_causes = $basic_causeValue->active_value_lists;
+
+        return response()->json([
+            'locations'         =>  $locations,
+            'categories'         =>  $categories,
+            'activities'         =>  $activities,
+            'basic_causes'         =>  $basic_causes,
+        ], 200);
+    }
     /*
      * To get all NearMiss
        *
@@ -19,7 +57,7 @@ class NearMissesController extends Controller
      */
     public function index()
     {
-        $nearMisses = NearMiss::get();
+        $nearMisses = request()->site->near_misses;
 
         return response()->json([
             'data'     =>  $nearMisses
