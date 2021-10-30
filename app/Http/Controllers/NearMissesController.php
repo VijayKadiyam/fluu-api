@@ -89,6 +89,10 @@ class NearMissesController extends Controller
      */
     public function show(NearMiss $nearMiss)
     {
+        $nearMiss->location = $nearMiss->location;
+        $nearMiss->category = $nearMiss->category;
+        $nearMiss->activity = $nearMiss->activity;
+        $nearMiss->basic_cause = $nearMiss->basic_cause;
         return response()->json([
             'data'   =>  $nearMiss,
             'success' =>  true
