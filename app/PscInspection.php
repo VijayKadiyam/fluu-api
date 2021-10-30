@@ -23,6 +23,14 @@ class PscInspection extends Model
     {
         return $this->belongsTo(Site::class);
     }
+    public function port()
+    {
+        return $this->belongsTo(ValueList::class);
+    }
+    public function country()
+    {
+        return $this->belongsTo(ValueList::class);
+    }
     public function vessel()
     {
         return $this->belongsTo(Vessel::class);
