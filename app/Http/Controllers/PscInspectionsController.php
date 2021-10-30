@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\PscInspection;
+use App\Value;
+use App\Vessel;
 use Illuminate\Http\Request;
 
 class PscInspectionsController extends Controller
@@ -11,15 +13,40 @@ class PscInspectionsController extends Controller
     {
         $this->middleware(['auth:api', 'site']);
     }
+    public function masters(Request $request)
+    {
+        $portValue = Value::where('name', '=', 'VESSEL TYPE')
+            ->where('site_id', '=', $request->site->id)
+            ->first();
+        $ports = [];
+        if ($portValue)
+            $ports = $portValue->active_value_lists;
 
+
+        $countryValue = Value::where('name', '=', 'COUNTRY')
+            ->where('site_id', '=', $request->site->id)
+            ->first();
+        $countries = [];
+        if ($countryValue)
+            $countries = $countryValue->active_value_lists;
+
+        return response()->json([
+            'ports'         =>  $ports,
+            'countries'         =>  $countries,
+        ], 200);
+    }
     /*
      * To get all PscInspection
        *
      *@
      */
-    public function index()
+    public function index(Request $request, Vessel $vessel)
     {
-        $psc_inspections = PscInspection::get();
+        $psc_inspections = $vessel->psc_inspections();
+        $psc_inspections = $psc_inspections->get();
+        // $count = $psc_inspections->count();
+
+        // $psc_inspections = PscInspection::get();
 
         return response()->json([
             'data'     =>  $psc_inspections
