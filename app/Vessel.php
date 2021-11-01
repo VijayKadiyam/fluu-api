@@ -47,7 +47,7 @@ class Vessel extends Model
 
     public function psc_inspections()
     {
-        return $this->hasMany(PscInspection::class)->with('port', 'country');
+        return $this->hasMany(PscInspection::class)->with('port', 'country', 'psc_inspection_deficiencies');
     }
     public function sire_inspections()
     {
