@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\PscInspection;
+use App\PscInspectionDeficiency;
 use App\Value;
 use App\Vessel;
 use Illuminate\Http\Request;
@@ -58,14 +59,57 @@ class PscInspectionsController extends Controller
      *
      *@
      */
-    public function store(Request $request)
+    public function store(Request $request, Vessel $vessel)
     {
         $request->validate([
             'date'    =>  'required',
         ]);
-        $psc_inspection = new PscInspection($request->all());
-        $request->site->psc_inspections()->save($psc_inspection);
+        if ($request->id == null || $request->id == '') {
+            $psc_inspection = new PscInspection($request->all());
+            $vessel->psc_inspections()->save($psc_inspection);
+            // Save PSC Inspection Deficiencies
+            if (isset($request->psc_inspection_deficiencies))
+                foreach ($request->psc_inspection_deficiencies as $deficiency) {
+                    $psc_inspection_deficiency = new PscInspectionDeficiency($deficiency);
+                    $psc_inspection->psc_inspection_deficiencies()->save($psc_inspection_deficiency);
+                }
+            // ---------------------------------------------------\
+        } else {
+            // Update Psc Inspection
+            $psc_inspection = PscInspection::find($request->id);
+            $psc_inspection->update($request->all());
+            // Check if Psc Inspection Deficiencies deleted
+            if (isset($request->psc_inspection_deficiencies))
+                $psc_inspectionDeficienciesIdResponseArray = array_pluck($request->psc_inspection_deficiencies, 'id');
+            else
+                $psc_inspectionDeficienciesIdResponseArray = [];
+            $psc_inspectionId = $psc_inspection->id;
+            $psc_inspectionDeficienciesIdArray = array_pluck(PscInspectionDeficiency::where('psc_inspection_id', '=', $psc_inspectionId)->get(), 'id');
+            $differencePscInspectionDeficiencyIds = array_diff($psc_inspectionDeficienciesIdArray, $psc_inspectionDeficienciesIdResponseArray);
+            // Delete which is there in the database but not in the response
+            if ($differencePscInspectionDeficiencyIds)
+                foreach ($differencePscInspectionDeficiencyIds as $differencePscInspectionDeficiencyId) {
+                    $PscInspectionDeficiency = PscInspectionDeficiency::find($differencePscInspectionDeficiencyId);
+                    $PscInspectionDeficiency->delete();
+                }
 
+            // Update Psc Inspection Deficiencies
+            if (isset($request->psc_inspection_deficiencies))
+                foreach ($request->psc_inspection_deficiencies as $deficiency) {
+                    if (!isset($deficiency['id'])) {
+                        $psc_inspection_deficiency = new PscInspectionDeficiency($deficiency);
+                        $psc_inspection->psc_inspection_deficiencies()->save($psc_inspection_deficiency);
+                    } else {
+                        $psc_inspection_deficiency = PscInspectionDeficiency::find($deficiency['id']);
+                        $psc_inspection_deficiency->update($deficiency);
+                    }
+                }
+
+            // ---------------------------------------------------
+        }
+
+        $psc_inspection->psc_inspection_deficiencies = $psc_inspection->psc_inspection_deficiencies;
+        // dd($psc_inspection);
         return response()->json([
             'data'    =>  $psc_inspection
         ], 201);
@@ -76,8 +120,11 @@ class PscInspectionsController extends Controller
      *
      *@
      */
-    public function show(PscInspection $psc_inspection)
+    public function show(Vessel $vessel, PscInspection $psc_inspection)
     {
+        $psc_inspection->psc_inspection_deficiencies = $psc_inspection->psc_inspection_deficiencies;
+        // dd($psc_inspection);
+
         return response()->json([
             'data'   =>  $psc_inspection,
             'success' =>  true
