@@ -16,7 +16,7 @@ class PscInspectionsController extends Controller
     }
     public function masters(Request $request)
     {
-        $portValue = Value::where('name', '=', 'VESSEL TYPE')
+        $portValue = Value::where('name', '=', 'PORT')
             ->where('site_id', '=', $request->site->id)
             ->first();
         $ports = [];
@@ -123,8 +123,6 @@ class PscInspectionsController extends Controller
     public function show(Vessel $vessel, PscInspection $psc_inspection)
     {
         $psc_inspection->psc_inspection_deficiencies = $psc_inspection->psc_inspection_deficiencies;
-        // dd($psc_inspection);
-
         return response()->json([
             'data'   =>  $psc_inspection,
             'success' =>  true
