@@ -123,6 +123,8 @@ class PscInspectionsController extends Controller
     public function show(Vessel $vessel, PscInspection $psc_inspection)
     {
         $psc_inspection->psc_inspection_deficiencies = $psc_inspection->psc_inspection_deficiencies;
+        $psc_inspection->port = $psc_inspection->port;
+        $psc_inspection->country = $psc_inspection->country;
         return response()->json([
             'data'   =>  $psc_inspection,
             'success' =>  true
@@ -134,7 +136,7 @@ class PscInspectionsController extends Controller
      *
      *@
      */
-    public function update(Request $request, PscInspection $psc_inspection)
+    public function update(Request $request, Vessel $vessel, PscInspection $psc_inspection)
     {
 
         $psc_inspection->update($request->all());
