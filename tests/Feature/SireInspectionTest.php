@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\SireInspection;
 use App\SireInspectionDetail;
 use App\Site;
+use App\Vessel;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -24,11 +25,16 @@ class SireInspectionTest extends TestCase
         $this->user->assignSite($this->site->id);
         $this->headers['siteid'] = $this->site->id;
 
-        factory(SireInspection::class)->create([
+        $this->vessel = factory(Vessel::class)->create([
             'site_id' =>  $this->site->id
         ]);
 
+        factory(SireInspection::class)->create([
+            'vessel_id' =>  $this->vessel->id
+        ]);
+
         $this->payload = [
+            // 'site_id' =>  $this->site->id,
             'vessel_id' => 1,
             'inspection_type' => "inspection_type",
             'inspection_type_detail' => "inspection_type_detail",
@@ -53,7 +59,7 @@ class SireInspectionTest extends TestCase
     /** @test */
     function it_requires_following_details()
     {
-        $this->json('post', '/api/sire_inspections', [], $this->headers)
+        $this->json('post', '/api/vessels/' . $this->vessel->id . '/sire_inspections', [], $this->headers)
             ->assertStatus(422)
             ->assertExactJson([
                 "errors"  =>  [
@@ -67,10 +73,11 @@ class SireInspectionTest extends TestCase
     function add_new_sire_inspection()
     {
         $this->disableEH();
-        $this->json('post', '/api/sire_inspections', $this->payload, $this->headers)
+        $this->json('post', '/api/vessels/' . $this->vessel->id . '/sire_inspections', $this->payload, $this->headers)
             ->assertStatus(201)
             ->assertJson([
                 'data'   => [
+                    // 'site_id' =>  $this->site->id,
                     'vessel_id' => 1,
                     'inspection_type' => "inspection_type",
                     'inspection_type_detail' => "inspection_type_detail",
@@ -104,7 +111,7 @@ class SireInspectionTest extends TestCase
                     'port_id',
                     'country_id',
                     'address',
-                    'site_id',
+                    // 'site_id',
                     'updated_at',
                     'created_at',
                     'id',
@@ -117,7 +124,7 @@ class SireInspectionTest extends TestCase
     function list_of_sire_inspections()
     {
         $this->disableEH();
-        $this->json('GET', '/api/sire_inspections', [], $this->headers)
+        $this->json('GET', '/api/vessels/' . $this->vessel->id . '/sire_inspections', [], $this->headers)
             ->assertStatus(200)
             ->assertJsonStructure([
                 'data' => [
@@ -143,7 +150,7 @@ class SireInspectionTest extends TestCase
     function show_single_sire_inspection()
     {
 
-        $this->json('get', "/api/sire_inspections/1", [], $this->headers)
+        $this->json('get', "/api/vessels/' . $this->vessel->id . '/sire_inspections/1", [], $this->headers)
             ->assertStatus(200)
             ->assertJson([
                 'data'  => [
@@ -179,7 +186,7 @@ class SireInspectionTest extends TestCase
     //         'address' => "address",
     //     ];
 
-    //     $this->json('patch', '/api/sire_inspections/1', $payload, $this->headers)
+    //     $this->json('patch', '/api/vessels/' . $this->vessel->id . '/sire_inspections/1', $payload, $this->headers)
     //         ->assertStatus(200)
     //         ->assertJson([
     //             'data'    => [
@@ -221,7 +228,7 @@ class SireInspectionTest extends TestCase
     {
         $this->disableEH();
         $sire_inspection = factory(SireInspection::class)->create([
-            'site_id' =>  $this->site->id
+            'vessel_id' =>  $this->vessel->id
         ]);
         $sire_inspectionDetail = factory(SireInspectionDetail::class)->create([
             'sire_inspection_id' =>  $sire_inspection->id
@@ -252,7 +259,7 @@ class SireInspectionTest extends TestCase
             ],
         ];
 
-        $this->json('post', '/api/sire_inspections', $payload, $this->headers)
+        $this->json('post', '/api/vessels/' . $this->vessel->id . '/sire_inspections', $payload, $this->headers)
             ->assertStatus(201)
             ->assertJson([
                 'data'    => [
@@ -293,7 +300,7 @@ class SireInspectionTest extends TestCase
                     'port_id',
                     'country_id',
                     'address',
-                    'site_id',
+                    // 'site_id',
                     'updated_at',
                     'created_at',
                     'id',
@@ -324,7 +331,7 @@ class SireInspectionTest extends TestCase
             ],
         ];
 
-        $this->json('post', '/api/sire_inspections', $payload, $this->headers)
+        $this->json('post', '/api/vessels/' . $this->vessel->id . '/sire_inspections', $payload, $this->headers)
             ->assertStatus(201)
             ->assertJson([
                 'data'    =>  [
@@ -352,7 +359,7 @@ class SireInspectionTest extends TestCase
             ->assertJsonStructureExact([
                 'data'  => [
                     'id',
-                    'site_id',
+                    // 'site_id',
                     'vessel_id',
                     'inspection_type',
                     'inspection_type_detail',
