@@ -32,4 +32,8 @@ class SireInspection extends Model
     {
         return $this->hasMany(SireInspectionDetail::class);
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

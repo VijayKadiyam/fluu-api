@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\SireInspection;
 use App\SireInspectionDetail;
+use App\Value;
+use App\Vessel;
 use Illuminate\Http\Request;
 
 class SireInspectionsController extends Controller
@@ -12,15 +14,55 @@ class SireInspectionsController extends Controller
     {
         $this->middleware(['auth:api', 'site']);
     }
+    public function masters(Request $request)
+    {
+        $portValue = Value::where('name', '=', 'PORT')
+            ->where('site_id', '=', $request->site->id)
+            ->first();
+        $ports = [];
+        if ($portValue)
+            $ports = $portValue->active_value_lists;
 
+
+        $countryValue = Value::where('name', '=', 'COUNTRY')
+            ->where('site_id', '=', $request->site->id)
+            ->first();
+        $countries = [];
+        if ($countryValue)
+            $countries = $countryValue->active_value_lists;
+
+
+        $oilMajorValue = Value::where('name', '=', 'Oil Major')
+            ->where('site_id', '=', $request->site->id)
+            ->first();
+        $oilMajors = [];
+        if ($oilMajorValue)
+            $oilMajors = $oilMajorValue->active_value_lists;
+        // return $oilMajors;
+
+        $usersController = new UsersController();
+        $usersResponse = $usersController->index($request);
+
+        
+        return response()->json([
+            'ports'         =>  $ports,
+            'countries'         =>  $countries,
+            'oilMajors'         =>  $oilMajors,
+            'users'           =>  $usersResponse->getData()->data,
+        ], 200);
+    }
     /*
      * To get all SireInspection
        *
      *@
      */
-    public function index()
+    public function index(Request $request, Vessel $vessel)
     {
-        $sire_inspections = SireInspection::get();
+        $sire_inspections = $vessel->sire_inspections();
+        $sire_inspections = $sire_inspections->get();
+        // $count = $sire_inspections->count();
+
+        // $sire_inspections = SireInspection::get();
 
         return response()->json([
             'data'     =>  $sire_inspections
@@ -32,16 +74,15 @@ class SireInspectionsController extends Controller
      *
      *@
      */
-    public function store(Request $request)
+    public function store(Request $request, Vessel $vessel)
     {
         $request->validate([
             'inspection_type'    =>  'required',
         ]);
-
         if ($request->id == null || $request->id == '') {
             $sire_inspection = new SireInspection($request->all());
-            $request->site->sire_inspections()->save($sire_inspection);
-            // Save Sire Inspection Details
+            $vessel->sire_inspections()->save($sire_inspection);
+            // Save PSC Inspection Deficiencies
             if (isset($request->sire_inspection_details))
                 foreach ($request->sire_inspection_details as $detail) {
                     $sire_inspection_detail = new SireInspectionDetail($detail);
@@ -49,10 +90,10 @@ class SireInspectionsController extends Controller
                 }
             // ---------------------------------------------------\
         } else {
-            // Update Sire Inspection
+            // Update Psc Inspection
             $sire_inspection = SireInspection::find($request->id);
             $sire_inspection->update($request->all());
-            // Check if Sire Inspection Details deleted
+            // Check if Psc Inspection Deficiencies deleted
             if (isset($request->sire_inspection_details))
                 $sire_inspectionDetailsIdResponseArray = array_pluck($request->sire_inspection_details, 'id');
             else
@@ -67,7 +108,7 @@ class SireInspectionsController extends Controller
                     $SireInspectionDetail->delete();
                 }
 
-            // Update Sire Inspection Details
+            // Update Psc Inspection Deficiencies
             if (isset($request->sire_inspection_details))
                 foreach ($request->sire_inspection_details as $detail) {
                     if (!isset($detail['id'])) {
@@ -81,7 +122,9 @@ class SireInspectionsController extends Controller
 
             // ---------------------------------------------------
         }
+
         $sire_inspection->sire_inspection_details = $sire_inspection->sire_inspection_details;
+        // dd($sire_inspection);
         return response()->json([
             'data'    =>  $sire_inspection
         ], 201);
@@ -92,10 +135,9 @@ class SireInspectionsController extends Controller
      *
      *@
      */
-    public function show(SireInspection $sire_inspection)
+    public function show(Vessel $vessel, SireInspection $sire_inspection)
     {
         $sire_inspection->sire_inspection_details = $sire_inspection->sire_inspection_details;
-
         return response()->json([
             'data'   =>  $sire_inspection,
             'success' =>  true
@@ -111,7 +153,6 @@ class SireInspectionsController extends Controller
     {
 
         $sire_inspection->update($request->all());
-        $sire_inspection->sire_inspection_details = $sire_inspection->sire_inspection_details;
 
         return response()->json([
             'data'  =>  $sire_inspection
