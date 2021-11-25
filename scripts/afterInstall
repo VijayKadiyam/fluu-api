@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /var/www/vhosts/lbsm/lbsm-api
+cd /var/www/vhosts/ves-kpi/ves-kpi-api
 
 php /usr/local/bin/composer install
 
