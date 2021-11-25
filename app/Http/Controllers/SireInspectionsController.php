@@ -43,12 +43,16 @@ class SireInspectionsController extends Controller
         $usersController = new UsersController();
         $usersResponse = $usersController->index($request);
 
+        $viqChaptersController = new ViqChaptersController();
+        $viqChaptersResponse = $viqChaptersController->index($request);
+
         
         return response()->json([
             'ports'         =>  $ports,
             'countries'         =>  $countries,
             'oilMajors'         =>  $oilMajors,
             'users'           =>  $usersResponse->getData()->data,
+            'viqChapters'           =>  $viqChaptersResponse->getData()->data,
         ], 200);
     }
     /*
