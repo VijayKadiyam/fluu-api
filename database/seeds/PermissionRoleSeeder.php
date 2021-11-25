@@ -39,7 +39,7 @@ class PermissionRoleSeeder extends Seeder
     $role->assignpermission(10);
 
     // Admin Permissions
-    $role = Role::find(2);
+    $role = Role::find(3);
     $role->assignpermission(1);
     $role->assignpermission(2);
     $role->assignpermission(3);
