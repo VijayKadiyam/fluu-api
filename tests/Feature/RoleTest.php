@@ -66,7 +66,7 @@ class RoleTest extends TestCase
             ] 
           ]
       ]);
-    $this->assertCount(4, Role::all());
+    $this->assertCount(3, Role::all());
   }
 
   /** @test */
@@ -76,7 +76,7 @@ class RoleTest extends TestCase
       ->assertStatus(200)
       ->assertJson([
           'data'  => [
-            'name'=> 'Admin',
+            'name'=> 'Main Admin',
           ]
         ])
       ->assertJsonStructureExact([

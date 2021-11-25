@@ -51,7 +51,7 @@ class RoleUserTest extends TestCase
           'email'                   =>  $userTwo->email,
           'roles'                   =>  [
             0 =>  [
-              'name'  =>  'Admin'
+              'name'  =>  'Main Admin'
             ]
           ]
         ]

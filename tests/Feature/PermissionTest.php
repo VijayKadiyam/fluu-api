@@ -73,7 +73,7 @@ class PermissionTest extends TestCase
             ] 
           ]
       ]);
-    $this->assertCount(26, Permission::all());
+    $this->assertCount(9, Permission::all());
   }
 
   /** @test */
@@ -83,7 +83,7 @@ class PermissionTest extends TestCase
       ->assertStatus(200)
       ->assertJson([
           'data'  => [
-            'name'=> 'Settings',
+            'name'=> 'Manage Dashboard',
           ]
         ])
       ->assertJsonStructureExact([

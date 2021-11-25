@@ -373,6 +373,7 @@ class SireInspectionTest extends TestCase
                     'address',
                     'created_at',
                     'updated_at',
+                    'site_id',
                     'sire_inspection_details',
                 ]
             ]);

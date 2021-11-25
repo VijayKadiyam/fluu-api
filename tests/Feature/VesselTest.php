@@ -241,10 +241,10 @@ class VesselTest extends TestCase
                     'no_of_deck_rating',
                     'no_of_engine_rating',
                     'no_of_galley_rating',
-                    'officer_nationalities',
-                    'rating_nationalities',
                     'created_at',
                     'updated_at',
+                    'officer_nationalities',
+                    'rating_nationalities',
                 ]
             ]);
     }
