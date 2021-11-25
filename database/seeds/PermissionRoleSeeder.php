@@ -23,7 +23,6 @@ class PermissionRoleSeeder extends Seeder
     $role->assignpermission(7);
     $role->assignpermission(8);
     $role->assignpermission(9);
-    $role->assignpermission(10);
 
     // Main Admin Permissions
     $role = Role::find(2);
@@ -36,7 +35,6 @@ class PermissionRoleSeeder extends Seeder
     $role->assignpermission(7);
     $role->assignpermission(8);
     $role->assignpermission(9);
-    $role->assignpermission(10);
 
     // Admin Permissions
     $role = Role::find(3);
@@ -49,6 +47,5 @@ class PermissionRoleSeeder extends Seeder
     $role->assignpermission(7);
     $role->assignpermission(8);
     $role->assignpermission(9);
-    $role->assignpermission(10);
   }
 }
