@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\PscInspection;
+use App\PscInspectionDeficiency;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\User;
@@ -167,6 +169,84 @@ class UploadsController extends Controller
         'image_path2'  =>  $imagePath2,
         'image_path3'  =>  $imagePath3,
         'image_path4'  =>  $imagePath4
+      ],
+      'success' =>  true
+    ]);
+  }
+
+  public function uploadPscInspectionReport1(Request $request)
+  {
+    $request->validate([
+      'psc_inspection_id'        => 'required',
+    ]);
+
+    $reportpath = '';
+    if ($request->hasFile('reportpath')) {
+      $file = $request->file('reportpath');
+      $name = $request->filename ?? 'reportpath.';
+      $name = $name . $file->getClientOriginalExtension();;
+      $reportpath = 'psc-inspection/' .  $request->psc_inspection_id . '/' . $name;
+      Storage::disk('local')->put($reportpath, file_get_contents($file), 'public');
+
+      $PscInspection = PscInspection::where('id', '=', request()->psc_inspection_id)->first();
+      $PscInspection->reportpath = $reportpath;
+      $PscInspection->update();
+
+      return response()->json([
+        'data'  =>  $PscInspection,
+        'message' =>  "User Program Task Image1 upload Successfully",
+        'success' =>  true
+      ], 200);
+    }
+
+
+    return response()->json([
+      'data'  => [
+        'reportpath'  =>  $reportpath,
+      ],
+      'success' =>  true
+    ]);
+  }
+
+  public function uploadPscInspectionReport(Request $request)
+  {
+    $request->validate([
+      'psc_inspection_id'        => 'required',
+    ]);
+
+    $reportpath = '';
+    if ($request->hasFile('reportpath')) {
+      $file = $request->file('reportpath');
+      $name = $request->filename ?? 'reportpath.';
+      $name = $name . $file->getClientOriginalExtension();;
+      $reportpath = 'psc-inspection/' .  $request->psc_inspection_id . '/' . $name;
+      Storage::disk('local')->put($reportpath, file_get_contents($file), 'public');
+
+      $PscInspection = PscInspection::where('id', '=', request()->psc_inspection_id)->first();
+      $PscInspection->reportpath = $reportpath;
+      $PscInspection->update();
+    }
+
+    for ($i = 0; $i < $request->evidence_count; $i++) {
+      $f_name = "evidencepath" . $i;
+      $deficiency_id = "deficiency_id" . $i;
+      if ($request->hasFile("evidencepath" . $i)) {
+        $file = $request->file('evidencepath' . $i);
+        $name = $request->filename ?? "$f_name.";
+        $name = $name . $file->getClientOriginalExtension();;
+        $evidencepath = 'psc-inspection/' .  $request->psc_inspection_id . '/psc-inspection-details/' . $name;
+        Storage::disk('local')->put($evidencepath, file_get_contents($file), 'public');
+
+        $PscInspectionDeficiency = PscInspectionDeficiency::where('id', '=', request()->$deficiency_id)->first();
+        $PscInspectionDeficiency->evidencepath = $evidencepath;
+        $PscInspectionDeficiency->update();
+      }
+    }
+
+    return response()->json([
+      'data'  => [
+        'reportpath'  =>  $reportpath,
+        'evidence_count' => $request->evidence_count
       ],
       'success' =>  true
     ]);
