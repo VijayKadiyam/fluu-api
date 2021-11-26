@@ -63,6 +63,7 @@ Route::get('vessels/masters', 'VesselsController@masters');
 Route::resource('vessels', 'VesselsController');
 
 Route::post('vessels/{vessel}/psc_inspections/{pscinspection}', 'PscInspectionsController@store');
+Route::post('vessels/{vessel}/sire_inspections/{sireinspection}', 'SireInspectionsController@store');
 Route::get('psc_inspections/masters', 'PscInspectionsController@masters');
 Route::get('sire_inspections/masters', 'SireInspectionsController@masters');
 Route::resource('psc_inspections', 'PscInspectionsController');
