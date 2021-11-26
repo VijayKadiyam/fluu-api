@@ -51,6 +51,6 @@ class Vessel extends Model
     }
     public function sire_inspections()
     {
-        return $this->hasMany(SireInspection::class);
+        return $this->hasMany(SireInspection::class)->with('port', 'country', 'inspector', 'oil_major', 'sire_inspection_details');
     }
 }

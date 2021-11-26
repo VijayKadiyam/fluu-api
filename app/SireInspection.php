@@ -36,4 +36,21 @@ class SireInspection extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function port()
+    {
+        return $this->belongsTo(ValueList::class);
+    }
+    public function country()
+    {
+        return $this->belongsTo(ValueList::class);
+    }
+    public function oil_major()
+    {
+        return $this->belongsTo(ValueList::class);
+    }
+    public function inspector()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
