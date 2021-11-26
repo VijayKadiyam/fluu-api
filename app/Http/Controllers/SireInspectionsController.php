@@ -46,7 +46,7 @@ class SireInspectionsController extends Controller
         $viqChaptersController = new ViqChaptersController();
         $viqChaptersResponse = $viqChaptersController->index($request);
 
-        
+
         return response()->json([
             'ports'         =>  $ports,
             'countries'         =>  $countries,
@@ -142,6 +142,11 @@ class SireInspectionsController extends Controller
     public function show(Vessel $vessel, SireInspection $sire_inspection)
     {
         $sire_inspection->sire_inspection_details = $sire_inspection->sire_inspection_details;
+        $sire_inspection->port = $sire_inspection->port;
+        $sire_inspection->country = $sire_inspection->country;
+        $sire_inspection->oil_major = $sire_inspection->oil_major;
+        $sire_inspection->inspector = $sire_inspection->inspector;
+        
         return response()->json([
             'data'   =>  $sire_inspection,
             'success' =>  true
