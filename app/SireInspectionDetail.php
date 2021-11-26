@@ -8,8 +8,9 @@ class SireInspectionDetail extends Model
 {
     protected $fillable = [
         'viq_chapter_id',
-        'serial_no',
-        'details',
+        'viq_no',
+        'observation',
+
     ];
     public function vessel()
     {
