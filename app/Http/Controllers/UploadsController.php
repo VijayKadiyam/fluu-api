@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\PscInspection;
 use App\PscInspectionDeficiency;
+use App\SireInspection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\User;
@@ -247,6 +248,40 @@ class UploadsController extends Controller
       'data'  => [
         'reportpath'  =>  $reportpath,
         'evidence_count' => $request->evidence_count
+      ],
+      'success' =>  true
+    ]);
+  }
+
+  public function uploadSireInspectionAttachment(Request $request)
+  {
+    $request->validate([
+      'sire_inspection_id'        => 'required',
+    ]);
+
+    $attachment = '';
+    if ($request->hasFile('attachment')) {
+      $file = $request->file('attachment');
+      $name = $request->filename ?? 'attachment.';
+      $name = $name . $file->getClientOriginalExtension();;
+      $attachment = 'sire-inspection/' .  $request->sire_inspection_id . '/' . $name;
+      Storage::disk('local')->put($attachment, file_get_contents($file), 'public');
+
+      $SireInspection = SireInspection::where('id', '=', request()->sire_inspection_id)->first();
+      $SireInspection->attachment = $attachment;
+      $SireInspection->update();
+
+      return response()->json([
+        'data'  =>  $SireInspection,
+        'message' =>  "Sire Inspections Attachment upload Successfully",
+        'success' =>  true
+      ], 200);
+    }
+
+
+    return response()->json([
+      'data'  => [
+        'image_path1'  =>  $attachment,
       ],
       'success' =>  true
     ]);
