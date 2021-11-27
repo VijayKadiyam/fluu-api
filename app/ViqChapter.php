@@ -14,4 +14,8 @@ class ViqChapter extends Model
     public function site() {
         return $this->belongsTo(Site::class);
     }
+
+    public function sire_inspection_details() {
+        return $this->belongsTo(SireInspectionDetail::class);
+    }
 }

@@ -20,4 +20,8 @@ class SireInspectionDetail extends Model
     {
         return $this->belongsTo(SireInspection::class);
     }
+    public function viq_chapter()
+    {
+        return $this->belongsTo(ViqChapter::class);
+    }
 }

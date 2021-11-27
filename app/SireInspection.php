@@ -30,7 +30,7 @@ class SireInspection extends Model
     }
     public function sire_inspection_details()
     {
-        return $this->hasMany(SireInspectionDetail::class);
+        return $this->hasMany(SireInspectionDetail::class)->with('viq_chapter');
     }
     public function user()
     {
