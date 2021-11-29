@@ -9,7 +9,10 @@ class PscInspectionDeficiency extends Model
     protected $fillable = [
         'serial_no',
         'date_of_closure',
-        'evidencepath',
+        'evidencepath1',
+        'evidencepath2',
+        'evidencepath3',
+        'evidencepath4',
         'details',
     ];
 
