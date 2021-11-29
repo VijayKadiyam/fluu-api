@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\PscInspection;
 use App\PscInspectionDeficiency;
 use App\SireInspection;
+use App\SireInspectionDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\User;
@@ -270,18 +271,29 @@ class UploadsController extends Controller
       $SireInspection = SireInspection::where('id', '=', request()->sire_inspection_id)->first();
       $SireInspection->attachment = $attachment;
       $SireInspection->update();
+    }
 
-      return response()->json([
-        'data'  =>  $SireInspection,
-        'message' =>  "Sire Inspections Attachment upload Successfully",
-        'success' =>  true
-      ], 200);
+    for ($i = 0; $i < $request->evidence_count; $i++) {
+      $f_name = "evidencepath" . $i;
+      $sire_inspection_detail_id = "sire_inspection_detail_id" . $i;
+      if ($request->hasFile("evidencepath" . $i)) {
+        $file = $request->file('evidencepath' . $i);
+        $name = $request->filename ?? "$f_name.";
+        $name = $name . $file->getClientOriginalExtension();;
+        $evidencepath = 'sire-inspection/' .  $request->sire_inspection_id . '/sire-inspection-details/' . $name;
+        Storage::disk('local')->put($evidencepath, file_get_contents($file), 'public');
+
+        $SireInspectionDetail = SireInspectionDetail::where('id', '=', request()->$sire_inspection_detail_id)->first();
+        $SireInspectionDetail->evidence = $evidencepath;
+        $SireInspectionDetail->update();
+      }
     }
 
 
     return response()->json([
       'data'  => [
-        'image_path1'  =>  $attachment,
+        'SireInspection'  =>  $SireInspection,
+        'evidence_count' => $request->evidence_count
       ],
       'success' =>  true
     ]);
