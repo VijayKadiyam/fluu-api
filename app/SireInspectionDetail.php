@@ -10,6 +10,10 @@ class SireInspectionDetail extends Model
         'viq_chapter_id',
         'viq_no',
         'observation',
+        'date_of_closure',
+        'is_closed',
+        'remarks',
+        'evidance',
 
     ];
     public function vessel()
