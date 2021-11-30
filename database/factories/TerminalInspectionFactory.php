@@ -14,8 +14,6 @@ $factory->define(TerminalInspection::class, function (Faker $faker) {
         'no_of_closed_deficiencies' => 1,
         'reportpath' => "reportpath",
         'is_deficiency_closed' => 0,
-        'date_of_closure' => "date_of_closure",
-        'evidencepath' => "evidencepath",
         'additional_comments' => 'Additional Comments',
     ];
 });

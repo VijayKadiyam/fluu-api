@@ -20,13 +20,11 @@ class CreateTerminalInspectionsTable extends Migration
             $table->string('date')->nullable();
             $table->integer('port_id')->nullable();
             $table->integer('country_id')->nullable();
+            $table->integer('no_of_issued_deficiencies')->nullable();
             $table->integer('no_of_closed_deficiencies')->nullable();
             $table->string('reportpath')->nullable();
             $table->boolean('is_deficiency_closed')->nullable();
-            $table->string('date_of_closure')->nullable();
-            $table->string('evidencepath')->nullable();
             $table->longText('additional_comments')->nullable();
-            $table->integer('no_of_issued_deficiencies')->nullable();
             $table->timestamps();
         });
     }

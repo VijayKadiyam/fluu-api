@@ -41,8 +41,6 @@ class TerminalInspectionTest extends TestCase
             'no_of_closed_deficiencies' => 1,
             'reportpath' => "reportpath",
             'is_deficiency_closed' => 0,
-            'date_of_closure' => "date_of_closure",
-            'evidencepath' => "evidencepath",
             'additional_comments' => 'Additional Comments',
             'terminal_inspection_deficiencies' => [
                 0 => [
@@ -89,8 +87,6 @@ class TerminalInspectionTest extends TestCase
                     'no_of_closed_deficiencies' => 1,
                     'reportpath' => "reportpath",
                     'is_deficiency_closed' => 0,
-                    'date_of_closure' => "date_of_closure",
-                    'evidencepath' => "evidencepath",
                     'additional_comments' => 'Additional Comments',
                     'terminal_inspection_deficiencies' => [
                         0 => [
@@ -116,8 +112,6 @@ class TerminalInspectionTest extends TestCase
                     'no_of_closed_deficiencies',
                     'reportpath',
                     'is_deficiency_closed',
-                    'date_of_closure',
-                    'evidencepath',
                     'additional_comments',
                     'updated_at',
                     'created_at',
@@ -145,8 +139,6 @@ class TerminalInspectionTest extends TestCase
                         'no_of_closed_deficiencies',
                         'reportpath',
                         'is_deficiency_closed',
-                        'date_of_closure',
-                        'evidencepath',
                         'additional_comments',
                     ]
                 ]
@@ -171,8 +163,6 @@ class TerminalInspectionTest extends TestCase
                     'no_of_closed_deficiencies' => 1,
                     'reportpath' => "reportpath",
                     'is_deficiency_closed' => 0,
-                    'date_of_closure' => "date_of_closure",
-                    'evidencepath' => "evidencepath",
                     'additional_comments' => 'Additional Comments',
                 ]
             ]);
@@ -191,8 +181,6 @@ class TerminalInspectionTest extends TestCase
             'no_of_closed_deficiencies' => 2,
             'reportpath' => "reportpath 1",
             'is_deficiency_closed' => 0,
-            'date_of_closure' => "date_of_closure 1",
-            'evidencepath' => "evidencepath 1",
             'additional_comments' => 'Additional Comments 1',
         ];
 
@@ -209,8 +197,6 @@ class TerminalInspectionTest extends TestCase
                     'no_of_closed_deficiencies' => 2,
                     'reportpath' => "reportpath 1",
                     'is_deficiency_closed' => 0,
-                    'date_of_closure' => "date_of_closure 1",
-                    'evidencepath' => "evidencepath 1",
                     'additional_comments' => 'Additional Comments 1',
                 ]
             ])
@@ -222,13 +208,11 @@ class TerminalInspectionTest extends TestCase
                     'date',
                     'port_id',
                     'country_id',
+                    'no_of_issued_deficiencies',
                     'no_of_closed_deficiencies',
                     'reportpath',
                     'is_deficiency_closed',
-                    'date_of_closure',
-                    'evidencepath',
                     'additional_comments',
-                    'no_of_issued_deficiencies',
                     'created_at',
                     'updated_at',
                 ]
