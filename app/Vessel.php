@@ -58,4 +58,9 @@ class Vessel extends Model
     {
         return $this->hasMany(TerminalInspection::class)->with('port', 'country', 'terminal_inspection_deficiencies');
     }
+
+    public function fsc_inspections()
+    {
+        return $this->hasMany(FscInspection::class)->with('port', 'country', 'fsc_inspection_deficiencies');
+    }
 }
