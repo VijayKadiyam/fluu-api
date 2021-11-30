@@ -70,4 +70,7 @@ Route::get('sire_inspections/masters', 'SireInspectionsController@masters');
 Route::resource('psc_inspections', 'PscInspectionsController');
 Route::resource('vessels/{vessel}/sire_inspections', 'SireInspectionsController');
 Route::resource('vessels/{vessel}/psc_inspections', 'PscInspectionsController');
+Route::get('ports/masters', 'PortsController@masters');
 Route::resource('ports', 'PortsController');
+Route::resource('vessels/{vessel}/terminal_inspections', 'TerminalInspectionsController');
+Route::resource('terminal_inspections', 'TerminalInspectionsController');

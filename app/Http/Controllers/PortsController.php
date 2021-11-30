@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Port;
+use App\Value;
 use Illuminate\Http\Request;
 
 class PortsController extends Controller
@@ -10,6 +11,21 @@ class PortsController extends Controller
     public function __construct()
     {
         $this->middleware(['site']);
+    }
+
+    public function masters(Request $request)
+    {
+        $countryValue = Value::where('name', '=', 'COUNTRY')
+            ->where('site_id', '=', $request->site->id)
+            ->first();
+        $countries = [];
+        if ($countryValue)
+            $countries = $countryValue->active_value_lists;
+
+
+        return response()->json([
+            'countries'         =>  $countries,
+        ], 200);
     }
 
     public function index(Request $request)
