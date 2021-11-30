@@ -47,4 +47,8 @@ class Site extends Model
   {
     return $this->hasMany(SireInspectionDetail::class)->with('users');
   }
+  public function ports()
+  {
+    return $this->hasMany(Port::class);
+  }
 }
