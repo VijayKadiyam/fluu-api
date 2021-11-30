@@ -74,3 +74,10 @@ Route::get('ports/masters', 'PortsController@masters');
 Route::resource('ports', 'PortsController');
 Route::resource('vessels/{vessel}/terminal_inspections', 'TerminalInspectionsController');
 Route::resource('terminal_inspections', 'TerminalInspectionsController');
+
+// FSC Inspections Routes
+Route::post('upload_fsc_inspection_report', 'UploadsController@uploadFscInspectionReport');
+Route::post('vessels/{vessel}/fsc_inspections/{fscinspection}', 'FscInspectionsController@store');
+Route::get('fsc_inspections/masters', 'FscInspectionsController@masters');
+Route::resource('fsc_inspections', 'FscInspectionsController');
+Route::resource('vessels/{vessel}/fsc_inspections', 'FscInspectionsController');
