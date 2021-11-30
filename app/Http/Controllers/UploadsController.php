@@ -6,6 +6,8 @@ use App\PscInspection;
 use App\PscInspectionDeficiency;
 use App\SireInspection;
 use App\SireInspectionDetail;
+use App\TerminalInspection;
+use App\TerminalInspectionDeficiency;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\User;
@@ -278,6 +280,86 @@ class UploadsController extends Controller
         $PscInspectionDeficiency = PscInspectionDeficiency::where('id', '=', request()->$deficiency_id)->first();
         $PscInspectionDeficiency->evidencepath4 = $evidencepath_D;
         $PscInspectionDeficiency->update();
+      }
+    }
+
+    return response()->json([
+      'data'  => [
+        'reportpath'  =>  $reportpath,
+        'evidence_count' => $request->evidence_count
+      ],
+      'success' =>  true
+    ]);
+  }
+
+  public function uploadTerminalInspectionReport(Request $request)
+  {
+    $request->validate([
+      'terminal_inspection_id'        => 'required',
+    ]);
+
+    $reportpath = '';
+    if ($request->hasFile('reportpath')) {
+      $file = $request->file('reportpath');
+      $name = $request->filename ?? 'reportpath.';
+      $name = $name . $file->getClientOriginalExtension();;
+      $reportpath = 'terminal-inspection/' .  $request->terminal_inspection_id . '/' . $name;
+      Storage::disk('local')->put($reportpath, file_get_contents($file), 'public');
+
+      $TerminalInspection = TerminalInspection::where('id', '=', request()->terminal_inspection_id)->first();
+      $TerminalInspection->reportpath = $reportpath;
+      $TerminalInspection->update();
+    }
+
+    for ($i = 0; $i < $request->evidence_count; $i++) {
+      $deficiency_id = "deficiency_id" . $i;
+      if ($request->hasFile("evidencepath_A_" . $i)) {
+        $file = $request->file('evidencepath_A_' . $i);
+        $f_name = "evidencepath_A_" . $i;
+        $name = $request->filename ?? "$f_name.";
+        $name = $name . $file->getClientOriginalExtension();;
+        $evidencepath_A = 'terminal-inspection/' .  $request->terminal_inspection_id . '/terminal-inspection-details/' . $name;
+        Storage::disk('local')->put($evidencepath_A, file_get_contents($file), 'public');
+
+        $TerminalInspectionDeficiency = TerminalInspectionDeficiency::where('id', '=', request()->$deficiency_id)->first();
+        $TerminalInspectionDeficiency->evidencepath1 = $evidencepath_A;
+        $TerminalInspectionDeficiency->update();
+      }
+      if ($request->hasFile("evidencepath_B_" . $i)) {
+        $file = $request->file('evidencepath_B_' . $i);
+        $f_name = "evidencepath_B_" . $i;
+        $name = $request->filename ?? "$f_name.";
+        $name = $name . $file->getClientOriginalExtension();;
+        $evidencepath_B = 'terminal-inspection/' .  $request->terminal_inspection_id . '/terminal-inspection-details/' . $name;
+        Storage::disk('local')->put($evidencepath_B, file_get_contents($file), 'public');
+
+        $TerminalInspectionDeficiency = TerminalInspectionDeficiency::where('id', '=', request()->$deficiency_id)->first();
+        $TerminalInspectionDeficiency->evidencepath2 = $evidencepath_B;
+        $TerminalInspectionDeficiency->update();
+      }
+      if ($request->hasFile("evidencepath_C_" . $i)) {
+        $file = $request->file('evidencepath_C_' . $i);
+        $f_name = "evidencepath_C_" . $i;
+        $name = $request->filename ?? "$f_name.";
+        $name = $name . $file->getClientOriginalExtension();;
+        $evidencepath_C = 'terminal-inspection/' .  $request->terminal_inspection_id . '/terminal-inspection-details/' . $name;
+        Storage::disk('local')->put($evidencepath_C, file_get_contents($file), 'public');
+
+        $TerminalInspectionDeficiency = TerminalInspectionDeficiency::where('id', '=', request()->$deficiency_id)->first();
+        $TerminalInspectionDeficiency->evidencepath3 = $evidencepath_C;
+        $TerminalInspectionDeficiency->update();
+      }
+      if ($request->hasFile("evidencepath_D_" . $i)) {
+        $file = $request->file('evidencepath_D_' . $i);
+        $f_name = "evidencepath_D_" . $i;
+        $name = $request->filename ?? "$f_name.";
+        $name = $name . $file->getClientOriginalExtension();;
+        $evidencepath_D = 'terminal-inspection/' .  $request->terminal_inspection_id . '/terminal-inspection-details/' . $name;
+        Storage::disk('local')->put($evidencepath_D, file_get_contents($file), 'public');
+
+        $TerminalInspectionDeficiency = TerminalInspectionDeficiency::where('id', '=', request()->$deficiency_id)->first();
+        $TerminalInspectionDeficiency->evidencepath4 = $evidencepath_D;
+        $TerminalInspectionDeficiency->update();
       }
     }
 
