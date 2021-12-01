@@ -68,4 +68,14 @@ class Vessel extends Model
     {
         return $this->hasMany(ChartererInspection::class)->with('port', 'country', 'charterer_inspection_deficiencies');
     }
+
+    public function near_misses()
+    {
+        return $this->hasMany(NearMiss::class)->with('location', 'category', 'activity', 'basic_cause');
+    }
+
+    public function internal_audits()
+    {
+        return $this->hasMany(InternalAudit::class)->with('port', 'country', 'internal_audit_deficiencies');
+    }
 }
