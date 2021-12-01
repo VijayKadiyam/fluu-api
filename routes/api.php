@@ -38,7 +38,6 @@ Route::get('users/masters', 'UsersController@masters');
 Route::post('upload_user_image', 'UploadsController@uploadUserImage');
 Route::post('upload_psc_inspection_report', 'UploadsController@uploadPscInspectionReport');
 Route::post('upload_sire_inspection_attachment', 'UploadsController@uploadSireInspectionAttachment');
-Route::post('upload_terminal_inspection_report', 'UploadsController@uploadTerminalInspectionReport');
 Route::resource('users', 'UsersController');
 
 
@@ -73,8 +72,11 @@ Route::resource('vessels/{vessel}/sire_inspections', 'SireInspectionsController'
 Route::resource('vessels/{vessel}/psc_inspections', 'PscInspectionsController');
 Route::get('ports/masters', 'PortsController@masters');
 Route::resource('ports', 'PortsController');
-Route::get('terminal_inspections/masters', 'TerminalInspectionsController@masters');
 Route::resource('vessels/{vessel}/terminal_inspections', 'TerminalInspectionsController');
+//  Terminal Inspection 
+Route::post('vessels/{vessel}/terminal_inspections/{pscinspection}', 'TerminalInspectionsController@store');
+Route::post('upload_terminal_inspection_report', 'UploadsController@uploadTerminalInspectionReport');
+Route::get('terminal_inspections/masters', 'TerminalInspectionsController@masters');
 Route::resource('terminal_inspections', 'TerminalInspectionsController');
 
 // FSC Inspections Routes
