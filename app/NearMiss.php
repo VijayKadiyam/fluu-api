@@ -8,6 +8,8 @@ class NearMiss extends Model
 {
     protected $fillable = [
         'number_reported',
+        'vessel_id',
+        'site_id',
         'location_id',
         'category_id',
         'activity_id',
@@ -17,6 +19,10 @@ class NearMiss extends Model
     public function site()
     {
         return $this->belongsTo(Site::class);
+    }
+    public function vessel()
+    {
+        return $this->belongsTo(Vessel::class);
     }
 
     public function location()
