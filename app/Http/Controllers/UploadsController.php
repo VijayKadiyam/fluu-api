@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\ChartererInspection;
+use App\ChartererInspectionDeficiency;
 use App\FscInspection;
 use App\FscInspectionDeficiency;
 use App\PscInspection;
@@ -362,6 +364,86 @@ class UploadsController extends Controller
         $FscInspectionDeficiency = FscInspectionDeficiency::where('id', '=', request()->$deficiency_id)->first();
         $FscInspectionDeficiency->evidencepath4 = $evidencepath_D;
         $FscInspectionDeficiency->update();
+      }
+    }
+
+    return response()->json([
+      'data'  => [
+        'reportpath'  =>  $reportpath,
+        'evidence_count' => $request->evidence_count
+      ],
+      'success' =>  true
+    ]);
+  }
+
+  public function uploadChartererInspectionReport(Request $request)
+  {
+    $request->validate([
+      'charterer_inspection_id'        => 'required',
+    ]);
+
+    $reportpath = '';
+    if ($request->hasFile('reportpath')) {
+      $file = $request->file('reportpath');
+      $name = $request->filename ?? 'reportpath.';
+      $name = $name . $file->getClientOriginalExtension();;
+      $reportpath = 'charterer-inspection/' .  $request->charterer_inspection_id . '/' . $name;
+      Storage::disk('local')->put($reportpath, file_get_contents($file), 'public');
+
+      $ChartererInspection = ChartererInspection::where('id', '=', request()->charterer_inspection_id)->first();
+      $ChartererInspection->reportpath = $reportpath;
+      $ChartererInspection->update();
+    }
+
+    for ($i = 0; $i < $request->evidence_count; $i++) {
+      $deficiency_id = "deficiency_id" . $i;
+      if ($request->hasFile("evidencepath_A_" . $i)) {
+        $file = $request->file('evidencepath_A_' . $i);
+        $f_name = "evidencepath_A_" . $i;
+        $name = $request->filename ?? "$f_name.";
+        $name = $name . $file->getClientOriginalExtension();;
+        $evidencepath_A = 'charterer-inspection/' .  $request->charterer_inspection_id . '/charterer-inspection-details/' . $name;
+        Storage::disk('local')->put($evidencepath_A, file_get_contents($file), 'public');
+
+        $ChartererInspectionDeficiency = ChartererInspectionDeficiency::where('id', '=', request()->$deficiency_id)->first();
+        $ChartererInspectionDeficiency->evidencepath1 = $evidencepath_A;
+        $ChartererInspectionDeficiency->update();
+      }
+      if ($request->hasFile("evidencepath_B_" . $i)) {
+        $file = $request->file('evidencepath_B_' . $i);
+        $f_name = "evidencepath_B_" . $i;
+        $name = $request->filename ?? "$f_name.";
+        $name = $name . $file->getClientOriginalExtension();;
+        $evidencepath_B = 'charterer-inspection/' .  $request->charterer_inspection_id . '/charterer-inspection-details/' . $name;
+        Storage::disk('local')->put($evidencepath_B, file_get_contents($file), 'public');
+
+        $ChartererInspectionDeficiency = ChartererInspectionDeficiency::where('id', '=', request()->$deficiency_id)->first();
+        $ChartererInspectionDeficiency->evidencepath2 = $evidencepath_B;
+        $ChartererInspectionDeficiency->update();
+      }
+      if ($request->hasFile("evidencepath_C_" . $i)) {
+        $file = $request->file('evidencepath_C_' . $i);
+        $f_name = "evidencepath_C_" . $i;
+        $name = $request->filename ?? "$f_name.";
+        $name = $name . $file->getClientOriginalExtension();;
+        $evidencepath_C = 'charterer-inspection/' .  $request->charterer_inspection_id . '/charterer-inspection-details/' . $name;
+        Storage::disk('local')->put($evidencepath_C, file_get_contents($file), 'public');
+
+        $ChartererInspectionDeficiency = ChartererInspectionDeficiency::where('id', '=', request()->$deficiency_id)->first();
+        $ChartererInspectionDeficiency->evidencepath3 = $evidencepath_C;
+        $ChartererInspectionDeficiency->update();
+      }
+      if ($request->hasFile("evidencepath_D_" . $i)) {
+        $file = $request->file('evidencepath_D_' . $i);
+        $f_name = "evidencepath_D_" . $i;
+        $name = $request->filename ?? "$f_name.";
+        $name = $name . $file->getClientOriginalExtension();;
+        $evidencepath_D = 'charterer-inspection/' .  $request->charterer_inspection_id . '/charterer-inspection-details/' . $name;
+        Storage::disk('local')->put($evidencepath_D, file_get_contents($file), 'public');
+
+        $ChartererInspectionDeficiency = ChartererInspectionDeficiency::where('id', '=', request()->$deficiency_id)->first();
+        $ChartererInspectionDeficiency->evidencepath4 = $evidencepath_D;
+        $ChartererInspectionDeficiency->update();
       }
     }
 

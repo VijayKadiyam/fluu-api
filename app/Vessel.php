@@ -63,4 +63,9 @@ class Vessel extends Model
     {
         return $this->hasMany(FscInspection::class)->with('port', 'country', 'fsc_inspection_deficiencies');
     }
+
+    public function charterer_inspections()
+    {
+        return $this->hasMany(ChartererInspection::class)->with('port', 'country', 'charterer_inspection_deficiencies');
+    }
 }
