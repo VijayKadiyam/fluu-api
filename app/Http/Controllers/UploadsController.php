@@ -6,6 +6,8 @@ use App\ChartererInspection;
 use App\ChartererInspectionDeficiency;
 use App\FscInspection;
 use App\FscInspectionDeficiency;
+use App\InternalAudit;
+use App\InternalAuditDeficiency;
 use App\PscInspection;
 use App\PscInspectionDeficiency;
 use App\SireInspection;
@@ -575,6 +577,86 @@ class UploadsController extends Controller
     return response()->json([
       'data'  => [
         'SireInspection'  =>  $SireInspection,
+        'evidence_count' => $request->evidence_count
+      ],
+      'success' =>  true
+    ]);
+  }
+
+  public function uploadInternalAuditReport(Request $request)
+  {
+    $request->validate([
+      'internal_audit_id'        => 'required',
+    ]);
+
+    $reportpath = '';
+    if ($request->hasFile('reportpath')) {
+      $file = $request->file('reportpath');
+      $name = $request->filename ?? 'reportpath.';
+      $name = $name . $file->getClientOriginalExtension();;
+      $reportpath = 'internal-audit/' .  $request->internal_audit_id . '/' . $name;
+      Storage::disk('local')->put($reportpath, file_get_contents($file), 'public');
+
+      $InternalAudit = InternalAudit::where('id', '=', request()->internal_audit_id)->first();
+      $InternalAudit->reportpath = $reportpath;
+      $InternalAudit->update();
+    }
+
+    for ($i = 0; $i < $request->evidence_count; $i++) {
+      $deficiency_id = "deficiency_id" . $i;
+      if ($request->hasFile("evidencepath_A_" . $i)) {
+        $file = $request->file('evidencepath_A_' . $i);
+        $f_name = "evidencepath_A_" . $i;
+        $name = $request->filename ?? "$f_name.";
+        $name = $name . $file->getClientOriginalExtension();;
+        $evidencepath_A = 'internal-audit/' .  $request->internal_audit_id . '/internal-audit-details/' . $name;
+        Storage::disk('local')->put($evidencepath_A, file_get_contents($file), 'public');
+
+        $InternalAuditDeficiency = InternalAuditDeficiency::where('id', '=', request()->$deficiency_id)->first();
+        $InternalAuditDeficiency->evidencepath1 = $evidencepath_A;
+        $InternalAuditDeficiency->update();
+      }
+      if ($request->hasFile("evidencepath_B_" . $i)) {
+        $file = $request->file('evidencepath_B_' . $i);
+        $f_name = "evidencepath_B_" . $i;
+        $name = $request->filename ?? "$f_name.";
+        $name = $name . $file->getClientOriginalExtension();;
+        $evidencepath_B = 'internal-audit/' .  $request->internal_audit_id . '/internal-audit-details/' . $name;
+        Storage::disk('local')->put($evidencepath_B, file_get_contents($file), 'public');
+
+        $InternalAuditDeficiency = InternalAuditDeficiency::where('id', '=', request()->$deficiency_id)->first();
+        $InternalAuditDeficiency->evidencepath2 = $evidencepath_B;
+        $InternalAuditDeficiency->update();
+      }
+      if ($request->hasFile("evidencepath_C_" . $i)) {
+        $file = $request->file('evidencepath_C_' . $i);
+        $f_name = "evidencepath_C_" . $i;
+        $name = $request->filename ?? "$f_name.";
+        $name = $name . $file->getClientOriginalExtension();;
+        $evidencepath_C = 'internal-audit/' .  $request->internal_audit_id . '/internal-audit-details/' . $name;
+        Storage::disk('local')->put($evidencepath_C, file_get_contents($file), 'public');
+
+        $InternalAuditDeficiency = InternalAuditDeficiency::where('id', '=', request()->$deficiency_id)->first();
+        $InternalAuditDeficiency->evidencepath3 = $evidencepath_C;
+        $InternalAuditDeficiency->update();
+      }
+      if ($request->hasFile("evidencepath_D_" . $i)) {
+        $file = $request->file('evidencepath_D_' . $i);
+        $f_name = "evidencepath_D_" . $i;
+        $name = $request->filename ?? "$f_name.";
+        $name = $name . $file->getClientOriginalExtension();;
+        $evidencepath_D = 'internal-audit/' .  $request->internal_audit_id . '/internal-audit-details/' . $name;
+        Storage::disk('local')->put($evidencepath_D, file_get_contents($file), 'public');
+
+        $InternalAuditDeficiency = InternalAuditDeficiency::where('id', '=', request()->$deficiency_id)->first();
+        $InternalAuditDeficiency->evidencepath4 = $evidencepath_D;
+        $InternalAuditDeficiency->update();
+      }
+    }
+
+    return response()->json([
+      'data'  => [
+        'reportpath'  =>  $reportpath,
         'evidence_count' => $request->evidence_count
       ],
       'success' =>  true
