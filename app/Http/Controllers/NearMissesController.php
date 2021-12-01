@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\NearMiss;
 use App\Value;
-use App\Vessel;
 use Illuminate\Http\Request;
 
 class NearMissesController extends Controller
@@ -56,13 +55,12 @@ class NearMissesController extends Controller
        *
      *@
      */
-    public function index(Request $request, Vessel $vessel)
+    public function index()
     {
-        // $nearMisses = request()->site->near_misses;
-        $near_misses = $vessel->near_misses();
-        $near_misses = $near_misses->get();
+        $nearMisses = request()->site->near_misses;
+
         return response()->json([
-            'data'     =>  $near_misses
+            'data'     =>  $nearMisses
         ], 200);
     }
 
@@ -71,13 +69,13 @@ class NearMissesController extends Controller
      *
      *@
      */
-    public function store(Request $request, Vessel $vessel)
+    public function store(Request $request)
     {
         $request->validate([
             'number_reported'    =>  'required',
         ]);
         $nearMiss = new NearMiss($request->all());
-        $vessel->near_misses()->save($nearMiss);
+        $request->site->viq_chapters()->save($nearMiss);
 
         return response()->json([
             'data'    =>  $nearMiss
@@ -89,7 +87,7 @@ class NearMissesController extends Controller
      *
      *@
      */
-    public function show(Vessel $vessel, NearMiss $nearMiss)
+    public function show(NearMiss $nearMiss)
     {
         $nearMiss->location = $nearMiss->location;
         $nearMiss->category = $nearMiss->category;
@@ -106,7 +104,7 @@ class NearMissesController extends Controller
      *
      *@
      */
-    public function update(Request $request, Vessel $vessel, NearMiss $nearMiss)
+    public function update(Request $request, NearMiss $nearMiss)
     {
 
         $nearMiss->update($request->all());

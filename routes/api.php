@@ -79,16 +79,15 @@ Route::post('upload_terminal_inspection_report', 'UploadsController@uploadTermin
 Route::get('terminal_inspections/masters', 'TerminalInspectionsController@masters');
 Route::resource('terminal_inspections', 'TerminalInspectionsController');
 
+//  Charterer Inspection 
+Route::post('vessels/{vessel}/charterer_inspections/{chartererinspection}', 'ChartererInspectionsController@store');
+Route::post('upload_charterer_inspection_report', 'UploadsController@uploadChartererInspectionReport');
+Route::get('charterer_inspections/masters', 'ChartererInspectionsController@masters');
+Route::resource('vessels/{vessel}/charterer_inspections', 'ChartererInspectionsController');
+Route::resource('charterer_inspections', 'ChartererInspectionsController');
 // FSC Inspections Routes
 Route::post('upload_fsc_inspection_report', 'UploadsController@uploadFscInspectionReport');
 Route::post('vessels/{vessel}/fsc_inspections/{fscinspection}', 'FscInspectionsController@store');
 Route::get('fsc_inspections/masters', 'FscInspectionsController@masters');
 Route::resource('fsc_inspections', 'FscInspectionsController');
 Route::resource('vessels/{vessel}/fsc_inspections', 'FscInspectionsController');
-
-// Near Miss Inspections Routes
-// Route::post('upload_near_misses_report', 'UploadsController@uploadFscInspectionReport');
-Route::post('vessels/{vessel}/near_misses/{nearmiss}', 'NearMissesController@store');
-Route::get('near_misses/masters', 'NearMissesController@masters');
-Route::resource('near_misses', 'NearMissesController');
-Route::resource('vessels/{vessel}/near_misses', 'NearMissesController');

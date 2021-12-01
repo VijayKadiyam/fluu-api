@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\NearMiss;
 use App\Site;
-use App\Vessel;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -24,16 +23,11 @@ class NearMissTest extends TestCase
         $this->user->assignSite($this->site->id);
         $this->headers['siteid'] = $this->site->id;
 
-        $this->vessel = factory(Vessel::class)->create([
-            'site_id' =>  $this->site->id
-        ]);
         factory(NearMiss::class)->create([
-            'vessel_id' =>  $this->vessel->id
+            'site_id' =>  $this->site->id
         ]);
 
         $this->payload = [
-            'vessel_id' => $this->vessel->id,
-            'site_id' => $this->site->id,
             'number_reported' => 1,
             'location_id' => 1,
             'category_id' => 1,
@@ -45,7 +39,7 @@ class NearMissTest extends TestCase
     /** @test */
     function it_requires_following_details()
     {
-        $this->json('post', '/api/vessels/' . $this->vessel->id . '/near_misses', [], $this->headers)
+        $this->json('post', '/api/near_misses', [], $this->headers)
             ->assertStatus(422)
             ->assertExactJson([
                 "errors"  =>  [
@@ -59,12 +53,10 @@ class NearMissTest extends TestCase
     function add_new_near_miss()
     {
         $this->disableEH();
-        $this->json('post', '/api/vessels/' . $this->vessel->id . '/near_misses', $this->payload, $this->headers)
+        $this->json('post', '/api/near_misses', $this->payload, $this->headers)
             ->assertStatus(201)
             ->assertJson([
                 'data'   => [
-                    'vessel_id' => $this->vessel->id,
-                    'site_id' => $this->site->id,
                     'number_reported' => 1,
                     'location_id' => 1,
                     'category_id' => 1,
@@ -74,13 +66,12 @@ class NearMissTest extends TestCase
             ])
             ->assertJsonStructureExact([
                 'data'   => [
-                    'vessel_id',
-                    'site_id',
                     'number_reported',
                     'location_id',
                     'category_id',
                     'activity_id',
                     'basic_cause_id',
+                    'site_id',
                     'updated_at',
                     'created_at',
                     'id'
@@ -92,13 +83,11 @@ class NearMissTest extends TestCase
     function list_of_near_misses()
     {
         $this->disableEH();
-        $this->json('GET', '/api/vessels/' . $this->vessel->id . '/near_misses', [], $this->headers)
+        $this->json('GET', '/api/near_misses', [], $this->headers)
             ->assertStatus(200)
             ->assertJsonStructure([
                 'data' => [
                     0 =>  [
-                        'vessel_id',
-                        'site_id',
                         'number_reported',
                         'location_id',
                         'category_id',
@@ -114,12 +103,10 @@ class NearMissTest extends TestCase
     function show_single_near_miss()
     {
 
-        $this->json('get', '/api/vessels/' . $this->vessel->id . '/near_misses/1', [], $this->headers)
+        $this->json('get', "/api/near_misses/1", [], $this->headers)
             ->assertStatus(200)
             ->assertJson([
                 'data'  => [
-                    'vessel_id' => $this->vessel->id,
-                    'site_id' => $this->site->id,
                     'number_reported' => 1,
                     'location_id' => 1,
                     'category_id' => 1,
@@ -133,8 +120,6 @@ class NearMissTest extends TestCase
     function update_single_near_miss()
     {
         $payload = [
-            'vessel_id' => $this->vessel->id,
-            'site_id' => $this->site->id,
             'number_reported' => 2,
             'location_id' => 2,
             'category_id' => 2,
@@ -142,12 +127,10 @@ class NearMissTest extends TestCase
             'basic_cause_id' => 2,
         ];
 
-        $this->json('patch', '/api/vessels/' . $this->vessel->id . '/near_misses/1', $payload, $this->headers)
+        $this->json('patch', '/api/near_misses/1', $payload, $this->headers)
             ->assertStatus(200)
             ->assertJson([
                 'data'    => [
-                    'vessel_id' => $this->vessel->id,
-                    'site_id' => $this->site->id,
                     'number_reported' => 2,
                     'location_id' => 2,
                     'category_id' => 2,
@@ -166,7 +149,6 @@ class NearMissTest extends TestCase
                     'basic_cause_id',
                     'created_at',
                     'updated_at',
-                    'vessel_id',
                 ]
             ]);
     }
