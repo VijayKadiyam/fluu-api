@@ -30,10 +30,15 @@ class TerminalInspectionsController extends Controller
         $countries = [];
         if ($countryValue)
             $countries = $countryValue->active_value_lists;
-
+        
+        $valueCountry = Value::where('is_country', '=', True)
+        ->where('site_id', '=', $request->site->id)
+        ->get();
+        
         return response()->json([
             'ports'         =>  $ports,
             'countries'         =>  $countries,
+            'valueCountry'         =>  $valueCountry,
         ], 200);
     }
     /*
