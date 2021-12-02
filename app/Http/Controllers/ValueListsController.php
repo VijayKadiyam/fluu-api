@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\ValueList;
 use App\Value;
+use phpDocumentor\Reflection\PseudoTypes\True_;
 
 class ValueListsController extends Controller
 {
@@ -28,7 +29,7 @@ class ValueListsController extends Controller
     $count = 0;
     $valueLists = $value->value_lists();
     $valueLists = $request->showOnlyActive ? $valueLists->where('is_active', '=', 1) : $valueLists;
-    if(request()->page && request()->rowsPerPage) {
+    if (request()->page && request()->rowsPerPage) {
       $count = $valueLists->count();
       $valueLists = $valueLists->paginate(request()->rowsPerPage)->toArray();
       $valueLists = $valueLists['data'];
@@ -51,12 +52,13 @@ class ValueListsController extends Controller
       'description' =>  'required',
     ]);
 
+
     $valueList = new ValueList(request()->all());
     $value->value_lists()->save($valueList);
 
     return response()->json([
       'data'    =>  $valueList
-    ], 201); 
+    ], 201);
   }
 
   public function storeMultiple(Request $request, Value $value)
@@ -68,14 +70,32 @@ class ValueListsController extends Controller
       'datas.*.code'        =>  'required',
     ]);
 
+
+
     $valueLists = [];
     foreach ($request->datas as $valueList) {
-      if(!isset($valueList['id'])) {
+      $country = Value::where('id', '=', $valueList['value_id'])
+        ->where('name', '=', 'COUNTRY')->first();
+      // return $country;
+      $valuaData = [
+        'name' => $valueList['description'],
+        'is_country' => True,
+      ];
+      if ($country) {
+        $Value = Value::where('name', '=', $valueList['description'])->first();
+        if (!$Value) {
+          // Insert
+          $storeValue = new Value($valuaData);
+          $request->site->values()->save($storeValue);
+        }
+      }
+
+      if (!isset($valueList['id'])) {
+
         $valueList = new ValueList($valueList);
         $value->value_lists()->save($valueList);
         $valueLists[] = $valueList;
-      }
-      else {
+      } else {
         $vL = ValueList::find($valueList['id']);
         $vL->update($valueList);
         $valueLists[] = $vL;
@@ -84,7 +104,7 @@ class ValueListsController extends Controller
 
     return response()->json([
       'data'    =>  $valueLists
-    ], 201); 
+    ], 201);
   }
 
   public function show(Value $value, ValueList $valueList)
@@ -92,13 +112,13 @@ class ValueListsController extends Controller
     return response()->json([
       'data'   =>  $valueList,
       'success' =>  true
-    ], 200);   
+    ], 200);
   }
 
   public function update(Request $request, Value $value, ValueList $valueList)
   {
     $valueList->update($request->all());
-      
+
     return response()->json([
       'data'  =>  $valueList
     ], 200);
@@ -110,7 +130,7 @@ class ValueListsController extends Controller
     $valueList->delete();
 
     return response()->json([
-      'message' =>  'Deleted'  
+      'message' =>  'Deleted'
     ], 204);
   }
 }
