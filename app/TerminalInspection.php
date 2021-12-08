@@ -19,6 +19,7 @@ class TerminalInspection extends Model
         'date_of_closure',
         'evidencepath',
         'additional_comments',
+        'terminal_name',
         
     ];
 
