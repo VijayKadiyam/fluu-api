@@ -19,7 +19,7 @@ class ChartererInspection extends Model
         'date_of_closure',
         'evidencepath',
         'additional_comments',
-
+        'charterer_name',
     ];
 
     // public function site()
