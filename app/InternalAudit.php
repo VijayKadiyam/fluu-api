@@ -10,13 +10,15 @@ class InternalAudit extends Model
         'site_id',
         'vessel_id',
         'start_date',
-        'complition_date',
+        'completion_date',
         'port_id',
         'location',
         'country_id',
         'no_of_issued_deficiencies',
-        'no_of_closed_deficiencies',
-        'is_deficiency_closed',
+        'audit_type_id',
+        'other_audit_type',
+        'from',
+        'to',
         'reportpath',
     ];
 
@@ -26,6 +28,11 @@ class InternalAudit extends Model
     }
 
     public function country()
+    {
+        return $this->belongsTo(ValueList::class);
+    }
+
+    public function audit_type()
     {
         return $this->belongsTo(ValueList::class);
     }

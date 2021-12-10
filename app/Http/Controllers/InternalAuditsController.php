@@ -23,6 +23,13 @@ class InternalAuditsController extends Controller
         if ($portValue)
             $ports = $portValue->active_value_lists;
 
+            $auditTypeValue = Value::where('name', '=', 'AUDIT TYPE')
+            ->where('site_id', '=', $request->site->id)
+            ->first();
+        $auditTypes = [];
+        if ($auditTypeValue)
+            $auditTypes = $auditTypeValue->active_value_lists;
+
 
         $countryValue = Value::where('name', '=', 'COUNTRY')
             ->where('site_id', '=', $request->site->id)
@@ -33,6 +40,7 @@ class InternalAuditsController extends Controller
 
         return response()->json([
             'ports'         =>  $ports,
+            'auditTypes'         =>  $auditTypes,
             'countries'         =>  $countries,
         ], 200);
     }
@@ -122,6 +130,7 @@ class InternalAuditsController extends Controller
         $internal_audit->internal_audit_deficiencies = $internal_audit->internal_audit_deficiencies;
         $internal_audit->port = $internal_audit->port;
         $internal_audit->country = $internal_audit->country;
+        $internal_audit->audit_type = $internal_audit->audit_type;
         return response()->json([
             'data'   =>  $internal_audit,
             'success' =>  true
