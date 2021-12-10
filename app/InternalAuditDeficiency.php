@@ -8,11 +8,13 @@ class InternalAuditDeficiency extends Model
 {
     protected $fillable = [
         'serial_no',
-        'date_of_closure',
-        'evidencepath1',
-        'evidencepath2',
-        'evidencepath3',
-        'evidencepath4',
+        'issued_date',
+        'reference_no',
+        'deficiency_nature',
+        'target_date',
+        'completion_date',
+        'verification_date',
+        'evidencepath',
         'details',
     ];
 

@@ -613,9 +613,10 @@ class UploadsController extends Controller
         Storage::disk('local')->put($evidencepath_A, file_get_contents($file), 'public');
 
         $InternalAuditDeficiency = InternalAuditDeficiency::where('id', '=', request()->$deficiency_id)->first();
-        $InternalAuditDeficiency->evidencepath1 = $evidencepath_A;
+        $InternalAuditDeficiency->evidencepath= $evidencepath_A;
         $InternalAuditDeficiency->update();
       }
+      
       if ($request->hasFile("evidencepath_B_" . $i)) {
         $file = $request->file('evidencepath_B_' . $i);
         $f_name = "evidencepath_B_" . $i;

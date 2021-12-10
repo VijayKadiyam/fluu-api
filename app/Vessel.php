@@ -76,6 +76,6 @@ class Vessel extends Model
 
     public function internal_audits()
     {
-        return $this->hasMany(InternalAudit::class)->with('port', 'country', 'internal_audit_deficiencies');
+        return $this->hasMany(InternalAudit::class)->with('port', 'country','audit_type', 'internal_audit_deficiencies');
     }
 }
