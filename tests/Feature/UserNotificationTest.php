@@ -7,10 +7,9 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Site;
-use App\User;
-use App\UserStory;
+use App\UserNotification;
 
-class UserStoryTest extends TestCase
+class UserNotificationTest extends TestCase
 {
     use DatabaseTransactions;
 
@@ -24,23 +23,21 @@ class UserStoryTest extends TestCase
         $this->user->assignSite($this->site->id);
         $this->headers['siteid'] = $this->site->id;
 
-        factory(UserStory::class)->create([
+        factory(UserNotification::class)->create([
             'user_id' =>  $this->user->id
         ]);
 
         $this->payload = [
             'user_id' =>  $this->user->id,
-            'is_active' =>         true,
-            'image_path' =>         'image_path',
-            'video_path' =>         'video_path',
-            'date' =>         'date',
+            'notification_id' =>  1,
+            'is_active' =>   true,
         ];
     }
 
     /** @test */
     function it_requires_following_details()
     {
-        $this->json('post', '/api/user_stories', [], $this->headers)
+        $this->json('post', '/api/user_notifications', [], $this->headers)
             ->assertStatus(422)
             ->assertExactJson([
                 "errors"  =>  [
@@ -51,27 +48,23 @@ class UserStoryTest extends TestCase
     }
 
     /** @test */
-    function add_new_user_story()
+    function add_new_user_notification()
     {
         $this->disableEH();
-        $this->json('post', '/api/user_stories', $this->payload, $this->headers)
+        $this->json('post', '/api/user_notifications', $this->payload, $this->headers)
             ->assertStatus(201)
             ->assertJson([
                 'data'   => [
                     'user_id' =>  $this->user->id,
-                    'is_active' =>         true,
-                    'image_path' =>         'image_path',
-                    'video_path' =>         'video_path',
-                    'date' =>         'date',
+                    'notification_id' =>  1,
+                    'is_active' =>   true,
                 ]
             ])
             ->assertJsonStructureExact([
                 'data'   => [
                     'user_id',
+                    'notification_id',
                     'is_active',
-                    'image_path',
-                    'video_path',
-                    'date',
                     'updated_at',
                     'created_at',
                     'id'
@@ -80,72 +73,62 @@ class UserStoryTest extends TestCase
     }
 
     /** @test */
-    function list_of_user_stories()
+    function list_of_user_notifications()
     {
         $this->disableEH();
-        $this->json('GET', '/api/user_stories?user_id='.$this->user->id.'', [], $this->headers)
+        $this->json('GET', '/api/user_notifications?user_id='.$this->user->id.'', [], $this->headers)
             ->assertStatus(200)
             ->assertJsonStructure([
                 'data' => [
                     0 =>  [
                         'user_id',
+                        'notification_id',
                         'is_active',
-                        'image_path',
-                        'video_path',
-                        'date',
                     ]
                 ]
             ]);
-        $this->assertCount(1, UserStory::all());
+        $this->assertCount(1, UserNotification::all());
     }
 
     /** @test */
-    function show_single_user_story()
+    function show_single_user_notification()
     {
 
-        $this->json('get', "/api/user_stories/1", [], $this->headers)
+        $this->json('get', "/api/user_notifications/1", [], $this->headers)
             ->assertStatus(200)
             ->assertJson([
                 'data'  => [
                     'user_id' =>  $this->user->id,
-                    'is_active' =>         true,
-                    'image_path' =>         'image_path',
-                    'video_path' =>         'video_path',
-                    'date' =>         'date',
+                    'notification_id' =>  1,
+                    'is_active' =>   true,
                 ]
             ]);
     }
 
     /** @test */
-    function update_single_user_story()
+    function update_single_user_notification()
     {
         $payload = [
             'user_id' =>  $this->user->id,
-            'is_active' =>         true,
-            'image_path' =>         'image_path',
-            'video_path' =>         'video_path',
-            'date' =>         'date',
+            'notification_id' =>  1,
+            'is_active' =>   true,
         ];
 
-        $this->json('patch', '/api/user_stories/1', $payload, $this->headers)
+        $this->json('patch', '/api/user_notifications/1', $payload, $this->headers)
             ->assertStatus(200)
             ->assertJson([
                 'data'    => [
                     'user_id' =>  $this->user->id,
-                    'is_active' =>         true,
-                    'image_path' =>         'image_path',
-                    'video_path' =>         'video_path',
-                    'date' =>         'date',
+                    'notification_id' =>  1,
+                    'is_active' =>   true,
                 ]
             ])
             ->assertJsonStructureExact([
                 'data'  => [
                     'id',
                     'user_id',
+                    'notification_id',
                     'is_active',
-                    'image_path',
-                    'video_path',
-                    'date',
                     'created_at',
                     'updated_at',
                 ]
@@ -153,11 +136,11 @@ class UserStoryTest extends TestCase
     }
 
     /** @test */
-    function delete_user_story()
+    function delete_user_notification()
     {
-        $this->json('delete', '/api/user_stories/1', [], $this->headers)
+        $this->json('delete', '/api/user_notifications/1', [], $this->headers)
             ->assertStatus(204);
 
-        $this->assertCount(0, UserStory::all());
+        $this->assertCount(0, UserNotification::all());
     }
 }
