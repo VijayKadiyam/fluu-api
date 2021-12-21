@@ -52,10 +52,11 @@ Route::resource('values/{value}/value_lists', 'ValueListsController');
 // Login Question
 Route::resource('login_questions', 'LoginQuestionsController');
 
+// User Login Question
+Route::resource('user_login_questions', 'UserLoginQuestionsController');
+
 // // Upload Excell User
 // Route::get('crude_users', 'CrudeUsersController@index');
 // Route::post('upload_user', 'CrudeUsersController@uploadUser');
 // Route::get('process_user', 'CrudeUsersController@processUser');
 // Route::get('truncate_users', 'CrudeUsersController@truncate');
-
-

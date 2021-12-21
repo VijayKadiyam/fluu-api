@@ -20,4 +20,9 @@ class LoginQuestion extends Model
     {
         return $this->belongsTo(Site::class);
     }
+
+    public function user_login_questions()
+    {
+        return $this->hasMany(UserLoginQuestion::class);
+    }
 }

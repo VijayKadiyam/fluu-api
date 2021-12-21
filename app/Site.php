@@ -23,6 +23,6 @@ class Site extends Model
 
   public function login_questions()
   {
-    return $this->hasMany(LoginQuestion::class);
+    return $this->hasMany(LoginQuestion::class)->with('user_login_questions');
   }
 }
