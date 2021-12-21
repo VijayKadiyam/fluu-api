@@ -55,6 +55,9 @@ Route::resource('login_questions', 'LoginQuestionsController');
 // User Login Question
 Route::resource('user_login_questions', 'UserLoginQuestionsController');
 
+// User Stories
+Route::resource('user_stories', 'UserStoriesController');
+
 // // Upload Excell User
 // Route::get('crude_users', 'CrudeUsersController@index');
 // Route::post('upload_user', 'CrudeUsersController@uploadUser');
