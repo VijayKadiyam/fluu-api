@@ -15,14 +15,14 @@ class SiteUserTest extends TestCase
   function it_requires_following_fields()
   {
     $this->json('post', '/api/site_user', [], $this->headers)
-         ->assertStatus(422)
-         ->assertExactJson([
-            "errors"            =>  [
-              "site_id" =>  ["The site id field is required."],
-              "user_id"    =>  ["The user id field is required."]
-            ],
-            "message" =>  "The given data was invalid."
-        ]);
+      ->assertStatus(422)
+      ->assertExactJson([
+        "errors"            =>  [
+          "site_id" =>  ["The site id field is required."],
+          "user_id"    =>  ["The user id field is required."]
+        ],
+        "message" =>  "The given data was invalid."
+      ]);
   }
 
   /** @test */
@@ -41,41 +41,45 @@ class SiteUserTest extends TestCase
     $this->disableEH();
     $userTwo = factory(\App\User::class)->create();
     $site = factory(\App\Site::class)->create();
-    $this->payload      = [ 
+    $this->payload      = [
       'user_id'    => $userTwo->id,
       'site_id' => $site->id
     ];
-    $this->json('post', '/api/site_user', $this->payload , $this->headers)
+    $this->json('post', '/api/site_user', $this->payload, $this->headers)
       ->assertStatus(201)
       ->assertJson([
-            'data'  =>  [
-              'first_name' =>  $userTwo->first_name,
-              'email'     =>  $userTwo->email,
-              'sites'     =>  [
-                0 =>  [
-                  'name'  =>  $site->name
-                ]
-              ]
+        'data'  =>  [
+          'first_name' =>  $userTwo->first_name,
+          'email'     =>  $userTwo->email,
+          'sites'     =>  [
+            0 =>  [
+              'name'  =>  $site->name
             ]
-          ])
-        ->assertJsonStructureExact([
-          'data'  =>  [
-            'id',
-            'first_name',
-            'middle_name',
-            'last_name',
-            'user_name',
-            'gender',
-            'dob',
-            'email',
-            'api_token',
-            'active',
-            'image_path',
-            'created_at',
-            'updated_at',
-            'sites',
-          ],
-          'success'
-        ]);;;
+          ]
+        ]
+      ])
+      ->assertJsonStructureExact([
+        'data'  =>  [
+          'id',
+          'first_name',
+          'middle_name',
+          'last_name',
+          'user_name',
+          'gender',
+          'dob',
+          'email',
+          'phone',
+          'api_token',
+          'active',
+          'gallery_image_path',
+          'selfie_image_path',
+          'voice_clip_path',
+          'zodiac_sign_id',
+          'created_at',
+          'updated_at',
+          'sites',
+        ],
+        'success'
+      ]);;;
   }
 }

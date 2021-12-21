@@ -49,60 +49,10 @@ Route::get('value_lists/masters', 'ValueListsController@masters');
 Route::post('values/{value}/value_lists_multiple', 'ValueListsController@storeMultiple');
 Route::resource('values/{value}/value_lists', 'ValueListsController');
 
-// Upload Excell User
-Route::get('crude_users', 'CrudeUsersController@index');
-Route::post('upload_user', 'CrudeUsersController@uploadUser');
-Route::get('process_user', 'CrudeUsersController@processUser');
-Route::get('truncate_users', 'CrudeUsersController@truncate');
+// // Upload Excell User
+// Route::get('crude_users', 'CrudeUsersController@index');
+// Route::post('upload_user', 'CrudeUsersController@uploadUser');
+// Route::get('process_user', 'CrudeUsersController@processUser');
+// Route::get('truncate_users', 'CrudeUsersController@truncate');
 
 
-Route::resource('viq_chapters', 'ViqChaptersController');
-Route::get('near_misses/masters', 'NearMissesController@masters');
-Route::resource('near_misses', 'NearMissesController');
-
-Route::get('vessels/masters', 'VesselsController@masters');
-Route::resource('vessels', 'VesselsController');
-
-Route::post('vessels/{vessel}/psc_inspections/{pscinspection}', 'PscInspectionsController@store');
-Route::post('vessels/{vessel}/sire_inspections/{sireinspection}', 'SireInspectionsController@store');
-Route::get('psc_inspections/masters', 'PscInspectionsController@masters');
-Route::get('sire_inspections/masters', 'SireInspectionsController@masters');
-Route::resource('psc_inspections', 'PscInspectionsController');
-Route::resource('vessels/{vessel}/sire_inspections', 'SireInspectionsController');
-Route::resource('vessels/{vessel}/psc_inspections', 'PscInspectionsController');
-Route::get('ports/masters', 'PortsController@masters');
-Route::resource('ports', 'PortsController');
-Route::resource('vessels/{vessel}/terminal_inspections', 'TerminalInspectionsController');
-//  Terminal Inspection 
-Route::post('vessels/{vessel}/terminal_inspections/{pscinspection}', 'TerminalInspectionsController@store');
-Route::post('upload_terminal_inspection_report', 'UploadsController@uploadTerminalInspectionReport');
-Route::get('terminal_inspections/masters', 'TerminalInspectionsController@masters');
-Route::resource('terminal_inspections', 'TerminalInspectionsController');
-
-//  Charterer Inspection 
-Route::post('vessels/{vessel}/charterer_inspections/{chartererinspection}', 'ChartererInspectionsController@store');
-Route::post('upload_charterer_inspection_report', 'UploadsController@uploadChartererInspectionReport');
-Route::get('charterer_inspections/masters', 'ChartererInspectionsController@masters');
-Route::resource('vessels/{vessel}/charterer_inspections', 'ChartererInspectionsController');
-Route::resource('charterer_inspections', 'ChartererInspectionsController');
-
-// FSC Inspections Routes
-Route::post('upload_fsc_inspection_report', 'UploadsController@uploadFscInspectionReport');
-Route::post('vessels/{vessel}/fsc_inspections/{fscinspection}', 'FscInspectionsController@store');
-Route::get('fsc_inspections/masters', 'FscInspectionsController@masters');
-Route::resource('fsc_inspections', 'FscInspectionsController');
-Route::resource('vessels/{vessel}/fsc_inspections', 'FscInspectionsController');
-
-// Internal Audit Routes
-Route::post('upload_internal_audit_report', 'UploadsController@uploadInternalAuditReport');
-Route::post('vessels/{vessel}/internal_audits/{fscinspection}', 'InternalAuditsController@store');
-Route::get('internal_audits/masters', 'InternalAuditsController@masters');
-Route::resource('internal_audits', 'InternalAuditsController');
-Route::resource('vessels/{vessel}/internal_audits', 'InternalAuditsController');
-
-// Near Miss Inspections Routes
-// Route::post('upload_near_misses_report', 'UploadsController@uploadFscInspectionReport');
-Route::post('vessels/{vessel}/near_misses/{nearmiss}', 'NearMissesController@store');
-Route::get('near_misses/masters', 'NearMissesController@masters');
-Route::resource('near_misses', 'NearMissesController');
-Route::resource('vessels/{vessel}/near_misses', 'NearMissesController');

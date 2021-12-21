@@ -22,10 +22,14 @@ class CreateUsersTable extends Migration
             $table->integer('gender')->default(0);
             $table->string('dob', 100)->nullable();
             $table->string('email', 100)->nullable();
+            $table->integer('phone')->nullable();
             $table->string('api_token', 60)->unique()->nullable();
             $table->integer('active')->default(0);
             $table->string('password');
-            $table->string('image_path', 100)->nullable();
+            $table->string('gallery_image_path', 100)->nullable();
+            $table->string('selfie_image_path', 100)->nullable();
+            $table->string('voice_clip_path', 100)->nullable();
+            $table->integer('zodiac_sign_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
