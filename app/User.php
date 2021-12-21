@@ -23,11 +23,14 @@ class User extends Authenticatable
     'gender',
     'dob',
     'email',
+    'phone',
+    'api_token',
     'active',
     'password',
-    'image_path',
-    'relation_id',
-    'relation_with_id',
+    'gallery_image_path',
+    'selfie_image_path',
+    'voice_clip_path',
+    'zodiac_sign_id',
   ];
 
   /**
@@ -262,5 +265,4 @@ class User extends Authenticatable
   {
     return $this->hasMany(UserProgramPost::class);
   }
-
 }

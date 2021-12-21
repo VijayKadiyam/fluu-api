@@ -66,7 +66,7 @@ class RoleTest extends TestCase
             ] 
           ]
       ]);
-    $this->assertCount(3, Role::all());
+    $this->assertCount(4, Role::all());
   }
 
   /** @test */
