@@ -17,8 +17,8 @@ class CreateLoginQuestionsTable extends Migration
             $table->increments('id');
             $table->integer('site_id');
             $table->string('description', 100)->nullable();
-            $table->integer('is_active')->default(1);
-            $table->integer('is_mcq')->default(1);
+            $table->boolean('is_active')->default(1);
+            $table->boolean('is_mcq')->default(1);
             $table->string('option_1', 100)->nullable();
             $table->string('option_2', 100)->nullable();
             $table->string('option_3', 100)->nullable();
