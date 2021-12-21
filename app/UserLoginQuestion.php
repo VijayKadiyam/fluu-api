@@ -17,4 +17,9 @@ class UserLoginQuestion extends Model
     {
         return $this->belongsTo(LoginQuestion::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

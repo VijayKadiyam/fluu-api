@@ -257,12 +257,12 @@ class User extends Authenticatable
     return $this->belongsTo(ValueList::class);
   }
 
-  public function user_programs()
+  public function user_login_questions()
   {
-    return $this->hasMany(UserProgram::class);
+    return $this->hasMany(UserLoginQuestion::class);
   }
-  public function user_program_posts()
+  public function user_stories()
   {
-    return $this->hasMany(UserProgramPost::class);
+    return $this->hasMany(UserStory::class);
   }
 }
