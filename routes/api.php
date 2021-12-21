@@ -49,6 +49,9 @@ Route::get('value_lists/masters', 'ValueListsController@masters');
 Route::post('values/{value}/value_lists_multiple', 'ValueListsController@storeMultiple');
 Route::resource('values/{value}/value_lists', 'ValueListsController');
 
+// Login Question
+Route::resource('login_questions', 'LoginQuestionsController');
+
 // // Upload Excell User
 // Route::get('crude_users', 'CrudeUsersController@index');
 // Route::post('upload_user', 'CrudeUsersController@uploadUser');
