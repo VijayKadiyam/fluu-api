@@ -9,9 +9,18 @@ class UserStoriesController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth:api']);
+        $this->middleware(['auth:api', 'site']);
     }
 
+    public function masters(Request $request)
+    {
+        $usersController = new UsersController();
+        $usersResponse = $usersController->index($request);
+
+        return response()->json([
+            'users'                 =>  $usersResponse->getData()->data,
+        ], 200);
+    }
     /*
      * To get all UserStory
        *
@@ -20,7 +29,9 @@ class UserStoriesController extends Controller
     public function index()
     {
         if (request()->user_id) {
-            $userStories = UserStory::where('user_id', '=', request()->user_id)->get();
+            $userStories = UserStory::where('user_id', '=', request()->user_id)->with('user')->get();
+        } else {
+            $userStories = UserStory::with('user')->get();
         }
 
         return response()->json([
@@ -50,8 +61,10 @@ class UserStoriesController extends Controller
      *
      *@
      */
-    public function show(UserStory $userStory)
+    public function show($id)
     {
+        $userStory = UserStory::find($id)->with('user')->get();
+
         return response()->json([
             'data'   =>  $userStory,
             'success' =>  true
