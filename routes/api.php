@@ -60,6 +60,7 @@ Route::resource('user_login_questions', 'UserLoginQuestionsController');
 Route::resource('user_stories', 'UserStoriesController');
 
 // User Notifications
+Route::get('user_notifications/masters', 'UserNotificationsController@masters');
 Route::resource('user_notifications', 'UserNotificationsController');
 
 // // Upload Excell User

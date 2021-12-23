@@ -14,4 +14,8 @@ class ValueList extends Model
   {
     return $this->belongsTo(Value::class);
   }
+  public function user_notifications()
+  {
+    return $this->hasMany(UserNotification::class);
+  }
 }
