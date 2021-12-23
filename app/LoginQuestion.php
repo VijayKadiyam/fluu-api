@@ -23,6 +23,6 @@ class LoginQuestion extends Model
 
     public function user_login_questions()
     {
-        return $this->hasMany(UserLoginQuestion::class);
+        return $this->hasMany(UserLoginQuestion::class)->with('login_question', 'user');
     }
 }

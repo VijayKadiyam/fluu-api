@@ -53,6 +53,7 @@ Route::resource('values/{value}/value_lists', 'ValueListsController');
 Route::resource('login_questions', 'LoginQuestionsController');
 
 // User Login Question
+Route::get('user_login_questions/masters', 'UserLoginQuestionsController@masters');
 Route::resource('user_login_questions', 'UserLoginQuestionsController');
 
 // User Stories
