@@ -17,9 +17,9 @@ class LoginQuestionsController extends Controller
        *
      *@
      */
-    public function index()
+    public function index(Request $request)
     {
-        $loginQuestions = LoginQuestion::get();
+        $loginQuestions = $request->site->login_questions()->get();
 
         return response()->json([
             'data'     =>  $loginQuestions
