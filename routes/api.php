@@ -36,8 +36,7 @@ Route::resource('unassign_permissions', 'UnAssignPermissionsController');
 
 Route::get('users/masters', 'UsersController@masters');
 Route::post('upload_user_image', 'UploadsController@uploadUserImage');
-Route::post('upload_psc_inspection_report', 'UploadsController@uploadPscInspectionReport');
-Route::post('upload_sire_inspection_attachment', 'UploadsController@uploadSireInspectionAttachment');
+Route::post('upload_user_story', 'UploadsController@uploadUserStory');
 Route::resource('users', 'UsersController');
 
 
@@ -57,6 +56,7 @@ Route::get('user_login_questions/masters', 'UserLoginQuestionsController@masters
 Route::resource('user_login_questions', 'UserLoginQuestionsController');
 
 // User Stories
+Route::get('user_stories/masters', 'UserStoriesController@masters');
 Route::resource('user_stories', 'UserStoriesController');
 
 // User Notifications
