@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /var/www/vhosts/ves-kpi/ves-kpi-api
+cd /var/www/vhosts/fluu/fluu-api
 
 # php /usr/local/bin/composer install
 

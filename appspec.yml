@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /var/www/vhosts/ves-kpi/ves-kpi-api
+    destination: /var/www/vhosts/fluu/fluu-api
 hooks:
   BeforeInstall:
     - location: scripts/install_dependencies
