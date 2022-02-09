@@ -63,6 +63,11 @@ Route::resource('user_stories', 'UserStoriesController');
 Route::get('user_notifications/masters', 'UserNotificationsController@masters');
 Route::resource('user_notifications', 'UserNotificationsController');
 
+
+
+// Setting
+Route::resource('settings', 'SettingsController');
+Route::post('upload_setting_banners', 'UploadsController@uploadBannerImage');
 // // Upload Excell User
 // Route::get('crude_users', 'CrudeUsersController@index');
 // Route::post('upload_user', 'CrudeUsersController@uploadUser');
