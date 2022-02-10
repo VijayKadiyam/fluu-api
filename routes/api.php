@@ -68,3 +68,5 @@ Route::resource('user_notifications', 'UserNotificationsController');
 // Route::post('upload_user', 'CrudeUsersController@uploadUser');
 // Route::get('process_user', 'CrudeUsersController@processUser');
 // Route::get('truncate_users', 'CrudeUsersController@truncate');
+
+Route::post('send-otp-sms', 'SendSmsController@sendOtp');
