@@ -51,6 +51,21 @@ class UserImageController extends Controller
         ]);
         $userImage = new UserImage($request->all());
         $userImage->save();
+
+        $userImage_id = $userImage->id;
+        $imagePath = '';
+        if ($request->hasFile('image_path') && $userImage_id) {
+            $file = $request->file('image_path');
+            $name = $request->filename ?? 'photo.';
+            $name = $name . $file->getClientOriginalExtension();;
+            $imagePath = 'user-images/images/' .  $userImage_id . '/' . $name;
+            Storage::disk('local')->put($imagePath, file_get_contents($file), 'public');
+
+            $UserImage = UserImage::where('id', '=', $userImage_id)->first();
+            $UserImage->image_path = $imagePath;
+            $UserImage->update();
+        }
+
         return response()->json([
             'data'    =>  $userImage
         ], 201);
