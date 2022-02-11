@@ -203,6 +203,7 @@ class UploadsController extends Controller
       'success' =>  true
     ]);
   }
+  
   public function uploaduser_images(Request $request){
     $request->validate([
       'userid'        => 'required',
