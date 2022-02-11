@@ -23,6 +23,7 @@ class User extends Authenticatable
     'gender',
     'dob',
     'email',
+    'password',
     'phone',
     'api_token',
     'active',

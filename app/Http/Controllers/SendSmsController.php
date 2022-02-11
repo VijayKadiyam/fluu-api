@@ -30,6 +30,6 @@ class SendSmsController extends Controller
         $client->request('GET', $endpoint);
 
         // Process your response here
-        echo $response;
+        // echo $response;
     }
 }

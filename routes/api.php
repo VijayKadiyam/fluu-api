@@ -37,6 +37,7 @@ Route::resource('unassign_permissions', 'UnAssignPermissionsController');
 Route::get('users/masters', 'UsersController@masters');
 Route::post('upload_user_image', 'UploadsController@uploadUserImage');
 Route::post('upload_user_story', 'UploadsController@uploadUserStory');
+Route::post('register-user-by-phone', 'UsersController@registerUserByPhone');
 Route::resource('users', 'UsersController');
 
 

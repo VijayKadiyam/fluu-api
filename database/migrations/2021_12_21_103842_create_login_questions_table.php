@@ -34,6 +34,6 @@ class CreateLoginQuestionsTable extends Migration
      */
     public function down()
     {
-        Schema::integer('login_questions');
+        Schema::dropIfExists('login_questions');
     }
 }
