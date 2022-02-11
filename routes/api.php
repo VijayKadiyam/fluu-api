@@ -60,6 +60,7 @@ Route::get('user_stories/masters', 'UserStoriesController@masters');
 Route::resource('user_stories', 'UserStoriesController');
 
 // User Images
+Route::post('upload_user_images', 'UploadsController@uploaduser_images');
 Route::get('user_images/masters', 'UserImageController@masters');
 Route::resource('user_images', 'UserImageController');
 

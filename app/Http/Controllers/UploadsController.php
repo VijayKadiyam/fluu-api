@@ -2,23 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\ChartererInspection;
-use App\ChartererInspectionDeficiency;
-use App\FscInspection;
-use App\FscInspectionDeficiency;
-use App\InternalAudit;
-use App\InternalAuditDeficiency;
-use App\PscInspection;
-use App\PscInspectionDeficiency;
-use App\SireInspection;
-use App\SireInspectionDetail;
-use App\TerminalInspection;
-use App\TerminalInspectionDeficiency;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\User;
-use App\UserProgramTask;
-use App\UserProgramTaskDocument;
+use App\UserImage;
 use App\UserStory;
 
 class UploadsController extends Controller
