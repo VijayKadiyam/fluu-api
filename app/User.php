@@ -28,7 +28,11 @@ class User extends Authenticatable
     'api_token',
     'active',
     'password',
-    'gallery_image_path',
+    'gallery_image1_path',
+    'gallery_image2_path',
+    'gallery_image3_path',
+    'gallery_image4_path',
+    'interests',
     'selfie_image_path',
     'voice_clip_path',
     'zodiac_sign_id',
@@ -133,5 +137,9 @@ class User extends Authenticatable
   public function user_notifications()
   {
     return $this->hasMany(UserNotification::class);
+  }
+  public function user_images()
+  {
+    return $this->hasMany(UserImage::class);
   }
 }

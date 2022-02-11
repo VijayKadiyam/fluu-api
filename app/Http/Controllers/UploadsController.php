@@ -44,15 +44,57 @@ class UploadsController extends Controller
       $user->roles = $user->roles;
       $user->sites = $user->sites;
     }
-    if ($request->hasFile('gallery_image_path')) {
-      $file = $request->file('gallery_image_path');
+    if ($request->hasFile('gallery_image1_path')) {
+      $file = $request->file('gallery_image1_path');
       $name = $request->filename ?? 'photo.';
       $name = $name . $file->getClientOriginalExtension();;
       $imagePath = 'users/galleries/' .  $request->userid . '/' . $name;
       Storage::disk('local')->put($imagePath, file_get_contents($file), 'public');
 
       $user = User::where('id', '=', request()->userid)->first();
-      $user->gallery_image_path = $imagePath;
+      $user->gallery_image1_path = $imagePath;
+      $user->update();
+
+      $user->roles = $user->roles;
+      $user->sites = $user->sites;
+    }
+    if ($request->hasFile('gallery_image2_path')) {
+      $file = $request->file('gallery_image2_path');
+      $name = $request->filename ?? 'photo.';
+      $name = $name . $file->getClientOriginalExtension();;
+      $imagePath = 'users/galleries/' .  $request->userid . '/' . $name;
+      Storage::disk('local')->put($imagePath, file_get_contents($file), 'public');
+
+      $user = User::where('id', '=', request()->userid)->first();
+      $user->gallery_image2_path = $imagePath;
+      $user->update();
+
+      $user->roles = $user->roles;
+      $user->sites = $user->sites;
+    }
+    if ($request->hasFile('gallery_image3_path')) {
+      $file = $request->file('gallery_image3_path');
+      $name = $request->filename ?? 'photo.';
+      $name = $name . $file->getClientOriginalExtension();;
+      $imagePath = 'users/galleries/' .  $request->userid . '/' . $name;
+      Storage::disk('local')->put($imagePath, file_get_contents($file), 'public');
+
+      $user = User::where('id', '=', request()->userid)->first();
+      $user->gallery_image3_path = $imagePath;
+      $user->update();
+
+      $user->roles = $user->roles;
+      $user->sites = $user->sites;
+    }
+    if ($request->hasFile('gallery_image4_path')) {
+      $file = $request->file('gallery_image4_path');
+      $name = $request->filename ?? 'photo.';
+      $name = $name . $file->getClientOriginalExtension();;
+      $imagePath = 'users/galleries/' .  $request->userid . '/' . $name;
+      Storage::disk('local')->put($imagePath, file_get_contents($file), 'public');
+
+      $user = User::where('id', '=', request()->userid)->first();
+      $user->gallery_image4_path = $imagePath;
       $user->update();
 
       $user->roles = $user->roles;
@@ -173,5 +215,23 @@ class UploadsController extends Controller
       ],
       'success' =>  true
     ]);
+  }
+  public function uploaduser_images(Request $request){
+    $request->validate([
+      'userid'        => 'required',
+    ]);
+
+    $imagePath = '';
+    if ($request->hasFile('image_path')) {
+      $file = $request->file('image_path');
+      $name = $request->filename ?? 'photo.';
+      $name = $name . $file->getClientOriginalExtension();;
+      $imagePath = 'user-images/images/' .  $request->userid . '/' . $name;
+      Storage::disk('local')->put($imagePath, file_get_contents($file), 'public');
+
+      $UserImage = UserImage::where('id', '=', request()->userid)->first();
+      $UserImage->image_path = $imagePath;
+      $UserImage->update();
+    } 
   }
 }

@@ -60,6 +60,10 @@ Route::resource('user_login_questions', 'UserLoginQuestionsController');
 Route::get('user_stories/masters', 'UserStoriesController@masters');
 Route::resource('user_stories', 'UserStoriesController');
 
+// User Images
+Route::get('user_images/masters', 'UserImageController@masters');
+Route::resource('user_images', 'UserImageController');
+
 // User Notifications
 Route::get('user_notifications/masters', 'UserNotificationsController@masters');
 Route::resource('user_notifications', 'UserNotificationsController');
