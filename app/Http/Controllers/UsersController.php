@@ -134,6 +134,7 @@ class UsersController extends Controller
 
     $user->roles = $user->roles;
     $user->sites = $user->sites;
+    $user->user_images = $user->user_images;
 
     return response()->json([
       'data'  =>  $user,

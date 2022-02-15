@@ -212,14 +212,18 @@ class UploadsController extends Controller
     $imagePath = '';
     if ($request->hasFile('image_path')) {
       $file = $request->file('image_path');
-      $name = $request->filename ?? 'photo.';
-      $name = $name . $file->getClientOriginalExtension();;
-      $imagePath = 'user-images/images/' .  $request->userid . '/' . $name;
+      $name = $request->filename ?? 'photo.' . $file->getClientOriginalExtension();
+      // $name = $name . $file->getClientOriginalExtension();;
+      $imagePath = 'user-images/images/' . $name;
       Storage::disk('local')->put($imagePath, file_get_contents($file), 'public');
 
-      $UserImage = UserImage::where('id', '=', request()->userid)->first();
-      $UserImage->image_path = $imagePath;
-      $UserImage->update();
+      $data = [
+        'user_id' =>  $request->userid,
+        'source' => 'Gallery',
+        'image_path'  =>  $imagePath,
+      ];
+      $UserImage = new UserImage($data);
+      $UserImage->save();
     } 
   }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\UserImage;
+use Illuminate\Support\Facades\Storage;
 
 class UserImageController extends Controller
 {
@@ -29,13 +30,17 @@ class UserImageController extends Controller
     public function index()
     {
         if (request()->user_id) {
-            $userStories = UserImage::where('user_id', '=', request()->user_id)->with('user')->get();
+            $userImages = UserImage::where('user_id', '=', request()->user_id)->with('user');
+            if (request()->source)
+                $userImages = $userImages->where('source', '=', request()->source);
+            $userImages = $userImages->get();
         } else {
-            $userStories = UserImage::with('user')->get();
+            $userImages = UserImage::with('user')->get();
         }
 
         return response()->json([
-            'data'     =>  $userStories
+            'data'     =>  $userImages,
+            'success'   =>  true,
         ], 200);
     }
 
@@ -56,9 +61,9 @@ class UserImageController extends Controller
         $imagePath = '';
         if ($request->hasFile('image_path') && $userImage_id) {
             $file = $request->file('image_path');
-            $name = $request->filename ?? 'photo.';
-            $name = $name . $file->getClientOriginalExtension();;
-            $imagePath = 'user-images/images/' .  $userImage_id . '/' . $name;
+            $name = $request->filename ?? 'photo.' . $file->getClientOriginalExtension();
+            // $name = $name . $file->getClientOriginalExtension();;
+            $imagePath = 'user-images/images/' . $name;
             Storage::disk('local')->put($imagePath, file_get_contents($file), 'public');
 
             $UserImage = UserImage::where('id', '=', $userImage_id)->first();
@@ -100,13 +105,25 @@ class UserImageController extends Controller
         ], 200);
     }
 
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        $userImage = UserImage::find($id);
-        $userImage->delete();
+        if($request->imagePath) {
+            $userImage = UserImage::where('image_path', '=', $request->imagePath)
+                ->first();
+            if($userImage) {
+                Storage::disk('local')->delete($userImage->image_path);
+                $userImage->delete();
+            }
+        } else {
+            $userImage = UserImage::find($id);
+            // Storage::disk('local')->delete($userImage->image_path);
+            $userImage->delete();
+        }
+
+        
 
         return response()->json([
-            'message' =>  'Deleted'
+            'message' =>  'Deleted',
         ], 204);
     }
 }
