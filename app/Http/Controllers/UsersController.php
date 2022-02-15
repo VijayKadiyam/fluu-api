@@ -24,26 +24,24 @@ class UsersController extends Controller
    */
   public function index(Request $request)
   {
-    // $role = 3;
     $users = [];
-    $users = $request->site->users()->with('roles')
-      ->whereHas('roles',  function ($q) {
-        $q->where('name', '!=', 'Admin')
-          ->where('name', '!=', 'Super Admin')
-          ->where('name', '!=', 'Main Admin');
-      })->latest()->get();
-    // if ($request->search == 'all')
-    //   $users = $request->site->users()->with('roles')
-    //     ->whereHas('roles',  function ($q) {
-    //       $q->where('name', '!=', 'Admin');
-    //     })->latest()->get();
-    // else if ($request->role_id) {
-    //   $role = Role::find($request->role_id);
-    //   $users = $request->site->users()
-    //     ->whereHas('roles', function ($q) use ($role) {
-    //       $q->where('name', '=', $role->name);
-    //     })->latest()->get();
-    // }
+    if ($request->loggedInUserId) {
+      $users = $request->site->users()->with('roles')
+        ->where('id', '!=', $request->loggedInUserId)
+        ->whereHas('roles',  function ($q) {
+          $q->where('name', '!=', 'Admin')
+            ->where('name', '!=', 'Super Admin')
+            ->where('name', '!=', 'Main Admin');
+        })->latest()->get();
+    } else {
+      $users = $request->site->users()->with('roles')
+        ->whereHas('roles',  function ($q) {
+          $q->where('name', '!=', 'Admin')
+            ->where('name', '!=', 'Super Admin')
+            ->where('name', '!=', 'Main Admin');
+        })->latest()->get();
+    }
+
 
     return response()->json([
       'data'  =>  $users
@@ -150,7 +148,7 @@ class UsersController extends Controller
   public function update(Request $request, User $user)
   {
     $user->update($request->all());
-    
+
     if ($request->role_id)
       $user->assignRole($request->role_id);
 
