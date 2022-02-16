@@ -26,15 +26,15 @@ class UsersController extends Controller
   {
     $users = [];
     if ($request->loggedInUserId) {
-      $users = $request->site->users()->with('roles')
-        ->where('id', '!=', $request->loggedInUserId)
+      $users = $request->site->users()
         ->whereHas('roles',  function ($q) {
           $q->where('name', '!=', 'Admin')
             ->where('name', '!=', 'Super Admin')
             ->where('name', '!=', 'Main Admin');
-        })->latest()->get();
+        })
+        ->latest()->get();
     } else {
-      $users = $request->site->users()->with('roles')
+      $users = $request->site->users()
         ->whereHas('roles',  function ($q) {
           $q->where('name', '!=', 'Admin')
             ->where('name', '!=', 'Super Admin')
@@ -42,9 +42,9 @@ class UsersController extends Controller
         })->latest()->get();
     }
 
-
     return response()->json([
-      'data'  =>  $users
+      'data'  =>  $users,
+      'success' =>  true,
     ], 200);
   }
 

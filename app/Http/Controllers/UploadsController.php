@@ -219,11 +219,17 @@ class UploadsController extends Controller
 
       $data = [
         'user_id' =>  $request->userid,
-        'source' => 'Gallery',
+        'source' => $request->source,
         'image_path'  =>  $imagePath,
       ];
       $UserImage = new UserImage($data);
       $UserImage->save();
+
+      if($request->source == 'Profile') {
+        $user = User::find($request->userid);
+        $user->selfie_image_path = $imagePath;
+        $user->update();
+      }
     } 
   }
 }
