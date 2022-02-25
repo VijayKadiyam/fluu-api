@@ -10,6 +10,7 @@ class UserImage extends Model
         'user_id',
        'source',
         'image_path',
+        'Reference_image_path'
       
     ];
 

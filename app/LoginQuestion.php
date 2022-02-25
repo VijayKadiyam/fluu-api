@@ -14,6 +14,7 @@ class LoginQuestion extends Model
         'option_2',
         'option_3',
         'option_4',
+        
     ];
 
     public function site()
