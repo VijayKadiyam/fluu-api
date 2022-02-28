@@ -9,7 +9,7 @@ class SettingsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth:api', 'site']);
+        // $this->middleware(['auth:api', 'site']);
     }
 
     /*
@@ -36,6 +36,7 @@ class SettingsController extends Controller
         $request->validate([
             'banner_1_title'    =>  'required',
         ]);
+
         $setting = new Setting($request->all());
         $request->site->settings()->save($setting);
 
@@ -49,8 +50,10 @@ class SettingsController extends Controller
      *
      *@
      */
-    public function show(Setting $setting)
+    public function show($setting)
     {
+        $setting = Setting::find($setting);
+
         return response()->json([
             'data'   =>  $setting,
             'success' =>  true
@@ -62,8 +65,9 @@ class SettingsController extends Controller
      *
      *@
      */
-    public function update(Request $request, Setting $setting)
+    public function update(Request $request, $setting)
     {
+        $setting = Setting::find($setting);
 
         $setting->update($request->all());
 

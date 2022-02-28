@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\User;
@@ -159,12 +160,11 @@ class UploadsController extends Controller
     $banner_path_1 = '';
     if ($request->hasFile('banner_path_1')) {
       $file = $request->file('banner_path_1');
-      $name = $request->filename ?? 'photo.';
-      $name = $name . $file->getClientOriginalExtension();;
-      $banner_path_1 = 'banner/' .  $request->userid . '/' . $name;
+      $name = $request->filename ?? 'photo.' . time() . '.' . $file->getClientOriginalExtension();
+      $banner_path_1 = 'banner/' .  $request->settingid . '/' . $name;
       Storage::disk('local')->put($banner_path_1, file_get_contents($file), 'public');
 
-      $setting = UserStory::where('id', '=', request()->userid)->first();
+      $setting = Setting::where('id', '=', request()->settingid)->first();
       $setting->banner_path_1 = $banner_path_1;
       $setting->update();
     }
@@ -172,12 +172,11 @@ class UploadsController extends Controller
     $banner_path_2 = '';
     if ($request->hasFile('banner_path_2')) {
       $file = $request->file('banner_path_2');
-      $name = $request->filename ?? 'photo.';
-      $name = $name . $file->getClientOriginalExtension();;
-      $banner_path_2 = 'banner/' .  $request->userid . '/' . $name;
+      $name = $request->filename ?? 'photo.' . time() . '.' . $file->getClientOriginalExtension();
+      $banner_path_2 = 'banner/' .  $request->settingid . '/' . $name;
       Storage::disk('local')->put($banner_path_2, file_get_contents($file), 'public');
 
-      $setting = UserStory::where('id', '=', request()->userid)->first();
+      $setting = Setting::where('id', '=', request()->settingid)->first();
       $setting->banner_path_2 = $banner_path_2;
       $setting->update();
     }
@@ -185,13 +184,24 @@ class UploadsController extends Controller
     $banner_path_3 = '';
     if ($request->hasFile('banner_path_3')) {
       $file = $request->file('banner_path_3');
-      $name = $request->filename ?? 'photo.';
-      $name = $name . $file->getClientOriginalExtension();;
-      $banner_path_3 = 'banner/' .  $request->userid . '/' . $name;
+      $name = $request->filename ?? 'photo.' . time() . '.' . $file->getClientOriginalExtension();
+      $banner_path_3 = 'banner/' .  $request->settingid . '/' . $name;
       Storage::disk('local')->put($banner_path_3, file_get_contents($file), 'public');
 
-      $setting = UserStory::where('id', '=', request()->userid)->first();
+      $setting = Setting::where('id', '=', request()->settingid)->first();
       $setting->banner_path_3 = $banner_path_3;
+      $setting->update();
+    }
+
+    $logo_path = '';
+    if ($request->hasFile('logo_path')) {
+      $file = $request->file('logo_path');
+      $name = $request->filename ?? 'photo.' . time() . '.' . $file->getClientOriginalExtension();
+      $logo_path = 'logo/' .  $request->settingid . '/' . $name;
+      Storage::disk('local')->put($logo_path, file_get_contents($file), 'public');
+
+      $setting = Setting::where('id', '=', request()->settingid)->first();
+      $setting->logo_path = $logo_path;
       $setting->update();
     }
 
@@ -205,8 +215,9 @@ class UploadsController extends Controller
       'success' =>  true
     ]);
   }
-  
-  public function uploaduser_images(Request $request){
+
+  public function uploaduser_images(Request $request)
+  {
     $request->validate([
       'userid'        => 'required',
     ]);
@@ -214,8 +225,7 @@ class UploadsController extends Controller
     $imagePath = '';
     if ($request->hasFile('image_path')) {
       $file = $request->file('image_path');
-      $name = $request->filename ?? 'photo.'.time(). '.'.$file->getClientOriginalExtension();
-      // $name = $name . $file->getClientOriginalExtension();;
+      $name = $request->filename ?? 'photo.' . time() . '.' . $file->getClientOriginalExtension();
       $imagePath = 'user-images/images/' . $name;
       Storage::disk('local')->put($imagePath, file_get_contents($file), 'public');
 
@@ -227,7 +237,7 @@ class UploadsController extends Controller
       $UserImage = new UserImage($data);
       $UserImage->save();
 
-      if($request->source == 'Profile') {
+      if ($request->source == 'Profile') {
         $user = User::find($request->userid);
         $user->selfie_image_path = $imagePath;
         $user->update();

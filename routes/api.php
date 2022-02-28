@@ -73,6 +73,7 @@ Route::resource('user_notifications', 'UserNotificationsController');
 
 
 // Setting
+Route::get('settings/{id}', 'SettingsController@show');
 Route::resource('settings', 'SettingsController');
 Route::post('upload_setting_banners', 'UploadsController@uploadBannerImage');
 // // Upload Excell User
