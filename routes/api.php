@@ -51,9 +51,9 @@ Route::resource('values/{value}/value_lists', 'ValueListsController');
 
 // Login Question
 Route::resource('login_questions', 'LoginQuestionsController');
-
+Route::post('upload_login_questions', 'UploadsController@uploadLoginQuestionImage');
 // User Login Question
-Route::post('upload_user_login_questions', 'UploadsController@uploadImage_option');
+
 Route::get('user_login_questions/masters', 'UserLoginQuestionsController@masters');
 Route::resource('user_login_questions', 'UserLoginQuestionsController');
 
