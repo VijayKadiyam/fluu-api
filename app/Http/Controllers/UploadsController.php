@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use App\User;
 use App\UserImage;
 use App\UserStory;
+use App\UserLoginQuestion;
 
 class UploadsController extends Controller
 {
@@ -240,6 +241,100 @@ class UploadsController extends Controller
         $user->selfie_image_path = $imagePath;
         $user->update();
       }
-    }
+    } 
+    $referenceimage_path = '';
+    if ($request->hasFile('Reference_image_path')) {
+      $file = $request->file('Reference_image_path');
+      $name = $request->filename ?? 'photo.'.time(). '.'.$file->getClientOriginalExtension();
+      // $name = $name . $file->getClientOriginalExtension();;
+      $referenceimage_path = 'user-images/images/' . $name;
+      Storage::disk('local')->put($referenceimage_path, file_get_contents($file), 'public');
+
+      $data = [
+        'user_id' =>  $request->userid,
+        'source' => $request->source,
+        'image_path'  =>  $imagePath,
+        'Reference_image_path'=> $referenceimage_path,
+      ];
+      $UserImage = new UserImage($data);
+      $UserImage->save();
+
+      if($request->source == 'Profile') {
+        $user = User::find($request->userid);
+        $user->selfie_image_path =$referenceimage_path;
+        $user->update();
+      }
+    } 
   }
+  public function uploadImage_option(Request $request)
+ {
+  $request->validate([
+    'login_question_id'=> 'required',
+    'userid'         => 'required',
+
+  ]);
+
+  $Image_option_1 = '';
+  if ($request->hasFile('Image_option_1')) {
+    $file = $request->file('Image_option_1');
+    $name = $request->filename ?? 'photo.';
+    $name = $name . $file->getClientOriginalExtension();;
+    $Image_option_1 = 'userloginquestions/images/' .  $request->userid . '/' . $name;
+    Storage::disk('local')->put($Image_option_1, file_get_contents($file), 'public');
+
+    $userloginquestions = UserLoginQuestion::where('id', '=', request()->userid)->first();
+    $userloginquestions ->Image_option_1 = $Image_option_1;
+    $userloginquestions ->update();
+  }
+
+  $Image_option_2 = '';
+  if ($request->hasFile('Image_option_2')) {
+    $file = $request->file('Image_option_2');
+    $name = $request->filename ?? 'photo.';
+    $name = $name . $file->getClientOriginalExtension();;
+    $Image_option_2  = 'userloginquestions/images/' .  $request->userid . '/' . $name;
+    Storage::disk('local')->put($Image_option_2 , file_get_contents($file), 'public');
+
+    $userloginquestions  = UserLoginQuestion::where('id', '=', request()->userid)->first();
+    $userloginquestions ->Image_option_2 = $Image_option_2;
+    $userloginquestions ->update();
+  }
+
+  $Image_option_3 = '';
+  if ($request->hasFile('Image_option_3')) {
+    $file = $request->file('Image_option_3');
+    $name = $request->filename ?? 'photo.';
+    $name = $name . $file->getClientOriginalExtension();;
+   $Image_option_3 = 'userloginquestions/images/' .  $request->userid . '/' . $name;
+    Storage::disk('local')->put($Image_option_3, file_get_contents($file), 'public');
+
+    $userloginquestions  = UserLoginQuestion::where('id', '=', request()->userid)->first();
+    $userloginquestions->Image_option_3 =$Image_option_3;
+    $userloginquestions->update();
+  }
+
+  $Image_option_4 = '';
+  if ($request->hasFile('Image_option_4')) {
+    $file = $request->file('Image_option_4');
+    $name = $request->filename ?? 'photo.';
+    $name = $name . $file->getClientOriginalExtension();;
+   $Image_option_4 = 'userloginquestions/images/' .  $request->userid . '/' . $name;
+    Storage::disk('local')->put($Image_option_4, file_get_contents($file), 'public');
+
+    $userloginquestions  = UserLoginQuestion::where('id', '=', request()->userid)->first();
+    $userloginquestions ->Image_option_4 =$Image_option_4;
+    $userloginquestions->update();
+  }
+
+
+  return response()->json([
+    'data'  => [
+      'Image_option_1'  =>  $Image_option_1,
+      'Image_option_2' =>   $Image_option_2,
+      'Image_option_3'  =>  $Image_option_3,
+      'Image_option_4' =>   $Image_option_4,
+    ],
+    'success' =>  true
+  ]);
+ }
 }
