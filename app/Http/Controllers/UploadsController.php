@@ -309,10 +309,10 @@ class UploadsController extends Controller
     $file = $request->file('image_option_1');
     $name = $request->filename ?? 'photo.';
     $name = $name . $file->getClientOriginalExtension();;
-    $image_option_1 = 'loginquestion/images/' .  $request->userid . '/' . $name;
+    $image_option_1 = 'loginquestion/images/' .  $request->login_question_id . '/' . $name;
     Storage::disk('local')->put($image_option_1, file_get_contents($file), 'public');
 
-    $loginquestion = LoginQuestion::where('id', '=', request()->userid)->first();
+    $loginquestion = LoginQuestion::where('id', '=', request()->login_question_id)->first();
     $loginquestion ->image_option_1 = $image_option_1;
     $loginquestion ->update();
   }
@@ -322,10 +322,10 @@ class UploadsController extends Controller
     $file = $request->file('image_option_2');
     $name = $request->filename ?? 'photo.';
     $name = $name . $file->getClientOriginalExtension();;
-    $image_option_2  = 'loginquestion/images/' .  $request->userid . '/' . $name;
+    $image_option_2  = 'loginquestion/images/' .  $request->login_question_id . '/' . $name;
     Storage::disk('local')->put($image_option_2 , file_get_contents($file), 'public');
 
-    $loginquestion  = LoginQuestion::where('id', '=', request()->userid)->first();
+    $loginquestion  = LoginQuestion::where('id', '=', request()->login_question_id)->first();
     $loginquestion ->image_option_2 = $image_option_2;
     $loginquestion ->update();
   }
@@ -335,10 +335,10 @@ class UploadsController extends Controller
     $file = $request->file('image_option_3');
     $name = $request->filename ?? 'photo.';
     $name = $name . $file->getClientOriginalExtension();;
-   $image_option_3 = 'loginquestion/images/' .  $request->userid . '/' . $name;
+   $image_option_3 = 'loginquestion/images/' .  $request->login_question_id . '/' . $name;
     Storage::disk('local')->put($image_option_3, file_get_contents($file), 'public');
 
-    $loginquestion  = LoginQuestion::where('id', '=', request()->userid)->first();
+    $loginquestion  = LoginQuestion::where('id', '=', request()->login_question_id)->first();
     $loginquestion->image_option_3 =$image_option_3;
     $loginquestion->update();
   }
@@ -348,10 +348,10 @@ class UploadsController extends Controller
     $file = $request->file('image_option_4');
     $name = $request->filename ?? 'photo.';
     $name = $name . $file->getClientOriginalExtension();;
-   $image_option_4 = 'loginquestion/images/' .  $request->userid . '/' . $name;
+   $image_option_4 = 'loginquestion/images/' .  $request->login_question_id . '/' . $name;
     Storage::disk('local')->put($image_option_4, file_get_contents($file), 'public');
 
-    $loginquestion  =LoginQuestion::where('id', '=', request()->userid)->first();
+    $loginquestion  =LoginQuestion::where('id', '=', request()->login_question_id)->first();
     $loginquestion ->image_option_4 =$image_option_4;
     $loginquestion->update();
   }
