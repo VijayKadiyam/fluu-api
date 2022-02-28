@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SelfiePhotoSamples extends Model
+class SelfiePhotoSample extends Model
 {
     protected $fillable = [
         'site_id',
@@ -17,8 +17,4 @@ class SelfiePhotoSamples extends Model
         return $this->belongsTo(Site::class);
     }
 
-    public function user_login_questions()
-    {
-        return $this->hasMany(UserLoginQuestion::class)->with('login_question', 'user');
-    }
 }

@@ -85,6 +85,6 @@ Route::post('upload_setting_banners', 'UploadsController@uploadBannerImage');
 Route::post('send-otp-sms', 'SendSmsController@sendOtp');
 
 //selfiep_photo_samples	
-Route::post('upload_selfie_photo_samples', 'UploadsController@uploadSelfiePhotoSamples');
+Route::post('upload_selfie_photo_samples', 'UploadsController@uploadSelfiePhotoSample');
 //Route::get('selfie_photo_samples/masters', 'SelfiePhotoSamplesController@masters');
 Route::resource('selfie_photo_samples', 'SelfiePhotoSamplesController');

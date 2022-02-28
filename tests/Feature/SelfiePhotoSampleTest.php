@@ -1,12 +1,14 @@
 <?php
 
 namespace Tests\Feature;
-use App\SelfiePhotoSamples;
+
+use App\SelfiePhotoSample;
 use App\Site;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+
 class SelfiePhotoSampleTest extends TestCase
 {
     use DatabaseTransactions;
@@ -21,12 +23,12 @@ class SelfiePhotoSampleTest extends TestCase
         $this->user->assignSite($this->site->id);
         $this->headers['siteid'] = $this->site->id;
 
-        factory(SelfiePhotoSamples::class)->create([
+        factory(SelfiePhotoSample::class)->create([
             'site_id' =>  $this->site->id
         ]);
 
         $this->payload = [
-            'title'  =>'title',
+            'title'  => 'title',
             'image_path' => 'image_path',
         ];
     }
@@ -52,8 +54,8 @@ class SelfiePhotoSampleTest extends TestCase
             ->assertStatus(201)
             ->assertJson([
                 'data'   => [
-                     'title'  =>'title',
-                     'image_path' =>'image_path',
+                    'title'  => 'title',
+                    'image_path' => 'image_path',
                 ]
             ])
             ->assertJsonStructureExact([
@@ -79,11 +81,10 @@ class SelfiePhotoSampleTest extends TestCase
                     0 =>  [
                         'title',
                         'image_path',
-                       
                     ]
                 ]
             ]);
-        $this->assertCount(1, SelfiePhotoSamples::all());
+        $this->assertCount(1, SelfiePhotoSample::all());
     }
 
     /** @test */
@@ -94,26 +95,53 @@ class SelfiePhotoSampleTest extends TestCase
             ->assertStatus(200)
             ->assertJson([
                 'data'  => [
-                     'title'  =>'title',
-                     'image_path' => 'image_path',
+                    'title'  => 'title',
+                    'image_path' => 'image_path',
                 ]
             ]);
     }
 
     /** @test */
-    function update_single_selfie_photo_samples()
+    // function update_single_selfie_photo_samples()
+    // {
+    //     $payload = [
+    //         'title'  => 'title',
+    //         'image_path' =>  'image_path',
+    //     ];
+
+    //     $this->json('patch', '/api/selfie_photo_samples/1', $payload, $this->headers)
+    //         ->assertStatus(200)
+    //         ->assertJson([
+    //             'data'    => [
+    //                 'title'  => 'title',
+    //                 'image_path' =>  'image_path',
+    //             ]
+    //         ])
+    //         ->assertJsonStructureExact([
+    //             'data'  => [
+    //                 'id',
+    //                 'site_id',
+    //                 'title',
+    //                 'image_path',
+    //                 'created_at',
+    //                 'updated_at',
+    //             ]
+    //         ]);
+    // }
+
+    function update_single_login_question()
     {
         $payload = [
-            'title'  =>'title',
-            'image_path' =>  'image_path',
+            'title' => 'title',
+            'image_path' => 'image_path',
         ];
 
         $this->json('patch', '/api/selfie_photo_samples/1', $payload, $this->headers)
             ->assertStatus(200)
             ->assertJson([
                 'data'    => [
-                     'title'  =>'title',
-                     'image_path' =>  'image_path',
+                    'title' => 'title',
+                    'image_path' => 'image_path',
                 ]
             ])
             ->assertJsonStructureExact([
@@ -127,13 +155,12 @@ class SelfiePhotoSampleTest extends TestCase
                 ]
             ]);
     }
-
     /** @test */
     function delete_selfie_photo_samples()
     {
         $this->json('delete', '/api/selfie_photo_samples/1', [], $this->headers)
             ->assertStatus(204);
 
-        $this->assertCount(0, SelfiePhotoSamples::all());
+        $this->assertCount(0, SelfiePhotoSample::all());
     }
 }
