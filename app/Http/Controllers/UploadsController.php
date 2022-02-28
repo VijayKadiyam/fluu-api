@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\LoginQuestion;
 use App\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -270,7 +271,7 @@ class UploadsController extends Controller
   public function uploadSelfiePhotoSamples(Request $request)
   {
     $request->validate([
-      'userid'        => 'required',
+      'image_path'        => 'required',
     ]);
 
     $imagePath = '';
@@ -278,10 +279,10 @@ class UploadsController extends Controller
       $file = $request->file('image_path');
       $name = $request->filename ?? 'photo.';
       $name = $name . $file->getClientOriginalExtension();;
-      $imagePath = 'selfie_photo_samples/images/' .  $request->userid . '/' . $name;
+      $imagePath = 'selfie_photo_samples/images/' .  $request->selfie_photo_sample_id . '/' . $name;
       Storage::disk('local')->put($imagePath, file_get_contents($file), 'public');
 
-        $selfiephotoSamples =  SelfiePhotoSamples::where('id', '=', request()->userid)->first();
+        $selfiephotoSamples =  SelfiePhotoSamples::where('id', '=', request()->selfie_photo_sample_id)->first();
         $selfiephotoSamples->image_path = $imagePath;
         $selfiephotoSamples->update();
     }
@@ -295,73 +296,73 @@ class UploadsController extends Controller
       'success' =>  true
     ]);
   }
-  public function uploadImage_option(Request $request)
+  public function uploadLoginQuestionImage(Request $request)
  {
   $request->validate([
     'login_question_id'=> 'required',
-    'userid'         => 'required',
+
 
   ]);
 
-  $Image_option_1 = '';
-  if ($request->hasFile('Image_option_1')) {
-    $file = $request->file('Image_option_1');
+  $image_option_1 = '';
+  if ($request->hasFile('image_option_1')) {
+    $file = $request->file('image_option_1');
     $name = $request->filename ?? 'photo.';
     $name = $name . $file->getClientOriginalExtension();;
-    $Image_option_1 = 'userloginquestions/images/' .  $request->userid . '/' . $name;
-    Storage::disk('local')->put($Image_option_1, file_get_contents($file), 'public');
+    $image_option_1 = 'loginquestion/images/' .  $request->userid . '/' . $name;
+    Storage::disk('local')->put($image_option_1, file_get_contents($file), 'public');
 
-    $userloginquestions = UserLoginQuestion::where('id', '=', request()->userid)->first();
-    $userloginquestions ->Image_option_1 = $Image_option_1;
-    $userloginquestions ->update();
+    $loginquestion = LoginQuestion::where('id', '=', request()->userid)->first();
+    $loginquestion ->image_option_1 = $image_option_1;
+    $loginquestion ->update();
   }
 
-  $Image_option_2 = '';
-  if ($request->hasFile('Image_option_2')) {
-    $file = $request->file('Image_option_2');
+  $image_option_2 = '';
+  if ($request->hasFile('image_option_2')) {
+    $file = $request->file('image_option_2');
     $name = $request->filename ?? 'photo.';
     $name = $name . $file->getClientOriginalExtension();;
-    $Image_option_2  = 'userloginquestions/images/' .  $request->userid . '/' . $name;
-    Storage::disk('local')->put($Image_option_2 , file_get_contents($file), 'public');
+    $image_option_2  = 'loginquestion/images/' .  $request->userid . '/' . $name;
+    Storage::disk('local')->put($image_option_2 , file_get_contents($file), 'public');
 
-    $userloginquestions  = UserLoginQuestion::where('id', '=', request()->userid)->first();
-    $userloginquestions ->Image_option_2 = $Image_option_2;
-    $userloginquestions ->update();
+    $loginquestion  = LoginQuestion::where('id', '=', request()->userid)->first();
+    $loginquestion ->image_option_2 = $image_option_2;
+    $loginquestion ->update();
   }
 
-  $Image_option_3 = '';
-  if ($request->hasFile('Image_option_3')) {
-    $file = $request->file('Image_option_3');
+  $image_option_3 = '';
+  if ($request->hasFile('image_option_3')) {
+    $file = $request->file('image_option_3');
     $name = $request->filename ?? 'photo.';
     $name = $name . $file->getClientOriginalExtension();;
-   $Image_option_3 = 'userloginquestions/images/' .  $request->userid . '/' . $name;
-    Storage::disk('local')->put($Image_option_3, file_get_contents($file), 'public');
+   $image_option_3 = 'loginquestion/images/' .  $request->userid . '/' . $name;
+    Storage::disk('local')->put($image_option_3, file_get_contents($file), 'public');
 
-    $userloginquestions  = UserLoginQuestion::where('id', '=', request()->userid)->first();
-    $userloginquestions->Image_option_3 =$Image_option_3;
-    $userloginquestions->update();
+    $loginquestion  = LoginQuestion::where('id', '=', request()->userid)->first();
+    $loginquestion->image_option_3 =$image_option_3;
+    $loginquestion->update();
   }
 
-  $Image_option_4 = '';
-  if ($request->hasFile('Image_option_4')) {
-    $file = $request->file('Image_option_4');
+  $image_option_4 = '';
+  if ($request->hasFile('image_option_4')) {
+    $file = $request->file('image_option_4');
     $name = $request->filename ?? 'photo.';
     $name = $name . $file->getClientOriginalExtension();;
-   $Image_option_4 = 'userloginquestions/images/' .  $request->userid . '/' . $name;
-    Storage::disk('local')->put($Image_option_4, file_get_contents($file), 'public');
+   $image_option_4 = 'loginquestion/images/' .  $request->userid . '/' . $name;
+    Storage::disk('local')->put($image_option_4, file_get_contents($file), 'public');
 
-    $userloginquestions  = UserLoginQuestion::where('id', '=', request()->userid)->first();
-    $userloginquestions ->Image_option_4 =$Image_option_4;
-    $userloginquestions->update();
+    $loginquestion  =LoginQuestion::where('id', '=', request()->userid)->first();
+    $loginquestion ->image_option_4 =$image_option_4;
+    $loginquestion->update();
   }
 
 
   return response()->json([
     'data'  => [
-      'Image_option_1'  =>  $Image_option_1,
-      'Image_option_2' =>   $Image_option_2,
-      'Image_option_3'  =>  $Image_option_3,
-      'Image_option_4' =>   $Image_option_4,
+      'image_option_1'  =>  $image_option_1,
+      'image_option_2' =>   $image_option_2,
+      'image_option_3'  =>  $image_option_3,
+      'image_option_4' =>   $image_option_4,
     ],
     'success' =>  true
   ]);

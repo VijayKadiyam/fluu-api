@@ -35,6 +35,11 @@ class LoginQuestionTest extends TestCase
             'option_2' => 'option_2',
             'option_3' => 'option_3',
             'option_4' => 'option_4',
+            'description_image_1'=>'description_image_1',
+            'image_option_1'=>'image_option_1',
+            'image_option_2'=>'image_option_2',
+            'image_option_3'=>'image_option_3',
+            'image_option_4'=>'image_option_4',
         ];
     }
 
@@ -68,6 +73,11 @@ class LoginQuestionTest extends TestCase
                     'option_2' => 'option_2',
                     'option_3' => 'option_3',
                     'option_4' => 'option_4',
+                    'description_image_1'=>'description_image_1',
+                    'image_option_1'=>'image_option_1',
+                    'image_option_2'=>'image_option_2',
+                    'image_option_3'=>'image_option_3',
+                    'image_option_4'=>'image_option_4',
                 ]
             ])
             ->assertJsonStructureExact([
@@ -79,6 +89,11 @@ class LoginQuestionTest extends TestCase
                     'option_2',
                     'option_3',
                     'option_4',
+                    'description_image_1',
+                    'image_option_1',
+                    'image_option_2',
+                    'image_option_3',
+                    'image_option_4',
                     'site_id',
                     'updated_at',
                     'created_at',
@@ -103,6 +118,11 @@ class LoginQuestionTest extends TestCase
                         'option_2',
                         'option_3',
                         'option_4',
+                        'description_image_1',
+                        'image_option_1',
+                        'image_option_2',
+                        'image_option_3',
+                        'image_option_4',
                     ]
                 ]
             ]);
@@ -124,6 +144,11 @@ class LoginQuestionTest extends TestCase
                     'option_2' => 'option_2',
                     'option_3' => 'option_3',
                     'option_4' => 'option_4',
+                    'description_image_1'=>'description_image_1',
+                    'image_option_1'=>'image_option_1',
+                    'image_option_2'=>'image_option_2',
+                    'image_option_3'=>'image_option_3',
+                    'image_option_4'=>'image_option_4',
                 ]
             ]);
     }
@@ -139,6 +164,11 @@ class LoginQuestionTest extends TestCase
             'option_2' => 'option_2',
             'option_3' => 'option_3',
             'option_4' => 'option_4',
+            'description_image_1'=>'description_image_1',
+            'image_option_1'=>'image_option_1',
+            'image_option_2'=>'image_option_2',
+            'image_option_3'=>'image_option_3',
+            'image_option_4'=>'image_option_4',
         ];
 
         $this->json('patch', '/api/login_questions/1', $payload, $this->headers)
@@ -152,6 +182,11 @@ class LoginQuestionTest extends TestCase
                     'option_2' => 'option_2',
                     'option_3' => 'option_3',
                     'option_4' => 'option_4',
+                    'description_image_1'=>'description_image_1',
+                    'image_option_1'=>'image_option_1',
+                    'image_option_2'=>'image_option_2',
+                    'image_option_3'=>'image_option_3',
+                    'image_option_4'=>'image_option_4',
                 ]
             ])
             ->assertJsonStructureExact([
@@ -164,9 +199,14 @@ class LoginQuestionTest extends TestCase
                     'option_1',
                     'option_2',
                     'option_3',
-                    'option_4',
+                    'option_4',  
                     'created_at',
                     'updated_at',
+                    'description_image_1',
+                    'image_option_1',
+                    'image_option_2',
+                    'image_option_3',
+                    'image_option_4',
                 ]
             ]);
     }
