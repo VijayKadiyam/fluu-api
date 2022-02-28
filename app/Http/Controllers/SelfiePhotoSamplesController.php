@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\SelfiePhotoSamples;
+use App\SelfiePhotoSample;
+
 class SelfiePhotoSamplesController extends Controller
 {
     public function __construct()
@@ -18,10 +19,10 @@ class SelfiePhotoSamplesController extends Controller
      */
     public function index(Request $request)
     {
-        $selfiephotoSamples = $request->site->selfie_photo_samples()->get();
+        $SelfiePhotoSample = $request->site->selfie_photo_samples()->get();
 
         return response()->json([
-            'data'     =>   $selfiephotoSamples
+            'data'     =>   $SelfiePhotoSample
         ], 200);
     }
 
@@ -34,13 +35,12 @@ class SelfiePhotoSamplesController extends Controller
     {
         $request->validate([
             'title'    =>  'required',
-           
         ]);
-         $selfiephotoSamples = new SelfiePhotoSamples($request->all());
-        $request->site->selfie_photo_samples()->save($selfiephotoSamples);
+        $SelfiePhotoSample = new SelfiePhotoSample($request->all());
+        $request->site->selfie_photo_samples()->save($SelfiePhotoSample);
 
         return response()->json([
-            'data'    =>   $selfiephotoSamples
+            'data'    =>   $SelfiePhotoSample
         ], 201);
     }
 
@@ -51,10 +51,9 @@ class SelfiePhotoSamplesController extends Controller
      */
     public function show($id)
     {
-        $selfiephotoSample=SelfiePhotoSamples::find($id);
-      //  dd($selfiephotoSample);
+        $selfiePhotoSample = SelfiePhotoSample::find($id);
         return response()->json([
-            'data'   => $selfiephotoSample,
+            'data'   => $selfiePhotoSample,
             'success' =>  true
         ], 200);
     }
@@ -64,21 +63,19 @@ class SelfiePhotoSamplesController extends Controller
      *
      *@
      */
-    public function update(Request $request,$id)
-    {// dd($id);
-        $selfiephotoSample=SelfiePhotoSamples::find($id)->update($request->all());
-       // dd($selfiephotoSample);
+    public function update(Request $request, SelfiePhotoSample $selfiePhotoSample)
+    {
+        $selfiePhotoSample->update($request->all());
 
         return response()->json([
-            'data'  => $selfiephotoSample,
-            
+            'data'  => $selfiePhotoSample,
         ], 200);
     }
 
     public function destroy($id)
     {
-         $selfiephotoSamples = SelfiePhotoSamples::find($id);
-         $selfiephotoSamples->delete();
+        $SelfiePhotoSample = SelfiePhotoSample::find($id);
+        $SelfiePhotoSample->delete();
 
         return response()->json([
             'message' =>  'Deleted'

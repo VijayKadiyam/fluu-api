@@ -34,6 +34,6 @@ class Site extends Model
 
   public function selfie_photo_samples()
   {
-    return $this->hasMany(SelfiePhotoSamples::class);
+    return $this->hasMany(SelfiePhotoSample::class);
   }
 }
