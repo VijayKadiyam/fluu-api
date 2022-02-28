@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\User;
 use App\UserImage;
+use App\SelfiePhotoSamples;
 use App\UserStory;
 use App\UserLoginQuestion;
 
@@ -256,6 +257,34 @@ class UploadsController extends Controller
       }
     } 
   }
+  public function uploadSelfiePhotoSamples(Request $request)
+  {
+    $request->validate([
+      'userid'        => 'required',
+    ]);
+
+    $imagePath = '';
+    if ($request->hasFile('image_path')) {
+      $file = $request->file('image_path');
+      $name = $request->filename ?? 'photo.';
+      $name = $name . $file->getClientOriginalExtension();;
+      $imagePath = 'selfie_photo_samples/images/' .  $request->userid . '/' . $name;
+      Storage::disk('local')->put($imagePath, file_get_contents($file), 'public');
+
+        $selfiephotoSamples =  SelfiePhotoSamples::where('id', '=', request()->userid)->first();
+        $selfiephotoSamples->image_path = $imagePath;
+        $selfiephotoSamples->update();
+    }
+
+    
+
+    return response()->json([
+      'data'  => [
+        'image_path'  =>  $imagePath
+      ],
+      'success' =>  true
+    ]);
+  }
   public function uploadImage_option(Request $request)
  {
   $request->validate([
@@ -327,4 +356,5 @@ class UploadsController extends Controller
     'success' =>  true
   ]);
  }
+ 
 }
