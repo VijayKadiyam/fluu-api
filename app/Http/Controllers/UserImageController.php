@@ -63,7 +63,7 @@ class UserImageController extends Controller
             $file = $request->file('image_path');
             $name = $request->filename ?? 'photo.' . $file->getClientOriginalExtension();
             // $name = $name . $file->getClientOriginalExtension();;
-            $imagePath = 'user-images/images/' . $name;
+            $imagePath = 'fluu/user_images/' . $name;
             Storage::disk('local')->put($imagePath, file_get_contents($file), 'public');
 
             $UserImage = UserImage::where('id', '=', $userImage_id)->first();
@@ -75,7 +75,7 @@ class UserImageController extends Controller
             $file = $request->file('Reference_image_path');
             $name = $request->filename ?? 'photo.' . $file->getClientOriginalExtension();
             // $name = $name . $file->getClientOriginalExtension();;
-            $referenceimage_path= 'user-images/images/' . $name;
+            $referenceimage_path= 'fluu/user_images/' . $name;
             Storage::disk('local')->put( $referenceimage_path, file_get_contents($file), 'public');
 
             $UserImage = UserImage::where('id', '=', $userImage_id)->first();
