@@ -34,6 +34,11 @@ class Setting extends Model
         'gallery_p_description',
         'selfie_p_title',
         'selfie_p_description',
+        'audio_p_title',
+        'audio_p_description',
+        'current_color',
+        'primary_color',
+        'accent_color',
     ];
 
     public function site()
