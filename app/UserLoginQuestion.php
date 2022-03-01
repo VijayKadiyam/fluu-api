@@ -11,10 +11,7 @@ class UserLoginQuestion extends Model
         'user_id',
         'answer',
         'selected_option',
-        'Image_option_1',
-        'Image_option_2',
-        'Image_option_3',
-        'Image_option_4'
+      
     ];
 
     public function login_question()
