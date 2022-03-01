@@ -34,6 +34,11 @@ class SettingTest extends TestCase
             'banner_2_description' => 'banner_2_description',
             'banner_3_title' => 'banner_3_title',
             'banner_3_description' => 'banner_3_description',
+            'audio_p_title' => 'audio_p_title',
+            'audio_p_description' => 'audio_p_description',
+            'current_color' => 'current_color',
+            'primary_color' => 'primary_color',
+            'accent_color' => 'accent_color',
         ];
     }
 
@@ -64,6 +69,11 @@ class SettingTest extends TestCase
                     'banner_2_description' => 'banner_2_description',
                     'banner_3_title' => 'banner_3_title',
                     'banner_3_description' => 'banner_3_description',
+                    'audio_p_title' => 'audio_p_title',
+                    'audio_p_description' => 'audio_p_description',
+                    'current_color' => 'current_color',
+                    'primary_color' => 'primary_color',
+                    'accent_color' => 'accent_color',
                 ]
             ])
             ->assertJsonStructureExact([
@@ -77,6 +87,11 @@ class SettingTest extends TestCase
                     // 'banner_path_3',
                     'banner_3_title',
                     'banner_3_description',
+                    'audio_p_title',
+                    'audio_p_description',
+                    'current_color',
+                    'primary_color',
+                    'accent_color',
                     'site_id',
                     'updated_at',
                     'created_at',
@@ -123,6 +138,11 @@ class SettingTest extends TestCase
                     'banner_2_description' => 'banner_2_description',
                     'banner_3_title' => 'banner_3_title',
                     'banner_3_description' => 'banner_3_description',
+                    'audio_p_title' => 'audio_p_title',
+                    'audio_p_description' => 'audio_p_description',
+                    'current_color' => 'current_color',
+                    'primary_color' => 'primary_color',
+                    'accent_color' => 'accent_color',
                 ]
             ]);
     }
@@ -137,6 +157,11 @@ class SettingTest extends TestCase
             'banner_2_description' => 'banner_2_description',
             'banner_3_title' => 'banner_3_title',
             'banner_3_description' => 'banner_3_description',
+            'audio_p_title' => 'audio_p_title',
+            'audio_p_description' => 'audio_p_description',
+            'current_color' => 'current_color',
+            'primary_color' => 'primary_color',
+            'accent_color' => 'accent_color',
         ];
 
         $this->json('patch', '/api/settings/1', $payload, $this->headers)
@@ -149,6 +174,11 @@ class SettingTest extends TestCase
                     'banner_2_description' => 'banner_2_description',
                     'banner_3_title' => 'banner_3_title',
                     'banner_3_description' => 'banner_3_description',
+                    'audio_p_title' => 'audio_p_title',
+                    'audio_p_description' => 'audio_p_description',
+                    'current_color' => 'current_color',
+                    'primary_color' => 'primary_color',
+                    'accent_color' => 'accent_color',
                 ]
             ])
             ->assertJsonStructureExact([
@@ -184,6 +214,11 @@ class SettingTest extends TestCase
                     'gallery_p_description',
                     'selfie_p_title',
                     'selfie_p_description',
+                    'audio_p_title',
+                    'audio_p_description',
+                    'current_color',
+                    'primary_color',
+                    'accent_color',
                 ]
             ]);
     }
