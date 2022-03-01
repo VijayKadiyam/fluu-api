@@ -245,28 +245,31 @@ class UploadsController extends Controller
       }
     }
     $referenceimage_path = '';
-    if ($request->hasFile('Reference_image_path')) {
-      $file = $request->file('Reference_image_path');
+    if ($request->hasFile('reference_image_path')) {
+      $file = $request->file('reference_image_path');
       $name = $request->filename ?? 'photo.' . time() . '.' . $file->getClientOriginalExtension();
       // $name = $name . $file->getClientOriginalExtension();;
       $referenceimage_path = 'user-images/images/' . $name;
       Storage::disk('local')->put($referenceimage_path, file_get_contents($file), 'public');
 
-      $data = [
-        'user_id' =>  $request->userid,
-        'source' => $request->source,
-        'image_path'  =>  $imagePath,
-        'Reference_image_path' => $referenceimage_path,
-      ];
-      $UserImage = new UserImage($data);
-      $UserImage->save();
-
-      if ($request->source == 'Profile') {
-        $user = User::find($request->userid);
-        $user->selfie_image_path = $referenceimage_path;
-        $user->update();
-      }
+      // $data = [
+      //   'user_id' =>  $request->userid,
+      //   'source' => $request->source,
+      //   'reference_image_path' => $referenceimage_path,
+      // ];
+      // $UserImage = new UserImage($data);
+      // $UserImage->save();
+      $userImage =  UserImage::where('user_id', '=', $request->userid)->first();
+      $userImage->reference_image_path = $referenceimage_path;
+      $userImage->update();
     }
+    return response()->json([
+      'data'  => [
+        'image_path'  =>  $imagePath,
+        'reference_image_path'=>$referenceimage_path
+      ],
+      'success' =>  true
+    ]);
   }
   public function uploadSelfiePhotoSample(Request $request)
   {

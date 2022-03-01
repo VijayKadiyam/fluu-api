@@ -6,6 +6,6 @@ $factory->define(UserImage::class, function (Faker $faker) {
     return [
         'source'=>'source',
         'image_path'=>'image_path',
-        'Reference_image_path'=>'Reference_image_path'
+        'reference_image_path'=>'reference_image_path'
     ];
 });
