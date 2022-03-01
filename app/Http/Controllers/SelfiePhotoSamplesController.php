@@ -19,10 +19,19 @@ class SelfiePhotoSamplesController extends Controller
      */
     public function index(Request $request)
     {
-        $SelfiePhotoSample = $request->site->selfie_photo_samples()->get();
+        $SelfiePhotoSamples = $request->site->selfie_photo_samples();
+
+        if ($request->type == 'random') {
+            $SelfiePhotoSamples = $SelfiePhotoSamples->inRandomOrder()
+                ->take(1);
+        }
+
+        $SelfiePhotoSamples = $SelfiePhotoSamples
+            ->get();
 
         return response()->json([
-            'data'     =>   $SelfiePhotoSample
+            'data'     =>   $SelfiePhotoSamples,
+            'success'   =>  true,
         ], 200);
     }
 
