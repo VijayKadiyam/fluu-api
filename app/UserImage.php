@@ -8,9 +8,9 @@ class UserImage extends Model
 {
     protected $fillable = [
         'user_id',
-       'source',
+        'source',
         'image_path',
-        'Reference_image_path'
+        'reference_image_path'
       
     ];
 

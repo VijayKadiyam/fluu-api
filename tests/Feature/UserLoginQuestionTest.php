@@ -37,10 +37,7 @@ class UserLoginQuestionTest extends TestCase
             'user_id' =>         1,
             'answer' =>         'answer',
             'selected_option' =>         1,
-            'Image_option_1'=>'Image_option_1',
-            'Image_option_2'=>'Image_option_2',
-            'Image_option_3'=>  'Image_option_3',
-            'Image_option_4'=>'Image_option_4',
+           
         ];
     }
 
@@ -70,10 +67,7 @@ class UserLoginQuestionTest extends TestCase
                     'user_id' =>         1,
                     'answer' =>         'answer',
                     'selected_option' =>         1,
-                    'Image_option_1'=>'Image_option_1',
-                    'Image_option_2'=>'Image_option_2',
-                    'Image_option_3'=>  'Image_option_3',
-                    'Image_option_4'=>'Image_option_4',
+                   
                 ]
             ])
             ->assertJsonStructureExact([
@@ -81,11 +75,7 @@ class UserLoginQuestionTest extends TestCase
                     'login_question_id',
                     'user_id',
                     'answer',
-                    'selected_option',
-                    'Image_option_1',
-                    'Image_option_2',
-                    'Image_option_3',
-                    'Image_option_4',
+                    'selected_option',    
                     'updated_at',
                     'created_at',
                     'id'
@@ -106,10 +96,7 @@ class UserLoginQuestionTest extends TestCase
                         'user_id',
                         'answer',
                         'selected_option',
-                        'Image_option_1',
-                        'Image_option_2',
-                        'Image_option_3',
-                        'Image_option_4',
+                      
                     ]
                 ]
             ]);
@@ -128,10 +115,7 @@ class UserLoginQuestionTest extends TestCase
                     'user_id' =>         1,
                     'answer' =>         'answer',
                     'selected_option' =>         1,
-                    'Image_option_1'=>'Image_option_1',
-                    'Image_option_2'=>'Image_option_2',
-                    'Image_option_3'=>  'Image_option_3',
-                    'Image_option_4'=>'Image_option_4',
+                   
                     
                 ]
             ]);
@@ -145,10 +129,7 @@ class UserLoginQuestionTest extends TestCase
             'user_id' =>         1,
             'answer' =>         'answer',
             'selected_option' =>         1,
-            'Image_option_1'=>'Image_option_1',
-            'Image_option_2'=>'Image_option_2',
-            'Image_option_3'=>  'Image_option_3',
-            'Image_option_4'=>'Image_option_4',
+            
         ];
 
         $this->json('patch', '/api/user_login_questions/1', $payload, $this->headers)
@@ -159,10 +140,7 @@ class UserLoginQuestionTest extends TestCase
                     'user_id' =>         1,
                     'answer' =>         'answer',
                     'selected_option' =>         1,
-                    'Image_option_1'=>'Image_option_1',
-                    'Image_option_2'=>'Image_option_2',
-                    'Image_option_3'=>  'Image_option_3',
-                    'Image_option_4'=>'Image_option_4',
+                    
                 ]
             ])
             ->assertJsonStructureExact([
@@ -174,10 +152,7 @@ class UserLoginQuestionTest extends TestCase
                     'selected_option',
                     'created_at',
                     'updated_at',
-                    'Image_option_1',
-                    'Image_option_2',
-                    'Image_option_3',
-                    'Image_option_4',
+                  
                 ]
             ]);
     }

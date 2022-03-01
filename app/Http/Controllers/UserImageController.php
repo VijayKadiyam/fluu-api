@@ -71,15 +71,15 @@ class UserImageController extends Controller
             $UserImage->update();
         }
         $referenceimage_path  = '';
-        if ($request->hasFile('Reference_image_path') && $userImage_id) {
-            $file = $request->file('Reference_image_path');
+        if ($request->hasFile('reference_image_path') && $userImage_id) {
+            $file = $request->file('reference_image_path');
             $name = $request->filename ?? 'photo.' . $file->getClientOriginalExtension();
             // $name = $name . $file->getClientOriginalExtension();;
             $referenceimage_path= 'fluu/user_images/' . $name;
             Storage::disk('local')->put( $referenceimage_path, file_get_contents($file), 'public');
 
             $UserImage = UserImage::where('id', '=', $userImage_id)->first();
-            $UserImage->Reference_image_path =  $referenceimage_path;
+            $UserImage->reference_image_path =  $referenceimage_path;
             $UserImage->update();
         }
 
@@ -93,9 +93,9 @@ class UserImageController extends Controller
      *
      *@
      */
-    public function show($id)
+    public function show(UserImage $userImage)
     {
-        $userImage = UserImage::find($id)->with('user')->get();
+        // $userImage = UserImage::find($id)->with('user')->get();
         return response()->json([
             'data'   =>  $userImage,
             'success' =>  true

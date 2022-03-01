@@ -32,7 +32,7 @@ class UserImageTest extends TestCase
             'user_id'=>$this->user->id,
                 'source'=>'source',
                 'image_path'=>'image_path',
-                'Reference_image_path'=>'Reference_image_path'
+                'reference_image_path'=>'reference_image_path'
             ];
     }
 
@@ -60,7 +60,7 @@ class UserImageTest extends TestCase
                     'user_id'=>$this->user->id,
                         'source'=>'source',
                         'image_path'=>'image_path',
-                        'Reference_image_path'=>'Reference_image_path'
+                        'reference_image_path'=>'reference_image_path'
                     ]
             ])
             ->assertJsonStructureExact([
@@ -68,7 +68,7 @@ class UserImageTest extends TestCase
                     'user_id',
                     'source',
                     'image_path',
-                    'Reference_image_path',
+                    'reference_image_path',
                     'updated_at',
                     'created_at',
                     'id'
@@ -88,7 +88,7 @@ class UserImageTest extends TestCase
                         'user_id',
                         'source',
                         'image_path',
-                        'Reference_image_path'=>'Reference_image_path'
+                        'reference_image_path'=>'reference_image_path'
                     ]
                 ]
             ]);
@@ -105,7 +105,7 @@ class UserImageTest extends TestCase
                 'data'  => [
                     'user_id'=>$this->user->id,
                     'image_path'=>'image_path',
-                    'Reference_image_path'=>'Reference_image_path',
+                    'reference_image_path'=>'reference_image_path',
                     'source'=>'source',
                     ]
             ]);
@@ -118,7 +118,7 @@ class UserImageTest extends TestCase
             'user_id' =>  $this->user->id,
             'is_active' =>         true,
             'image_path' =>         'image_path',
-            'Reference_image_path'=>'Reference_image_path',
+            'reference_image_path'=>'reference_image_path',
             'date' =>         'date',
         ];
 
@@ -129,7 +129,7 @@ class UserImageTest extends TestCase
                     'user_id'=>$this->user->id,
                         'source'=>'source',
                         'image_path'=>'image_path',
-                        'Reference_image_path'=>'Reference_image_path'
+                        'reference_image_path'=>'reference_image_path'
                     ]
             ])
             ->assertJsonStructureExact([
@@ -141,7 +141,7 @@ class UserImageTest extends TestCase
                     'source',
                     'created_at',
                     'updated_at',
-                    'Reference_image_path',
+                    'reference_image_path',
                 ]
             ]);
     }
