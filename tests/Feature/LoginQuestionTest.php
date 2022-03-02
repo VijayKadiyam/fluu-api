@@ -40,6 +40,9 @@ class LoginQuestionTest extends TestCase
             'image_option_2'=>'image_option_2',
             'image_option_3'=>'image_option_3',
             'image_option_4'=>'image_option_4',
+            'is_text' =>   true,
+            'is_voice' =>   true,
+            'is_video' =>   true,
         ];
     }
 
@@ -53,6 +56,9 @@ class LoginQuestionTest extends TestCase
                     "description"        =>  ["The description field is required."],
                     "is_active"        =>  ["The is active field is required."],
                     "is_mcq"        =>  ["The is mcq field is required."],
+                    "is_text"      =>["The is text field is required."],
+                    "is_voice"      =>["The is voice field is required."],
+                    "is_video"      =>["The is video field is required."]
                 ],
                 "message" =>  "The given data was invalid."
             ]);
@@ -78,6 +84,9 @@ class LoginQuestionTest extends TestCase
                     'image_option_2'=>'image_option_2',
                     'image_option_3'=>'image_option_3',
                     'image_option_4'=>'image_option_4',
+                    'is_text' =>   true,
+                    'is_voice' =>   true,
+                    'is_video' =>   true,
                 ]
             ])
             ->assertJsonStructureExact([
@@ -94,6 +103,9 @@ class LoginQuestionTest extends TestCase
                     'image_option_2',
                     'image_option_3',
                     'image_option_4',
+                    'is_text',
+                    'is_voice',
+                    'is_video',
                     'site_id',
                     'updated_at',
                     'created_at',
@@ -123,6 +135,9 @@ class LoginQuestionTest extends TestCase
                         'image_option_2',
                         'image_option_3',
                         'image_option_4',
+                        'is_text',
+                        'is_voice',
+                        'is_video',
                     ]
                 ]
             ]);
@@ -149,6 +164,9 @@ class LoginQuestionTest extends TestCase
                     'image_option_2'=>'image_option_2',
                     'image_option_3'=>'image_option_3',
                     'image_option_4'=>'image_option_4',
+                    'is_text' =>   true,
+                    'is_voice' =>   true,
+                    'is_video' =>   true,
                 ]
             ]);
     }
@@ -169,6 +187,9 @@ class LoginQuestionTest extends TestCase
             'image_option_2'=>'image_option_2',
             'image_option_3'=>'image_option_3',
             'image_option_4'=>'image_option_4',
+            'is_text' =>   true,
+            'is_voice' =>   true,
+            'is_video' =>   true,
         ];
 
         $this->json('patch', '/api/login_questions/1', $payload, $this->headers)
@@ -187,6 +208,9 @@ class LoginQuestionTest extends TestCase
                     'image_option_2'=>'image_option_2',
                     'image_option_3'=>'image_option_3',
                     'image_option_4'=>'image_option_4',
+                    'is_text' =>   true,
+                    'is_voice' =>   true,
+                    'is_video' =>   true,
                 ]
             ])
             ->assertJsonStructureExact([
@@ -207,6 +231,9 @@ class LoginQuestionTest extends TestCase
                     'image_option_2',
                     'image_option_3',
                     'image_option_4',
+                    'is_text',
+                    'is_voice',
+                    'is_video',
                 ]
             ]);
     }

@@ -37,6 +37,10 @@ class LoginQuestionsController extends Controller
             'description'    =>  'required',
             'is_active'   =>  'required',
             'is_mcq'   =>  'required',
+            "is_text"    =>'required',
+            "is_voice"    =>'required',
+            "is_video"    =>'required',
+
         ]);
         $loginQuestion = new LoginQuestion($request->all());
         $request->site->login_questions()->save($loginQuestion);

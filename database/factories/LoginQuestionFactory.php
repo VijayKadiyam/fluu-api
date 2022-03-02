@@ -17,6 +17,9 @@ $factory->define(LoginQuestion::class, function (Faker $faker) {
         'image_option_2'=>'image_option_2',
         'image_option_3'=>'image_option_3',
         'image_option_4'=>'image_option_4',
+        'is_text' =>   true,
+        'is_voice' =>   true,
+        'is_video' =>   true,
         
     ];
 });
