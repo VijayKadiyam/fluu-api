@@ -18,7 +18,11 @@ class LoginQuestion extends Model
         'image_option_1',
         'image_option_2',
         'image_option_3',
-        'image_option_4'
+        'image_option_4',
+        'is_text',
+        'is_voice',
+        'is_video'
+
         
     ];
 
