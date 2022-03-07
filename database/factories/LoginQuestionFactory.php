@@ -12,14 +12,14 @@ $factory->define(LoginQuestion::class, function (Faker $faker) {
         'option_2' => 'option_2',
         'option_3' => 'option_3',
         'option_4' => 'option_4',
-        'description_image_1'=>'description_image_1',
-        'image_option_1'=>'image_option_1',
-        'image_option_2'=>'image_option_2',
-        'image_option_3'=>'image_option_3',
-        'image_option_4'=>'image_option_4',
-        'is_text' =>   true,
-        'is_voice' =>   true,
-        'is_video' =>   true,
-        
+        'description_image_1' => 'description_image_1',
+        'image_option_1' => 'image_option_1',
+        'image_option_2' => 'image_option_2',
+        'image_option_3' => 'image_option_3',
+        'image_option_4' => 'image_option_4',
+        'is_text' =>   false,
+        'is_voice' =>   false,
+        'is_video' =>   false,
+        'sub_description' => 'sub_description',
     ];
 });
