@@ -21,9 +21,8 @@ class LoginQuestion extends Model
         'image_option_4',
         'is_text',
         'is_voice',
-        'is_video'
-
-        
+        'is_video',
+        'sub_description'
     ];
 
     public function site()
