@@ -64,7 +64,7 @@ class UserImageController extends Controller
             $name = $request->filename ?? 'photo.' . $file->getClientOriginalExtension();
             // $name = $name . $file->getClientOriginalExtension();;
             $imagePath = 'fluu/user_images/' . $name;
-            Storage::disk('local')->put($imagePath, file_get_contents($file), 'public');
+            Storage::disk('s3')->put($imagePath, file_get_contents($file), 'public');
 
             $UserImage = UserImage::where('id', '=', $userImage_id)->first();
             $UserImage->image_path = $imagePath;
@@ -76,7 +76,7 @@ class UserImageController extends Controller
             $name = $request->filename ?? 'photo.' . $file->getClientOriginalExtension();
             // $name = $name . $file->getClientOriginalExtension();;
             $referenceimage_path= 'fluu/user_images/' . $name;
-            Storage::disk('local')->put( $referenceimage_path, file_get_contents($file), 'public');
+            Storage::disk('s3')->put( $referenceimage_path, file_get_contents($file), 'public');
 
             $UserImage = UserImage::where('id', '=', $userImage_id)->first();
             $UserImage->reference_image_path =  $referenceimage_path;
@@ -123,12 +123,12 @@ class UserImageController extends Controller
             $userImage = UserImage::where('image_path', '=', $request->imagePath)
                 ->first();
             if($userImage) {
-                Storage::disk('local')->delete($userImage->image_path);
+                Storage::disk('s3')->delete($userImage->image_path);
                 $userImage->delete();
             }
         } else {
             $userImage = UserImage::find($id);
-            // Storage::disk('local')->delete($userImage->image_path);
+            // Storage::disk('s3')->delete($userImage->image_path);
             $userImage->delete();
         }
 
