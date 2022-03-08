@@ -25,8 +25,8 @@ class UploadsController extends Controller
       $file = $request->file('selfie_image_path');
       $name = $request->filename ?? 'photo.';
       $name = $name . $file->getClientOriginalExtension();;
-      $imagePath = 'users/selfies/' .  $request->userid . '/' . $name;
-      Storage::disk('local')->put($imagePath, file_get_contents($file), 'public');
+      $imagePath = 'fluu/users/selfies/' .  $request->userid . '/' . $name;
+      Storage::disk('s3')->put($imagePath, file_get_contents($file), 'public');
 
       $user = User::where('id', '=', request()->userid)->first();
       $user->selfie_image_path = $imagePath;
@@ -39,8 +39,8 @@ class UploadsController extends Controller
       $file = $request->file('gallery_image1_path');
       $name = $request->filename ?? 'photo.';
       $name = $name . $file->getClientOriginalExtension();;
-      $imagePath = 'users/galleries/' .  $request->userid . '/' . $name;
-      Storage::disk('local')->put($imagePath, file_get_contents($file), 'public');
+      $imagePath = 'fluu/users/galleries/' .  $request->userid . '/' . $name;
+      Storage::disk('s3')->put($imagePath, file_get_contents($file), 'public');
 
       $user = User::where('id', '=', request()->userid)->first();
       $user->gallery_image1_path = $imagePath;
@@ -53,8 +53,8 @@ class UploadsController extends Controller
       $file = $request->file('gallery_image2_path');
       $name = $request->filename ?? 'photo.';
       $name = $name . $file->getClientOriginalExtension();;
-      $imagePath = 'users/galleries/' .  $request->userid . '/' . $name;
-      Storage::disk('local')->put($imagePath, file_get_contents($file), 'public');
+      $imagePath = 'fluu/users/galleries/' .  $request->userid . '/' . $name;
+      Storage::disk('s3')->put($imagePath, file_get_contents($file), 'public');
 
       $user = User::where('id', '=', request()->userid)->first();
       $user->gallery_image2_path = $imagePath;
@@ -67,8 +67,8 @@ class UploadsController extends Controller
       $file = $request->file('gallery_image3_path');
       $name = $request->filename ?? 'photo.';
       $name = $name . $file->getClientOriginalExtension();;
-      $imagePath = 'users/galleries/' .  $request->userid . '/' . $name;
-      Storage::disk('local')->put($imagePath, file_get_contents($file), 'public');
+      $imagePath = 'fluu/users/galleries/' .  $request->userid . '/' . $name;
+      Storage::disk('s3')->put($imagePath, file_get_contents($file), 'public');
 
       $user = User::where('id', '=', request()->userid)->first();
       $user->gallery_image3_path = $imagePath;
@@ -81,8 +81,8 @@ class UploadsController extends Controller
       $file = $request->file('gallery_image4_path');
       $name = $request->filename ?? 'photo.';
       $name = $name . $file->getClientOriginalExtension();;
-      $imagePath = 'users/galleries/' .  $request->userid . '/' . $name;
-      Storage::disk('local')->put($imagePath, file_get_contents($file), 'public');
+      $imagePath = 'fluu/users/galleries/' .  $request->userid . '/' . $name;
+      Storage::disk('s3')->put($imagePath, file_get_contents($file), 'public');
 
       $user = User::where('id', '=', request()->userid)->first();
       $user->gallery_image4_path = $imagePath;
@@ -95,8 +95,8 @@ class UploadsController extends Controller
       $file = $request->file('voice_clip_path');
       $name = $request->filename ?? 'audio.';
       $name = $name . $file->getClientOriginalExtension();;
-      $imagePath = 'users/voices/' .  $request->userid . '/' . $name;
-      Storage::disk('local')->put($imagePath, file_get_contents($file), 'public');
+      $imagePath = 'fluu/users/voices/' .  $request->userid . '/' . $name;
+      Storage::disk('s3')->put($imagePath, file_get_contents($file), 'public');
 
       $user = User::where('id', '=', request()->userid)->first();
       $user->voice_clip_path = $imagePath;
@@ -125,8 +125,8 @@ class UploadsController extends Controller
       $file = $request->file('image_path');
       $name = $request->filename ?? 'photo.';
       $name = $name . $file->getClientOriginalExtension();;
-      $imagePath = 'user-stories/images/' .  $request->userid . '/' . $name;
-      Storage::disk('local')->put($imagePath, file_get_contents($file), 'public');
+      $imagePath = 'fluu/user-stories/images/' .  $request->userid . '/' . $name;
+      Storage::disk('s3')->put($imagePath, file_get_contents($file), 'public');
 
       $UserStory = UserStory::where('id', '=', request()->userid)->first();
       $UserStory->image_path = $imagePath;
@@ -137,8 +137,8 @@ class UploadsController extends Controller
       $file = $request->file('video_path');
       $name = $request->filename ?? 'video.';
       $name = $name . $file->getClientOriginalExtension();;
-      $imagePath = 'user-stories/video/' .  $request->userid . '/' . $name;
-      Storage::disk('local')->put($imagePath, file_get_contents($file), 'public');
+      $imagePath = 'fluu/user-stories/video/' .  $request->userid . '/' . $name;
+      Storage::disk('s3')->put($imagePath, file_get_contents($file), 'public');
 
       $UserStory = UserStory::where('id', '=', request()->userid)->first();
       $UserStory->video_path = $imagePath;
@@ -162,8 +162,8 @@ class UploadsController extends Controller
     if ($request->hasFile('banner_path_1')) {
       $file = $request->file('banner_path_1');
       $name = $request->filename ?? 'photo.' . time() . '.' . $file->getClientOriginalExtension();
-      $banner_path_1 = 'banner/' .  $request->settingid . '/' . $name;
-      Storage::disk('local')->put($banner_path_1, file_get_contents($file), 'public');
+      $banner_path_1 = 'fluu/banner/' .  $request->settingid . '/' . $name;
+      Storage::disk('s3')->put($banner_path_1, file_get_contents($file), 'public');
 
       $setting = Setting::where('id', '=', request()->settingid)->first();
       $setting->banner_path_1 = $banner_path_1;
@@ -174,8 +174,8 @@ class UploadsController extends Controller
     if ($request->hasFile('banner_path_2')) {
       $file = $request->file('banner_path_2');
       $name = $request->filename ?? 'photo.' . time() . '.' . $file->getClientOriginalExtension();
-      $banner_path_2 = 'banner/' .  $request->settingid . '/' . $name;
-      Storage::disk('local')->put($banner_path_2, file_get_contents($file), 'public');
+      $banner_path_2 = 'fluu/banner/' .  $request->settingid . '/' . $name;
+      Storage::disk('s3')->put($banner_path_2, file_get_contents($file), 'public');
 
       $setting = Setting::where('id', '=', request()->settingid)->first();
       $setting->banner_path_2 = $banner_path_2;
@@ -186,8 +186,8 @@ class UploadsController extends Controller
     if ($request->hasFile('banner_path_3')) {
       $file = $request->file('banner_path_3');
       $name = $request->filename ?? 'photo.' . time() . '.' . $file->getClientOriginalExtension();
-      $banner_path_3 = 'banner/' .  $request->settingid . '/' . $name;
-      Storage::disk('local')->put($banner_path_3, file_get_contents($file), 'public');
+      $banner_path_3 = 'fluu/banner/' .  $request->settingid . '/' . $name;
+      Storage::disk('s3')->put($banner_path_3, file_get_contents($file), 'public');
 
       $setting = Setting::where('id', '=', request()->settingid)->first();
       $setting->banner_path_3 = $banner_path_3;
@@ -198,8 +198,8 @@ class UploadsController extends Controller
     if ($request->hasFile('logo_path')) {
       $file = $request->file('logo_path');
       $name = $request->filename ?? 'photo.' . time() . '.' . $file->getClientOriginalExtension();
-      $logo_path = 'logo/' .  $request->settingid . '/' . $name;
-      Storage::disk('local')->put($logo_path, file_get_contents($file), 'public');
+      $logo_path = 'fluu/logo/' .  $request->settingid . '/' . $name;
+      Storage::disk('s3')->put($logo_path, file_get_contents($file), 'public');
 
       $setting = Setting::where('id', '=', request()->settingid)->first();
       $setting->logo_path = $logo_path;
@@ -227,8 +227,8 @@ class UploadsController extends Controller
     if ($request->hasFile('image_path')) {
       $file = $request->file('image_path');
       $name = $request->filename ?? 'photo.' . time() . '.' . $file->getClientOriginalExtension();
-      $imagePath = 'user-images/images/' . $name;
-      Storage::disk('local')->put($imagePath, file_get_contents($file), 'public');
+      $imagePath = 'fluu/user-images/images/' . $name;
+      Storage::disk('s3')->put($imagePath, file_get_contents($file), 'public');
 
       $data = [
         'user_id' =>  $request->userid,
@@ -249,8 +249,8 @@ class UploadsController extends Controller
       $file = $request->file('reference_image_path');
       $name = $request->filename ?? 'photo.' . time() . '.' . $file->getClientOriginalExtension();
       // $name = $name . $file->getClientOriginalExtension();;
-      $referenceimage_path = 'user-images/images/' . $name;
-      Storage::disk('local')->put($referenceimage_path, file_get_contents($file), 'public');
+      $referenceimage_path = 'fluu/user-images/images/' . $name;
+      Storage::disk('s3')->put($referenceimage_path, file_get_contents($file), 'public');
 
       // $data = [
       //   'user_id' =>  $request->userid,
@@ -283,8 +283,8 @@ class UploadsController extends Controller
       $file = $request->file('image_path');
       $name = $request->filename ?? 'photo.';
       $name = $name . $file->getClientOriginalExtension();;
-      $imagePath = 'selfie_photo_samples/images/' .  $request->selfie_photo_sample_id . '/' . $name;
-      Storage::disk('local')->put($imagePath, file_get_contents($file), 'public');
+      $imagePath = 'fluu/selfie_photo_samples/images/' .  $request->selfie_photo_sample_id . '/' . $name;
+      Storage::disk('s3')->put($imagePath, file_get_contents($file), 'public');
 
       $selfiephotoSamples =  SelfiePhotoSample::where('id', '=', $request->selfie_photo_sample_id)->first();
       $selfiephotoSamples->image_path = $imagePath;
@@ -313,8 +313,8 @@ class UploadsController extends Controller
     $file = $request->file('image_option_1');
     $name = $request->filename ?? 'photo.';
     $name = $name . $file->getClientOriginalExtension();;
-    $image_option_1 = 'loginquestion/images/' .  $request->login_question_id . '/' . $name;
-    Storage::disk('local')->put($image_option_1, file_get_contents($file), 'public');
+    $image_option_1 = 'fluu/loginquestion/images/' .  $request->login_question_id . '/' . $name;
+    Storage::disk('s3')->put($image_option_1, file_get_contents($file), 'public');
 
     $loginquestion = LoginQuestion::where('id', '=', request()->login_question_id)->first();
     $loginquestion ->image_option_1 = $image_option_1;
@@ -326,8 +326,8 @@ class UploadsController extends Controller
     $file = $request->file('image_option_2');
     $name = $request->filename ?? 'photo.';
     $name = $name . $file->getClientOriginalExtension();;
-    $image_option_2  = 'loginquestion/images/' .  $request->login_question_id . '/' . $name;
-    Storage::disk('local')->put($image_option_2 , file_get_contents($file), 'public');
+    $image_option_2  = 'fluu/loginquestion/images/' .  $request->login_question_id . '/' . $name;
+    Storage::disk('s3')->put($image_option_2 , file_get_contents($file), 'public');
 
     $loginquestion  = LoginQuestion::where('id', '=', request()->login_question_id)->first();
     $loginquestion ->image_option_2 = $image_option_2;
@@ -339,8 +339,8 @@ class UploadsController extends Controller
     $file = $request->file('image_option_3');
     $name = $request->filename ?? 'photo.';
     $name = $name . $file->getClientOriginalExtension();;
-   $image_option_3 = 'loginquestion/images/' .  $request->login_question_id . '/' . $name;
-    Storage::disk('local')->put($image_option_3, file_get_contents($file), 'public');
+   $image_option_3 = 'fluu/loginquestion/images/' .  $request->login_question_id . '/' . $name;
+    Storage::disk('s3')->put($image_option_3, file_get_contents($file), 'public');
 
     $loginquestion  = LoginQuestion::where('id', '=', request()->login_question_id)->first();
     $loginquestion->image_option_3 =$image_option_3;
@@ -352,8 +352,8 @@ class UploadsController extends Controller
     $file = $request->file('image_option_4');
     $name = $request->filename ?? 'photo.';
     $name = $name . $file->getClientOriginalExtension();;
-   $image_option_4 = 'loginquestion/images/' .  $request->login_question_id . '/' . $name;
-    Storage::disk('local')->put($image_option_4, file_get_contents($file), 'public');
+   $image_option_4 = 'fluu/loginquestion/images/' .  $request->login_question_id . '/' . $name;
+    Storage::disk('s3')->put($image_option_4, file_get_contents($file), 'public');
 
     $loginquestion  =LoginQuestion::where('id', '=', request()->login_question_id)->first();
     $loginquestion ->image_option_4 =$image_option_4;
