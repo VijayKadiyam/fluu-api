@@ -35,8 +35,13 @@ class UserLoginQuestionsController extends Controller
      */
     public function index()
     {
+        $userLoginQuestions = [];
         if (request()->user_id) {
             $userLoginQuestions = UserLoginQuestion::where('user_id', '=', request()->user_id)->with('login_question', 'user')->get();
+        } else if (request()->questionId) {
+            $userLoginQuestions = UserLoginQuestion::where('login_question_id', '=', request()->questionId)
+                ->with('login_question', 'user')
+                ->first();
         } else {
             $users = request()->site->users()->with('roles')
                 ->whereHas('roles',  function ($q) {
@@ -50,7 +55,8 @@ class UserLoginQuestionsController extends Controller
             // return $users;
         }
         return response()->json([
-            'data'     =>  $userLoginQuestions
+            'data'     =>  $userLoginQuestions,
+            'success'   =>  true,
         ], 200);
     }
 
@@ -66,10 +72,19 @@ class UserLoginQuestionsController extends Controller
             'user_id'   =>  'required',
         ]);
 
-        $userLoginQuestion = new UserLoginQuestion($request->all());
-        $userLoginQuestion->save();
+        $userLoginQuestion = UserLoginQuestion::where('login_question_id', '=', $request->login_question_id)
+            ->where('user_id', '=', $request->user_id)
+            ->first();
+        if ($userLoginQuestion) {
+            $userLoginQuestion->update($request->all());
+        } else {
+            $userLoginQuestion = new UserLoginQuestion($request->all());
+            $userLoginQuestion->save();
+        }
+
         return response()->json([
-            'data'    =>  $userLoginQuestion
+            'data'    =>  $userLoginQuestion,
+            'success'   =>  true,
         ], 201);
     }
 
@@ -78,9 +93,15 @@ class UserLoginQuestionsController extends Controller
      *
      *@
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $userLoginQuestion = UserLoginQuestion::find($id)->with('login_question', 'user')->get();
+        $userLoginQuestion = '';
+        if ($request->questionId) {
+            $userLoginQuestion = UserLoginQuestion::where('login_question_id', '=', $request->questionId)
+                ->with('login_question', 'user')
+                ->first();
+        } else
+            $userLoginQuestion = UserLoginQuestion::find($id)->with('login_question', 'user')->get();
         return response()->json([
             'data'   =>  $userLoginQuestion,
             'success' =>  true
@@ -98,7 +119,8 @@ class UserLoginQuestionsController extends Controller
         $userLoginQuestion->update($request->all());
 
         return response()->json([
-            'data'  =>  $userLoginQuestion
+            'data'  =>  $userLoginQuestion,
+            'success'   =>  true,
         ], 200);
     }
 
