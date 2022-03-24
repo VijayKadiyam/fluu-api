@@ -40,4 +40,8 @@ class Site extends Model
   {
     return $this->hasMany(UserSuperlike::class);
   }
+  public function user_swipes()
+  {
+    return $this->hasMany(UserSwipe::class);
+  }
 }
