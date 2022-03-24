@@ -48,4 +48,8 @@ class Site extends Model
   {
     return $this->hasMany(UserMatch::class);
   }
+  public function user_subscriptions()
+  {
+    return $this->hasMany(UserSubscription::class);
+  }
 }
