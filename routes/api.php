@@ -95,3 +95,5 @@ Route::resource('user_superlikes', 'UserSuperlikesController');
 Route::resource('user_swipes', 'UserSwipesController');
 // User Matches
 Route::resource('user_matches', 'UserMatchesController');
+// User Subscription
+Route::resource('user_subscriptions', 'UserSubscriptionsController');
