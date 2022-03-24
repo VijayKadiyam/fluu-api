@@ -44,4 +44,8 @@ class Site extends Model
   {
     return $this->hasMany(UserSwipe::class);
   }
+  public function user_matches()
+  {
+    return $this->hasMany(UserMatch::class);
+  }
 }

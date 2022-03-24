@@ -93,3 +93,5 @@ Route::resource('selfie_photo_samples', 'SelfiePhotoSamplesController');
 Route::resource('user_superlikes', 'UserSuperlikesController');
 // User Swipe
 Route::resource('user_swipes', 'UserSwipesController');
+// User Matches
+Route::resource('user_matches', 'UserMatchesController');
