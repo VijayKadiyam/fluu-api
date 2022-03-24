@@ -16,7 +16,15 @@ class UserMatchesController extends Controller
        *
      *@
      */
+    public function masters(Request $request)
+    {
+        $usersController = new UsersController();
+        $usersResponse = $usersController->index($request);
 
+        return response()->json([
+            'users'                 =>  $usersResponse->getData()->data,
+        ], 200);
+    }
     public function index(Request $request)
     {
         $userMatches = $request->site->user_matches()->get();
@@ -37,7 +45,7 @@ class UserMatchesController extends Controller
             'user_id'   =>  'required',
         ]);
         $userMatch = new UserMatch($request->all());
-        $userMatch->save();
+        $request->site->user_matches()->save($userMatch);
         return response()->json([
             'data'    =>  $userMatch
         ], 201);
@@ -50,6 +58,8 @@ class UserMatchesController extends Controller
      */
     public function show(UserMatch $userMatch)
     {
+        $userMatch->user=$userMatch->user;
+        $userMatch->matched_user=$userMatch->matched_user;
         return response()->json([
             'data'   =>  $userMatch,
             'success' =>  true

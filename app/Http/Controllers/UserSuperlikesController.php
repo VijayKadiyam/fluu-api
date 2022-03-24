@@ -17,6 +17,16 @@ class UserSuperlikesController extends Controller
      *@
      */
 
+    public function masters(Request $request)
+    {
+        $usersController = new UsersController();
+        $usersResponse = $usersController->index($request);
+
+        return response()->json([
+            'users'                 =>  $usersResponse->getData()->data,
+        ], 200);
+    }
+
     public function index(Request $request)
     {
         $userSuperlikes = $request->site->user_superlikes()->get();
@@ -36,8 +46,9 @@ class UserSuperlikesController extends Controller
         $request->validate([
             'user_id'   =>  'required',
         ]);
+
         $userSuperlike = new UserSuperlike($request->all());
-        $userSuperlike->save();
+        $request->site->user_superlikes()->save($userSuperlike);
         return response()->json([
             'data'    =>  $userSuperlike
         ], 201);
@@ -50,6 +61,8 @@ class UserSuperlikesController extends Controller
      */
     public function show(UserSuperlike $userSuperlike)
     {
+        $userSuperlike->user=$userSuperlike->user;
+        $userSuperlike->liked_user=$userSuperlike->liked_user;
         return response()->json([
             'data'   =>  $userSuperlike,
             'success' =>  true

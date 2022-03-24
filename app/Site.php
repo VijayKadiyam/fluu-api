@@ -38,18 +38,18 @@ class Site extends Model
   }
   public function user_superlikes()
   {
-    return $this->hasMany(UserSuperlike::class);
+    return $this->hasMany(UserSuperlike::class)->with('user','liked_user');
   }
   public function user_swipes()
   {
-    return $this->hasMany(UserSwipe::class);
+    return $this->hasMany(UserSwipe::class)->with('user');
   }
   public function user_matches()
   {
-    return $this->hasMany(UserMatch::class);
+    return $this->hasMany(UserMatch::class)->with('user','matched_user');
   }
   public function user_subscriptions()
   {
-    return $this->hasMany(UserSubscription::class);
+    return $this->hasMany(UserSubscription::class)->with('user');
   }
 }
