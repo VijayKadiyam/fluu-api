@@ -16,7 +16,15 @@ class UserSubscriptionsController extends Controller
        *
      *@
      */
+    public function masters(Request $request)
+    {
+        $usersController = new UsersController();
+        $usersResponse = $usersController->index($request);
 
+        return response()->json([
+            'users'                 =>  $usersResponse->getData()->data,
+        ], 200);
+    }
     public function index(Request $request)
     {
         $userSubscriptions = $request->site->user_subscriptions()->get();
@@ -37,7 +45,7 @@ class UserSubscriptionsController extends Controller
             'user_id'   =>  'required',
         ]);
         $userSubscription = new UserSubscription($request->all());
-        $userSubscription->save();
+        $request->site->user_subscriptions()->save($userSubscription);
         return response()->json([
             'data'    =>  $userSubscription
         ], 201);
@@ -50,6 +58,7 @@ class UserSubscriptionsController extends Controller
      */
     public function show(UserSubscription $userSubscription)
     {
+        $userSubscription->user=$userSubscription->user;
         return response()->json([
             'data'   =>  $userSubscription,
             'success' =>  true

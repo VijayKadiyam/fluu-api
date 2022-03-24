@@ -90,10 +90,14 @@ Route::post('upload_selfie_photo_samples', 'UploadsController@uploadSelfiePhotoS
 Route::resource('selfie_photo_samples', 'SelfiePhotoSamplesController');
 
 // User SuperLike
+Route::get('user_superlikes/masters', 'UserSuperlikesController@masters');
 Route::resource('user_superlikes', 'UserSuperlikesController');
 // User Swipe
+Route::get('user_swipes/masters', 'UserSwipesController@masters');
 Route::resource('user_swipes', 'UserSwipesController');
 // User Matches
+Route::get('user_matches/masters', 'UserMatchesController@masters');
 Route::resource('user_matches', 'UserMatchesController');
 // User Subscription
+Route::get('user_subscriptions/masters', 'UserSubscriptionsController@masters');
 Route::resource('user_subscriptions', 'UserSubscriptionsController');

@@ -16,7 +16,15 @@ class UserSwipesController extends Controller
        *
      *@
      */
+    public function masters(Request $request)
+    {
+        $usersController = new UsersController();
+        $usersResponse = $usersController->index($request);
 
+        return response()->json([
+            'users'                 =>  $usersResponse->getData()->data,
+        ], 200);
+    }
     public function index(Request $request)
     {
         $userSwipes = $request->site->user_swipes()->get();
@@ -37,7 +45,7 @@ class UserSwipesController extends Controller
             'user_id'   =>  'required',
         ]);
         $userSwipe = new UserSwipe($request->all());
-        $userSwipe->save();
+        $request->site->user_swipes()->save($userSwipe);
         return response()->json([
             'data'    =>  $userSwipe
         ], 201);
@@ -50,6 +58,7 @@ class UserSwipesController extends Controller
      */
     public function show(UserSwipe $userSwipe)
     {
+        $userSwipe->user = $userSwipe->user;
         return response()->json([
             'data'   =>  $userSwipe,
             'success' =>  true
