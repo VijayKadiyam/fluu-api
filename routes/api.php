@@ -88,3 +88,6 @@ Route::post('send-otp-sms', 'SendSmsController@sendOtp');
 Route::post('upload_selfie_photo_samples', 'UploadsController@uploadSelfiePhotoSample');
 //Route::get('selfie_photo_samples/masters', 'SelfiePhotoSamplesController@masters');
 Route::resource('selfie_photo_samples', 'SelfiePhotoSamplesController');
+
+// User SuperLike
+Route::resource('user_superlikes', 'UserSuperlikesController');
