@@ -36,4 +36,20 @@ class Site extends Model
   {
     return $this->hasMany(SelfiePhotoSample::class);
   }
+  public function user_superlikes()
+  {
+    return $this->hasMany(UserSuperlike::class)->with('user','liked_user');
+  }
+  public function user_swipes()
+  {
+    return $this->hasMany(UserSwipe::class)->with('user');
+  }
+  public function user_matches()
+  {
+    return $this->hasMany(UserMatch::class)->with('user','matched_user');
+  }
+  public function user_subscriptions()
+  {
+    return $this->hasMany(UserSubscription::class)->with('user');
+  }
 }
