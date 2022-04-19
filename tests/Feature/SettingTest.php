@@ -39,6 +39,14 @@ class SettingTest extends TestCase
             'current_color' => 'current_color',
             'primary_color' => 'primary_color',
             'accent_color' => 'accent_color',
+            'terms_description'=>'terms_description',
+            'sign_in_by_phone_description'=>'sign_in_by_phone_description',
+            'otp_description'=>'otp_description',
+            'gender_description'=>'gender_description',
+            'gallery_page_description'=>'gallery_page_description',
+            'selfie_page_description'=>'selfie_page_description',
+            'video_clip_page_description'=>'video_clip_page_description',
+            'questions_page_description'=>'questions_page_description',
         ];
     }
 
@@ -56,7 +64,7 @@ class SettingTest extends TestCase
     }
 
     /** @test */
-    function add_new_login_question()
+    function add_new_setting()
     {
         $this->disableEH();
         $this->json('post', '/api/settings', $this->payload, $this->headers)
@@ -74,6 +82,14 @@ class SettingTest extends TestCase
                     'current_color' => 'current_color',
                     'primary_color' => 'primary_color',
                     'accent_color' => 'accent_color',
+                    'terms_description'=>'terms_description',
+                    'sign_in_by_phone_description'=>'sign_in_by_phone_description',
+                    'otp_description'=>'otp_description',
+                    'gender_description'=>'gender_description',
+                    'gallery_page_description'=>'gallery_page_description',
+                    'selfie_page_description'=>'selfie_page_description',
+                    'video_clip_page_description'=>'video_clip_page_description',
+                    'questions_page_description'=>'questions_page_description',
                 ]
             ])
             ->assertJsonStructureExact([
@@ -92,6 +108,14 @@ class SettingTest extends TestCase
                     'current_color',
                     'primary_color',
                     'accent_color',
+                    'terms_description',
+                    'sign_in_by_phone_description',
+                    'otp_description',
+                    'gender_description',
+                    'gallery_page_description',
+                    'selfie_page_description',
+                    'video_clip_page_description',
+                    'questions_page_description',
                     'site_id',
                     'updated_at',
                     'created_at',
@@ -101,7 +125,7 @@ class SettingTest extends TestCase
     }
 
     /** @test */
-    function list_of_login_questions()
+    function list_of_settings()
     {
         $this->disableEH();
         $this->json('GET', '/api/settings', [], $this->headers)
@@ -125,7 +149,7 @@ class SettingTest extends TestCase
     }
 
     /** @test */
-    function show_single_login_question()
+    function show_single_setting()
     {
 
         $this->json('get', "/api/settings/1", [], $this->headers)
@@ -143,12 +167,20 @@ class SettingTest extends TestCase
                     'current_color' => 'current_color',
                     'primary_color' => 'primary_color',
                     'accent_color' => 'accent_color',
+                    'terms_description'=>'terms_description',
+                    'sign_in_by_phone_description'=>'sign_in_by_phone_description',
+                    'otp_description'=>'otp_description',
+                    'gender_description'=>'gender_description',
+                    'gallery_page_description'=>'gallery_page_description',
+                    'selfie_page_description'=>'selfie_page_description',
+                    'video_clip_page_description'=>'video_clip_page_description',
+                    'questions_page_description'=>'questions_page_description',
                 ]
             ]);
     }
 
     /** @test */
-    function update_single_login_question()
+    function update_single_setting()
     {
         $payload = [
             'banner_1_title' => 'banner_1_title',
@@ -162,6 +194,14 @@ class SettingTest extends TestCase
             'current_color' => 'current_color',
             'primary_color' => 'primary_color',
             'accent_color' => 'accent_color',
+            'terms_description'=>'terms_description',
+            'sign_in_by_phone_description'=>'sign_in_by_phone_description',
+            'otp_description'=>'otp_description',
+            'gender_description'=>'gender_description',
+            'gallery_page_description'=>'gallery_page_description',
+            'selfie_page_description'=>'selfie_page_description',
+            'video_clip_page_description'=>'video_clip_page_description',
+            'questions_page_description'=>'questions_page_description',
         ];
 
         $this->json('patch', '/api/settings/1', $payload, $this->headers)
@@ -179,6 +219,14 @@ class SettingTest extends TestCase
                     'current_color' => 'current_color',
                     'primary_color' => 'primary_color',
                     'accent_color' => 'accent_color',
+                    'terms_description'=>'terms_description',
+                    'sign_in_by_phone_description'=>'sign_in_by_phone_description',
+                    'otp_description'=>'otp_description',
+                    'gender_description'=>'gender_description',
+                    'gallery_page_description'=>'gallery_page_description',
+                    'selfie_page_description'=>'selfie_page_description',
+                    'video_clip_page_description'=>'video_clip_page_description',
+                    'questions_page_description'=>'questions_page_description',
                 ]
             ])
             ->assertJsonStructureExact([
@@ -219,12 +267,20 @@ class SettingTest extends TestCase
                     'current_color',
                     'primary_color',
                     'accent_color',
+                    'terms_description',
+                    'sign_in_by_phone_description',
+                    'otp_description',
+                    'gender_description',
+                    'gallery_page_description',
+                    'selfie_page_description',
+                    'video_clip_page_description',
+                    'questions_page_description',
                 ]
             ]);
     }
 
     /** @test */
-    function delete_login_question()
+    function delete_setting()
     {
         $this->json('delete', '/api/settings/1', [], $this->headers)
             ->assertStatus(204);
