@@ -36,6 +36,11 @@ class User extends Authenticatable
     'selfie_image_path',
     'voice_clip_path',
     'zodiac_sign_id',
+    'g_display_name',
+    'g_email',
+    'g_id',
+    'g_photo_url',
+    'g_server_auth_code',
   ];
 
   /**
