@@ -16,5 +16,13 @@ $factory->define(Setting::class, function (Faker $faker) {
         'current_color' => 'current_color',
         'primary_color' => 'primary_color',
         'accent_color' => 'accent_color',
+        'terms_description'=>'terms_description',
+        'sign_in_by_phone_description'=>'sign_in_by_phone_description',
+        'otp_description'=>'otp_description',
+        'gender_description'=>'gender_description',
+        'gallery_page_description'=>'gallery_page_description',
+        'selfie_page_description'=>'selfie_page_description',
+        'video_clip_page_description'=>'video_clip_page_description',
+        'questions_page_description'=>'questions_page_description',
     ];
 });
