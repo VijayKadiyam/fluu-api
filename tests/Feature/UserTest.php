@@ -111,7 +111,7 @@ class UserTest extends TestCase
         'data' => []
       ]);
 
-    $this->assertCount(4, User::whereHas('roles',  function ($q) {
+    $this->assertCount(1, User::whereHas('roles',  function ($q) {
       $q->where('name', '!=', 'Admin');
       $q->where('name', '!=', 'Super Admin');
     })->get());
