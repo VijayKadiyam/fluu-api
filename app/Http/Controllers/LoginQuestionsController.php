@@ -22,7 +22,8 @@ class LoginQuestionsController extends Controller
         $loginQuestions = $request->site->login_questions()->get();
 
         return response()->json([
-            'data'     =>  $loginQuestions
+            'data'     =>  $loginQuestions,
+            'success'     =>   true
         ], 200);
     }
 

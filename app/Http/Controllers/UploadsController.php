@@ -227,7 +227,7 @@ class UploadsController extends Controller
     if ($request->hasFile('image_path')) {
       $file = $request->file('image_path');
       $name = $request->filename ?? 'photo.' . time() . '.' . $file->getClientOriginalExtension();
-      $imagePath = 'fluu/user-images/images/' . $name;
+      $imagePath = 'fluu/user_images/' . $name;
       Storage::disk('s3')->put($imagePath, file_get_contents($file), 'public');
 
       $data = [
@@ -249,7 +249,7 @@ class UploadsController extends Controller
       $file = $request->file('reference_image_path');
       $name = $request->filename ?? 'photo.' . time() . '.' . $file->getClientOriginalExtension();
       // $name = $name . $file->getClientOriginalExtension();;
-      $referenceimage_path = 'fluu/user-images/images/' . $name;
+      $referenceimage_path = 'fluu/user_images/' . $name;
       Storage::disk('s3')->put($referenceimage_path, file_get_contents($file), 'public');
 
       // $data = [
