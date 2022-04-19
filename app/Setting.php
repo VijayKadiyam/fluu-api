@@ -39,6 +39,15 @@ class Setting extends Model
         'current_color',
         'primary_color',
         'accent_color',
+        'terms_description',
+        'sign_in_by_phone_description',
+        'otp_description',
+        'gender_description',
+        'gallery_page_description',
+        'selfie_page_description',
+        'video_clip_page_description',
+        'questions_page_description',
+
     ];
 
     public function site()
