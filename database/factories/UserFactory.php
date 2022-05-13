@@ -28,5 +28,8 @@ $factory->define(App\User::class, function (Faker $faker) {
     'g_id'            =>  'g_id',
     'g_photo_url'            =>  'g_photo_url',
     'g_server_auth_code'            =>  'g_server_auth_code',
+    'occuption' => 'occuption',
+    'current_location' => 'current_location',
+    'is_verified' => 0,
   ];
 });
