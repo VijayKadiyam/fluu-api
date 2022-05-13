@@ -41,6 +41,7 @@ class User extends Authenticatable
     'g_id',
     'g_photo_url',
     'g_server_auth_code',
+    'occuption',
   ];
 
   /**
