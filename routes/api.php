@@ -101,3 +101,5 @@ Route::resource('user_matches', 'UserMatchesController');
 // User Subscription
 Route::get('user_subscriptions/masters', 'UserSubscriptionsController@masters');
 Route::resource('user_subscriptions', 'UserSubscriptionsController');
+
+Route::get('kanhaiLoc', 'GeocodesController@kanhaiLoc');
