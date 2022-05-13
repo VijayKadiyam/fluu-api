@@ -30,6 +30,6 @@ $factory->define(App\User::class, function (Faker $faker) {
     'g_server_auth_code'            =>  'g_server_auth_code',
     'occuption' => 'occuption',
     'current_location' => 'current_location',
-    'is_verified' => 'is_verified',
+    'is_verified' => 0,
   ];
 });
