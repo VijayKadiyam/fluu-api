@@ -87,9 +87,6 @@ class UsersController extends Controller
 
   public function registerUserByPhone(Request $request)
   {
-    // $request->validate([
-    //   'phone'         => ['required'],
-    // ]);
     if($request->phone)
       $user = User::where('phone', '=', $request->phone)
       ->first();
