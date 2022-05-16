@@ -44,6 +44,9 @@ class User extends Authenticatable
     'occuption',
     'current_location',
     'is_verified',
+    'login_source',
+    'is_signed_in',
+    'google_uid',
   ];
 
   /**
