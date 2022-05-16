@@ -45,6 +45,7 @@ class User extends Authenticatable
     'current_location',
     'is_verified',
     'login_source',
+    'is_signed_in',
   ];
 
   /**

@@ -32,5 +32,6 @@ $factory->define(App\User::class, function (Faker $faker) {
     'current_location' => 'current_location',
     'is_verified' => 0,
     'login_source' => 'login_source',
+    'is_signed_in' => 0,
   ];
 });
