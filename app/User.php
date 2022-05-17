@@ -47,6 +47,7 @@ class User extends Authenticatable
     'login_source',
     'is_signed_in',
     'google_uid',
+    'short_bio',
   ];
 
   /**
