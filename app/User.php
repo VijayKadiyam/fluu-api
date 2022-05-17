@@ -140,7 +140,8 @@ class User extends Authenticatable
 
   public function user_login_questions()
   {
-    return $this->hasMany(UserLoginQuestion::class);
+    return $this->hasMany(UserLoginQuestion::class)
+      ->with('login_question');
   }
   public function user_stories()
   {

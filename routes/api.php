@@ -38,6 +38,7 @@ Route::get('users/masters', 'UsersController@masters');
 Route::post('upload_user_image', 'UploadsController@uploadUserImage');
 Route::post('upload_user_story', 'UploadsController@uploadUserStory');
 Route::post('register-user-by-phone', 'UsersController@registerUserByPhone');
+Route::post('register-user-by-app', 'UsersController@registerUserByApp');
 Route::resource('users', 'UsersController');
 
 
@@ -101,3 +102,5 @@ Route::resource('user_matches', 'UserMatchesController');
 // User Subscription
 Route::get('user_subscriptions/masters', 'UserSubscriptionsController@masters');
 Route::resource('user_subscriptions', 'UserSubscriptionsController');
+
+Route::get('kanhaiLoc', 'GeocodesController@kanhaiLoc');

@@ -14,7 +14,7 @@ class UsersController extends Controller
   public function __construct()
   {
     $this->middleware(['auth:api', 'site'])
-      ->except(['registerUser', 'registerUserByPhone']);
+      ->except(['registerUser', 'registerUserByPhone', 'registerUserByApp']);
   }
 
   /*
@@ -87,12 +87,12 @@ class UsersController extends Controller
 
   public function registerUserByPhone(Request $request)
   {
-    $request->validate([
-      'phone'         => ['required'],
-    ]);
-
-    $user = User::where('phone', '=', $request->phone)
+    if($request->phone)
+      $user = User::where('phone', '=', $request->phone)
       ->first();
+    if($request->email)
+      $user = User::where('email', '=', $request->email)
+        ->first();
     if (!isset($user)) {
       $us = $request->all();
       if (isset($us['password']))
@@ -111,6 +111,44 @@ class UsersController extends Controller
         $user->api_token = str_random(60);
       $user->update($request->all());
     }
+    $user->roles = $user->roles;
+    $user->sites = $user->sites;
+    return response()->json([
+      'data'     =>  $user,
+      'success'   =>  true,
+      'currentAndroidVersionFromApi' =>  '1.0.0',
+    ], 201);
+  }
+
+  public function registerUserByApp(Request $request)
+  {
+    if($request->phone)
+      $user = User::where('phone', '=', $request->phone)
+      ->first();
+    if($request->email)
+      $user = User::where('email', '=', $request->email)
+        ->first();
+    if (!isset($user)) {
+      $us = $request->all();
+      if (isset($us['password']))
+        $us['password'] = Hash::make($us['password']);
+      else
+        $us['password'] = Hash::make('123456');
+      $us['active'] = 1;
+      $user = new User($us);
+      $user->api_token = str_random(60);
+      $user->is_signed_in = true;
+      $user->save();
+
+      $user->assignRole(4);
+      $user->assignSite(1);
+    } else {
+      if ($user->api_token == null)
+        $user->api_token = str_random(60);
+      $user->is_signed_in = true;
+      $user->update($request->all());
+    }
+
     $user->roles = $user->roles;
     $user->sites = $user->sites;
     return response()->json([

@@ -9,7 +9,8 @@ class SettingsController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth:api', 'site']);
+        $this->middleware(['auth:api', 'site'])
+            ->except('show');
     }
 
     /*
