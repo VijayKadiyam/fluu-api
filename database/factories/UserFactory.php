@@ -34,5 +34,6 @@ $factory->define(App\User::class, function (Faker $faker) {
     'login_source' => 'login_source',
     'is_signed_in' => 0,
     'google_uid' => 'google_uid',
+    'short_bio' => 'short_bio',
   ];
 });
