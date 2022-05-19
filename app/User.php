@@ -48,6 +48,7 @@ class User extends Authenticatable
     'is_signed_in',
     'google_uid',
     'short_bio',
+    'zodiac_sign',
   ];
 
   /**
