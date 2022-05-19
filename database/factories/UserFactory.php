@@ -35,5 +35,7 @@ $factory->define(App\User::class, function (Faker $faker) {
     'is_signed_in' => 0,
     'google_uid' => 'google_uid',
     'short_bio' => 'short_bio',
+    'zodiac_sign' => 'zodiac_sign',
+    
   ];
 });
