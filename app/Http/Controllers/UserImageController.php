@@ -69,10 +69,15 @@ class UserImageController extends Controller
             $userImage->image_path = $imagePath;
             $userImage->update();
 
-            if ($request->source == 'Profile' || $request->source == 'Camera') {
-                $user = User::find($request->user_id);
-                $user->selfie_image_path = $imagePath;
-                $user->update();
+            if ($request->source == 'Profile' || $request->source == 'Gallery') {
+                $userImages = UserImage::where('user_id', '=', $request->user_id)
+                    ->where('source', '=', 'Gallery')
+                    ->get();
+                if(sizeof($userImages) == 1) {
+                    $user = User::find($request->user_id);
+                    $user->selfie_image_path = $imagePath;
+                    $user->update();
+                }  
             }
         }
         $referenceimage_path  = '';
@@ -127,6 +132,15 @@ class UserImageController extends Controller
             $userImage = UserImage::where('image_path', '=', $request->imagePath)
                 ->first();
             if ($userImage) {
+                $userImages = UserImage::where('user_id', '=', $userImage->user_id)
+                    ->where('source', '=', 'Gallery')
+                    ->get();
+                if(sizeof($userImages) == 1) {
+                    $user = User::find($userImage->user_id);
+                    $user->selfie_image_path = null;
+                    $user->update();
+                } 
+
                 Storage::disk('s3')->delete($userImage->image_path);
                 $userImage->delete();
             }
