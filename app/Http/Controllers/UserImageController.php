@@ -146,7 +146,16 @@ class UserImageController extends Controller
             }
         } else {
             $userImage = UserImage::find($id);
-            // Storage::disk('s3')->delete($userImage->image_path);
+            $userImages = UserImage::where('user_id', '=', $userImage->user_id)
+                ->where('source', '=', 'Gallery')
+                ->get();
+
+            if(sizeof($userImages) == 1) {
+                $user = User::find($userImage->user_id);
+                $user->selfie_image_path = null;
+                $user->update();
+            } 
+            Storage::disk('s3')->delete($userImage->image_path);
             $userImage->delete();
         }
 

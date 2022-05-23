@@ -32,6 +32,7 @@ class UsersController extends Controller
             ->where('name', '!=', 'Super Admin')
             ->where('name', '!=', 'Main Admin');
         })
+        ->where('selfie_image_path', '!=', null) 
         ->latest()->get();
     } else {
       $users = $request->site->users()

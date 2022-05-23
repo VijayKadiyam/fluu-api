@@ -238,11 +238,22 @@ class UploadsController extends Controller
       $UserImage = new UserImage($data);
       $UserImage->save();
 
-      if ($request->source == 'Profile') {
-        $user = User::find($request->userid);
-        $user->selfie_image_path = $imagePath;
-        $user->update();
+      if ($request->source == 'Profile' || $request->source == 'Gallery') {
+        $userImages = UserImage::where('user_id', '=', $request->userid)
+            ->where('source', '=', 'Gallery')
+            ->get();
+        if(sizeof($userImages) == 1) {
+            $user = User::find($request->userid);
+            $user->selfie_image_path = $imagePath;
+            $user->update();
+        }  
       }
+
+      // if ($request->source == 'Profile') {
+      //   $user = User::find($request->userid);
+      //   $user->selfie_image_path = $imagePath;
+      //   $user->update();
+      // }
     }
     $referenceimage_path = '';
     if ($request->hasFile('reference_image_path')) {
