@@ -10,6 +10,7 @@ class UserSubscription extends Model
         'user_id',
         'subscription_name',
         'date',
+        'subscription_id',
     ];
 
     public function site()
@@ -20,5 +21,9 @@ class UserSubscription extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function subscription()
+    {
+        return $this->belongsTo(Subscription::class);
     }
 }
