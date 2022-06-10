@@ -56,4 +56,8 @@ class Site extends Model
   {
     return $this->hasMany(UserLike::class)->with('user', 'liked_user');
   }
+  public function subscriptions()
+  {
+    return $this->hasMany(Subscription::class);
+  }
 }

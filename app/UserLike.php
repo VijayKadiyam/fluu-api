@@ -9,6 +9,7 @@ class UserLike extends Model
     protected $fillable = [
         'user_id',
         'liked_user_id',
+        'action'
     ];
 
     public function site()

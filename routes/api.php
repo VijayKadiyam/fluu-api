@@ -108,3 +108,6 @@ Route::get('kanhaiLoc', 'GeocodesController@kanhaiLoc');
 // User Like
 Route::get('user_likes/masters', 'UserLikesController@masters');
 Route::resource('user_likes', 'UserLikesController');
+
+// Subscriptions
+Route::resource('subscriptions', 'SubscriptionsController');

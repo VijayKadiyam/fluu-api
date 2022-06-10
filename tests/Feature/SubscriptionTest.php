@@ -3,13 +3,13 @@
 namespace Tests\Feature;
 
 use App\Site;
-use App\UserLike;
+use App\Subscription;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class UserLikeTest extends TestCase
+class SubscriptionTest extends TestCase
 {
     use DatabaseTransactions;
 
@@ -23,45 +23,43 @@ class UserLikeTest extends TestCase
         $this->user->assignSite($this->site->id);
         $this->headers['siteid'] = $this->site->id;
 
-        factory(UserLike::class)->create([
+        factory(Subscription::class)->create([
             'site_id' =>  $this->site->id
         ]);
 
         $this->payload = [
-            'user_id' => 1,
-            'liked_user_id' => 1,
+            'subscription_name' => "subscription_name",
         ];
     }
 
     /** @test */
     function it_requires_following_details()
     {
-        $this->json('post', '/api/user_likes', [], $this->headers)
+        $this->json('post', '/api/subscriptions', [], $this->headers)
             ->assertStatus(422)
             ->assertExactJson([
                 "errors"  =>  [
-                    "user_id"        =>  ["The user id field is required."],
+                    "subscription_name"        =>  ["The subscription name field is required."],
                 ],
                 "message" =>  "The given data was invalid."
             ]);
     }
 
     /** @test */
-    function add_new_user_likes()
+    function add_new_subscriptions()
     {
         $this->disableEH();
-        $this->json('post', '/api/user_likes', $this->payload, $this->headers)
+        $this->json('post', '/api/subscriptions', $this->payload, $this->headers)
             ->assertStatus(201)
             ->assertJson([
                 'data'   => [
-                    'user_id' => 1,
-                    'liked_user_id' => 1,
+                    "subscription_name" => "subscription_name"
+
                 ]
             ])
             ->assertJsonStructureExact([
                 'data'   => [
-                    'user_id',
-                    'liked_user_id',
+                    'subscription_name',
                     'site_id',
                     'updated_at',
                     'created_at',
@@ -71,70 +69,66 @@ class UserLikeTest extends TestCase
     }
 
     /** @test */
-    function list_of_user_likes()
+    function list_of_subscriptions()
     {
         $this->disableEH();
-        $this->json('GET', '/api/user_likes', [], $this->headers)
+        $this->json('GET', '/api/subscriptions', [], $this->headers)
             ->assertStatus(200)
             ->assertJsonStructure([
                 'data' => [
                     0 =>  [
-                        'user_id',
-                        'liked_user_id',
+                        'subscription_name',
                     ]
                 ]
             ]);
-        $this->assertCount(1, UserLike::all());
+        $this->assertCount(1, Subscription::all());
     }
 
     /** @test */
-    function show_single_user_likes()
+    function show_single_subscriptions()
     {
 
-        $this->json('get', "/api/user_likes/1", [], $this->headers)
+        $this->json('get', "/api/subscriptions/1", [], $this->headers)
             ->assertStatus(200)
             ->assertJson([
                 'data'  => [
-                    'user_id' => 1,
-                    'liked_user_id' => 1,
+                    "subscription_name" => "subscription_name"
+
                 ]
             ]);
     }
 
     /** @test */
-    function update_single_user_likes()
+    function update_single_subscriptions()
     {
         $payload = [
-            'user_id' => 'user_id',
-            'liked_user_id' => 1,
+            "subscription_name" => "subscription_name"
+
         ];
 
-        $this->json('patch', '/api/user_likes/1', $payload, $this->headers)
+        $this->json('patch', '/api/subscriptions/1', $payload, $this->headers)
             ->assertStatus(200)
             ->assertJson([
                 'data'    => [
-                    'user_id' => 'user_id',
-                    'liked_user_id' => 1,
+                    "subscription_name" => "subscription_name"
                 ]
             ])
             ->assertJsonStructureExact([
                 'data'  => [
                     'id',
                     'site_id',
-                    'user_id',
-                    'liked_user_id',
+                    'subscription_name',
                     'created_at',
                     'updated_at',
-                    'action',
                 ]
             ]);
     }
     /** @test */
-    function delete_user_likes()
+    function delete_subscriptions()
     {
-        $this->json('delete', '/api/user_likes/1', [], $this->headers)
+        $this->json('delete', '/api/subscriptions/1', [], $this->headers)
             ->assertStatus(204);
 
-        $this->assertCount(0, UserLike::all());
+        $this->assertCount(0, Subscription::all());
     }
 }
