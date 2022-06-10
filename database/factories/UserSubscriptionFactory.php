@@ -8,5 +8,6 @@ $factory->define(UserSubscription::class, function (Faker $faker) {
         'user_id' => 1,
         'subscription_name' => 'subscription_name',
         'date' => 'date',
+        'subscription_id' => 1,
     ];
 });

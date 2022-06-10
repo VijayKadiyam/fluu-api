@@ -31,6 +31,8 @@ class UserSubscriptionTest extends TestCase
             'user_id' => 1,
             'subscription_name' => 'subscription_name',
             'date' => 'date',
+            'subscription_id' => 1,
+
         ];
     }
 
@@ -58,6 +60,8 @@ class UserSubscriptionTest extends TestCase
                     'user_id' => 1,
                     'subscription_name' => 'subscription_name',
                     'date' => 'date',
+                    'subscription_id' => 1,
+
                 ]
             ])
             ->assertJsonStructureExact([
@@ -65,6 +69,8 @@ class UserSubscriptionTest extends TestCase
                     'user_id',
                     'subscription_name',
                     'date',
+                    'subscription_id',
+                    'site_id',
                     'updated_at',
                     'created_at',
                     'id'
@@ -84,6 +90,8 @@ class UserSubscriptionTest extends TestCase
                         'user_id',
                         'subscription_name',
                         'date',
+                        'subscription_id',
+
                     ]
                 ]
             ]);
@@ -101,6 +109,8 @@ class UserSubscriptionTest extends TestCase
                     'user_id' => 1,
                     'subscription_name' => 'subscription_name',
                     'date' => 'date',
+                    'subscription_id' => 1,
+
                 ]
             ]);
     }
@@ -112,6 +122,8 @@ class UserSubscriptionTest extends TestCase
             'user_id' => 'user_id',
             'subscription_name' => 'subscription_name',
             'date' => 'date',
+            'subscription_id' => 1,
+
         ];
 
         $this->json('patch', '/api/user_subscriptions/1', $payload, $this->headers)
@@ -121,6 +133,8 @@ class UserSubscriptionTest extends TestCase
                     'user_id' => 'user_id',
                     'subscription_name' => 'subscription_name',
                     'date' => 'date',
+                    'subscription_id' => 1,
+
                 ]
             ])
             ->assertJsonStructureExact([
@@ -132,6 +146,8 @@ class UserSubscriptionTest extends TestCase
                     'date',
                     'created_at',
                     'updated_at',
+                    'subscription_id',
+
                 ]
             ]);
     }
