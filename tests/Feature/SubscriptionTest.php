@@ -3,13 +3,13 @@
 namespace Tests\Feature;
 
 use App\Site;
-use App\UserSubscription;
+use App\Subscription;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class UserSubscriptionTest extends TestCase
+class SubscriptionTest extends TestCase
 {
     use DatabaseTransactions;
 
@@ -23,53 +23,43 @@ class UserSubscriptionTest extends TestCase
         $this->user->assignSite($this->site->id);
         $this->headers['siteid'] = $this->site->id;
 
-        factory(UserSubscription::class)->create([
+        factory(Subscription::class)->create([
             'site_id' =>  $this->site->id
         ]);
 
         $this->payload = [
-            'user_id' => 1,
-            'subscription_name' => 'subscription_name',
-            'date' => 'date',
-            'subscription_id' => 1,
-
+            'subscription_name' => "subscription_name",
         ];
     }
 
     /** @test */
     function it_requires_following_details()
     {
-        $this->json('post', '/api/user_subscriptions', [], $this->headers)
+        $this->json('post', '/api/subscriptions', [], $this->headers)
             ->assertStatus(422)
             ->assertExactJson([
                 "errors"  =>  [
-                    "user_id"        =>  ["The user id field is required."],
+                    "subscription_name"        =>  ["The subscription name field is required."],
                 ],
                 "message" =>  "The given data was invalid."
             ]);
     }
 
     /** @test */
-    function add_new_user_subscriptions()
+    function add_new_subscriptions()
     {
         $this->disableEH();
-        $this->json('post', '/api/user_subscriptions', $this->payload, $this->headers)
+        $this->json('post', '/api/subscriptions', $this->payload, $this->headers)
             ->assertStatus(201)
             ->assertJson([
                 'data'   => [
-                    'user_id' => 1,
-                    'subscription_name' => 'subscription_name',
-                    'date' => 'date',
-                    'subscription_id' => 1,
+                    "subscription_name" => "subscription_name"
 
                 ]
             ])
             ->assertJsonStructureExact([
                 'data'   => [
-                    'user_id',
                     'subscription_name',
-                    'date',
-                    'subscription_id',
                     'site_id',
                     'updated_at',
                     'created_at',
@@ -79,84 +69,66 @@ class UserSubscriptionTest extends TestCase
     }
 
     /** @test */
-    function list_of_user_subscriptions()
+    function list_of_subscriptions()
     {
         $this->disableEH();
-        $this->json('GET', '/api/user_subscriptions', [], $this->headers)
+        $this->json('GET', '/api/subscriptions', [], $this->headers)
             ->assertStatus(200)
             ->assertJsonStructure([
                 'data' => [
                     0 =>  [
-                        'user_id',
                         'subscription_name',
-                        'date',
-                        'subscription_id',
-
                     ]
                 ]
             ]);
-        $this->assertCount(1, UserSubscription::all());
+        $this->assertCount(1, Subscription::all());
     }
 
     /** @test */
-    function show_single_user_subscriptions()
+    function show_single_subscriptions()
     {
 
-        $this->json('get', "/api/user_subscriptions/1", [], $this->headers)
+        $this->json('get', "/api/subscriptions/1", [], $this->headers)
             ->assertStatus(200)
             ->assertJson([
                 'data'  => [
-                    'user_id' => 1,
-                    'subscription_name' => 'subscription_name',
-                    'date' => 'date',
-                    'subscription_id' => 1,
+                    "subscription_name" => "subscription_name"
 
                 ]
             ]);
     }
 
     /** @test */
-    function update_single_user_subscriptions()
+    function update_single_subscriptions()
     {
         $payload = [
-            'user_id' => 'user_id',
-            'subscription_name' => 'subscription_name',
-            'date' => 'date',
-            'subscription_id' => 1,
+            "subscription_name" => "subscription_name"
 
         ];
 
-        $this->json('patch', '/api/user_subscriptions/1', $payload, $this->headers)
+        $this->json('patch', '/api/subscriptions/1', $payload, $this->headers)
             ->assertStatus(200)
             ->assertJson([
                 'data'    => [
-                    'user_id' => 'user_id',
-                    'subscription_name' => 'subscription_name',
-                    'date' => 'date',
-                    'subscription_id' => 1,
-
+                    "subscription_name" => "subscription_name"
                 ]
             ])
             ->assertJsonStructureExact([
                 'data'  => [
                     'id',
                     'site_id',
-                    'user_id',
                     'subscription_name',
-                    'date',
                     'created_at',
                     'updated_at',
-                    'subscription_id',
-
                 ]
             ]);
     }
     /** @test */
-    function delete_user_subscriptions()
+    function delete_subscriptions()
     {
-        $this->json('delete', '/api/user_subscriptions/1', [], $this->headers)
+        $this->json('delete', '/api/subscriptions/1', [], $this->headers)
             ->assertStatus(204);
 
-        $this->assertCount(0, UserSubscription::all());
+        $this->assertCount(0, Subscription::all());
     }
 }

@@ -4,13 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class UserSubscription extends Model
+class UserLike extends Model
 {
     protected $fillable = [
         'user_id',
-        'subscription_name',
-        'date',
-        'subscription_id',
+        'liked_user_id',
+        'action'
     ];
 
     public function site()
@@ -22,8 +21,9 @@ class UserSubscription extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function subscription()
+
+    public function liked_user()
     {
-        return $this->belongsTo(Subscription::class);
+        return $this->belongsTo(User::class, 'liked_user_id');
     }
 }
